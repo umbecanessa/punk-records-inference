@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+import numpy as np
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
@@ -21,18 +22,55 @@ def _load_font(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
     return ImageFont.load_default()
 
 
+def _hex_top_left_anchor(logo: Image.Image) -> tuple[int, int]:
+    """Find the top-left vertex of the hex mark from alpha."""
+    alpha = np.array(logo.split()[3], dtype=np.uint8).reshape(logo.size[1], logo.size[0])
+    ys, xs = np.where(alpha > 96)
+    if len(xs) == 0:
+        w, h = logo.size
+        return int(w * 0.22), int(h * 0.18)
+
+    y_cut = np.percentile(ys, 32)
+    top = ys <= y_cut
+    # Top-left corner ≈ smallest x+y among upper facet pixels
+    score = xs[top].astype(np.int64) + ys[top].astype(np.int64)
+    idx = int(np.argmin(score))
+    return int(xs[top][idx]), int(ys[top][idx])
+
+
+def _drop_shadow(size: tuple[int, int], offset: tuple[int, int], blur: int = 6) -> Image.Image:
+    shadow = Image.new("RGBA", size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(shadow)
+    draw.ellipse(
+        (offset[0], offset[1], offset[0] + 48, offset[1] + 18),
+        fill=(0, 0, 0, 90),
+    )
+    return shadow.filter(ImageFilter.GaussianBlur(blur))
+
+
 def _compose_mark() -> Image.Image:
     logo = Image.open(ASSETS / "logo.png").convert("RGBA")
-    hat = Image.open(ASSETS / "straw-hat.png").convert("RGBA")
+    hat_src = Image.open(ASSETS / "straw-hat.png").convert("RGBA")
 
-    hat_w = int(logo.width * 0.48)
-    hat_h = int(hat.height * (hat_w / hat.width))
-    hat = hat.resize((hat_w, hat_h), Image.Resampling.LANCZOS)
-    hat = hat.rotate(-22, expand=True, resample=Image.Resampling.BICUBIC)
+    anchor_x, anchor_y = _hex_top_left_anchor(logo)
+
+    # Smaller hat; rotate so brim follows the hex top-left facet
+    scale = logo.width * 0.34 / hat_src.width
+    hat_w = int(hat_src.width * scale)
+    hat_h = int(hat_src.height * scale)
+    hat = hat_src.resize((hat_w, hat_h), Image.Resampling.LANCZOS)
+    hat = hat.rotate(-18, expand=True, resample=Image.Resampling.BICUBIC)
+
+    # Anchor: right side of crown base sits on the top-left hex vertex
+    anchor_on_hat_x = hat.width * 0.62
+    anchor_on_hat_y = hat.height * 0.68
+
+    x = int(anchor_x - anchor_on_hat_x)
+    y = int(anchor_y - anchor_on_hat_y)
 
     out = logo.copy()
-    x = int(out.width * 0.04)
-    y = int(out.height * 0.01) - int(hat.height * 0.14)
+    shadow = _drop_shadow(out.size, (anchor_x - 18, anchor_y + 4))
+    out = Image.alpha_composite(out, shadow)
     out.alpha_composite(hat, (x, y))
     return out
 

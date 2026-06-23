@@ -13,10 +13,10 @@ Official Punk Records branding from the hosted product frontend
 | `social-preview.png` | **GitHub social preview** — upload this in repo Settings |
 | `favicon.ico` | Browser favicon |
 
-Regenerate composites after updating source PNGs:
+Regenerate composites after updating source PNGs (hat anchors to detected hex top-left vertex):
 
 ```bash
-pip install pillow
+pip install pillow numpy
 python scripts/build_logo_assets.py
 ```
 

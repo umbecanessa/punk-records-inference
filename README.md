@@ -1,11 +1,6 @@
 # Punk Records Inference
 
-<table>
-<tr>
-<td width="140" valign="top">
-  <img src="assets/logo-mark-256.png" alt="Punk Records Inference" width="120" />
-</td>
-<td valign="top">
+<img src="assets/logo-mark-256.png" alt="Punk Records Inference" width="100" align="left" />
 
 **KV-state persistence for vLLM** — capture attention + hybrid recurrent state after each agent turn, store on disk (`.nls`), re-inject on the next request so the model skips re-prefilling full history.
 
@@ -27,9 +22,7 @@
 
 <sub><b>AI agents / LLMs:</b> read <a href="llms.txt"><code>llms.txt</code></a> for entry points and doc links.</sub>
 
-</td>
-</tr>
-</table>
+<br clear="left" />
 
 ---
 
