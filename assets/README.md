@@ -22,11 +22,13 @@ python scripts/build_logo_assets.py
 
 ### GitHub social preview
 
-GitHub has no API for this — upload manually or automate with Playwright:
+GitHub has no API for this — upload manually or automate with Playwright.
 
-1. **Manual:** Repo → **Settings** → **Social preview** → **Edit** → upload `assets/social-preview.png`
+**Private repo note:** GitHub only shows **Social preview** on **public** repositories (or private repos that already had a preview uploaded before). While the repo stays private, the Settings section is often hidden — that is expected. The image is still only used when links are shared **after** the repo is public.
+
+1. **When public (or briefly flip public to set it):** Repo → **Settings** → scroll past **Features** → **Social preview** → **Edit** → upload `assets/social-preview.png`
    - Or run: `gh browse --settings -R umbecanessa/punk-records-inference`
-2. **Automated:** `python scripts/upload_social_preview.py` (requires Chrome CDP or `--headed`)
+2. **Automated:** `python scripts/upload_social_preview.py` (requires signed-in browser via CDP or `--headed`)
 
 Verify:
 
