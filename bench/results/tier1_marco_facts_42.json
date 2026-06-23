@@ -1,0 +1,213 @@
+{
+  "timestamp": 1782232601.082605,
+  "seed": 42,
+  "user_id": "bench_marco_42",
+  "base_session": "chain_marco_42",
+  "model": "/model",
+  "text_pass": 5,
+  "text_total": 5,
+  "resume_pass": 5,
+  "resume_total": 5,
+  "text_results": [
+    {
+      "arm": "text",
+      "question": "What's my name and where do I live?",
+      "expected": [
+        "Marco",
+        "Milan"
+      ],
+      "answer": "Your name is **Marco**, and you live in **Milan, Italy**.\n\nYou also mentioned that you work as an architect, have a 3-year-old golden retriever named Luna who loves swimming, and recently went to Lake Como with your wife, Sofia.",
+      "pass": true,
+      "hits": [
+        "Marco",
+        "Milan"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 455,
+        "total_tokens": 510,
+        "completion_tokens": 55,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "text",
+      "question": "What's my dog's name?",
+      "expected": [
+        "Luna"
+      ],
+      "answer": "Your dog's name is **Luna**. She is a 3-year-old Golden Retriever who loves swimming!",
+      "pass": true,
+      "hits": [
+        "Luna"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 452,
+        "total_tokens": 477,
+        "completion_tokens": 25,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "text",
+      "question": "Where did I go last weekend and who with?",
+      "expected": [
+        "Lake Como",
+        "Sofia"
+      ],
+      "answer": "Last weekend, you went to **Lake Como** with your wife, **Sofia**. You stayed at the **Hotel Bellagio** during your trip.\n\nIt sounds like a beautiful escape, especially with the chance to enjoy the lake scenery! Did you manage to take Luna along, or was it just the two of you?",
+      "pass": true,
+      "hits": [
+        "Lake Como",
+        "Sofia"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 455,
+        "total_tokens": 523,
+        "completion_tokens": 68,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "text",
+      "question": "What hotel did I stay at?",
+      "expected": [
+        "Bellagio"
+      ],
+      "answer": "You stayed at the **Hotel Bellagio** in Bellagio, on Lake Como.\n\nYou mentioned this last weekend during your trip with your wife, Sofia. It's a historic and elegant hotel right on the lakefront, known for its beautiful gardens and views.",
+      "pass": true,
+      "hits": [
+        "Bellagio"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 452,
+        "total_tokens": 506,
+        "completion_tokens": 54,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "text",
+      "question": "What do I do for work?",
+      "expected": [
+        "architect"
+      ],
+      "answer": "You work as an **architect**, Marco.\n\nGiven your location in Milan\u2014a global hub for design and architecture\u2014and your recent trip to Lake Como, which is famous for its historic villas and stunning landscapes, I imagine your work likely involves a mix of residential design, perhaps some renovation of historic properties, or even landscape architecture that blends with the natural environment.\n\nAre you currently working on a specific project in Milan, or are you more focused on the design of privat",
+      "pass": true,
+      "hits": [
+        "architect"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 452,
+        "total_tokens": 561,
+        "completion_tokens": 109,
+        "prompt_tokens_details": null
+      }
+    }
+  ],
+  "resume_results": [
+    {
+      "arm": "resume",
+      "question": "What's my name and where do I live?",
+      "expected": [
+        "Marco",
+        "Milan"
+      ],
+      "answer": "Your name is **Marco** and you live in **Milan, Italy**.",
+      "pass": true,
+      "hits": [
+        "Marco",
+        "Milan"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 61,
+        "completion_tokens": 17,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "resume",
+      "question": "What's my dog's name?",
+      "expected": [
+        "Luna"
+      ],
+      "answer": "Your golden retriever's name is **Luna**. She is 3 years old and loves swimming.",
+      "pass": true,
+      "hits": [
+        "Luna"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 63,
+        "completion_tokens": 22,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "resume",
+      "question": "Where did I go last weekend and who with?",
+      "expected": [
+        "Lake Como",
+        "Sofia"
+      ],
+      "answer": "Last weekend, you went to **Lake Como** with your wife, **Sofia**. You stayed at the **Hotel Bellagio** in Bellagio, Italy.\n\nIt sounds like a beautiful trip, especially for an architect like yourself to see the architecture around Lake Como. Did you and Sofia enjoy the stay?",
+      "pass": true,
+      "hits": [
+        "Lake Como",
+        "Sofia"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 44,
+        "total_tokens": 109,
+        "completion_tokens": 65,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "resume",
+      "question": "What hotel did I stay at?",
+      "expected": [
+        "Bellagio"
+      ],
+      "answer": "You stayed at the **Hotel Bellagio** in Bellagio, on Lake Como, Italy.",
+      "pass": true,
+      "hits": [
+        "Bellagio"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 61,
+        "completion_tokens": 20,
+        "prompt_tokens_details": null
+      }
+    },
+    {
+      "arm": "resume",
+      "question": "What do I do for work?",
+      "expected": [
+        "architect"
+      ],
+      "answer": "You work as an **architect**, Marco.\n\nSince you live in Milan\u2014a global hub for design and architecture\u2014you likely work on projects that range from residential renovations to commercial developments, possibly incorporating the city's rich design heritage.\n\nAre you currently working on a specific architectural project, or are you looking for information related to your field, such as building regulations in Italy, design software, or sustainable building practices?",
+      "pass": true,
+      "hits": [
+        "architect"
+      ],
+      "misses": [],
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 125,
+        "completion_tokens": 84,
+        "prompt_tokens_details": null
+      }
+    }
+  ]
+}

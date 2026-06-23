@@ -1,9 +1,15 @@
 """
-NLS Memory Store v3 — The Hippocampus of the Non-Stateless LLM.
+Persistent labeled memory index for KV capture blocks.
 
-Cryptex-inspired memory organization inside the inference server.
 Each memory is tagged with ring_type, user_id, project_id, session_id,
-and injection priority — mirroring the 13-ring Cryptex architecture.
+and injection priority.
+
+v0.1 default path (turn capture + resume inject) uses ring_type="general"
+for all blocks. Resume walks the chain by base_session_id and turn_index;
+ring labels are metadata on the manifest, not routing logic on that path.
+
+Optional Swiss retrieval (memory_inject_mode other than resume) uses ring_type
+for deduplication and injection priority — see RING_PRIORITIES below.
 
 Fingerprinting modes:
   - "model": Uses the LLM's own embedding layer (embed_tokens) for
@@ -11,7 +17,7 @@ Fingerprinting modes:
     learned representations. Zero external dependencies.
   - "simhash": Legacy fallback using SimHash on token IDs.
 
-Ring types (from Cryptex, mapped to KV memory):
+Ring types (Swiss retrieval only — default capture/resume uses general):
   - identity:       Soul axioms, agent personality  (always_inject)
   - behavioral:     Communication patterns, rules   (always_inject)
   - user_model:     User preferences, context
@@ -20,7 +26,7 @@ Ring types (from Cryptex, mapped to KV memory):
   - instructions:   Task-specific directives
   - orchestration:  Workflow state, plans
   - consolidation:  Long-term distilled knowledge   (always_inject)
-  - general:        Unclassified conversation memory
+  - general:        Default for v0.1 turn capture and benches
 
 Multi-tenant: memories are partitioned by user_id. Cross-read memories
 (always_inject=True) are shared across all users within the same store.
@@ -557,7 +563,7 @@ def batch_cosine_similarity(
 
 
 class MemoryStore:
-    """Persistent labeled memory index with Cryptex-style ring organization.
+    """Persistent labeled memory index with ring-based organization.
 
     Data integrity contract
     -----------------------
@@ -913,7 +919,7 @@ class MemoryStore:
             len(self._memories), current_dim, target_dim,
         )
 
-        from nls_vllm_plugin.nls_format import read_manifest
+        from pri.format import read_manifest
 
         new_fp = np.zeros((len(self._memories), target_dim), dtype=np.float32)
         reseeded = 0
@@ -981,7 +987,7 @@ class MemoryStore:
         if existing >= n_mems:
             return 0
 
-        from nls_vllm_plugin.nls_format import read_manifest
+        from pri.format import read_manifest
 
         new_count = n_mems - existing
         extended = np.zeros((n_mems, target_dim), dtype=np.float32)
@@ -1047,7 +1053,7 @@ class MemoryStore:
         filesystem 1-to-1 and index.jsonl is rewritten to match.
         """
         try:
-            from nls_vllm_plugin.nls_format import read_manifest
+            from pri.format import read_manifest
         except Exception:
             logger.warning("Cannot import nls_format; skipping reconcile")
             return
@@ -1770,7 +1776,7 @@ class MemoryStore:
         cost goes from O(N × snapshot_load + N × delta_compute) to
         O(N × cache_load + suffix × snapshot_load).
         """
-        from nls_vllm_plugin.nls_format import load_nls
+        from pri.format import load_nls
 
         genesis_snap = self._get_genesis_snap_cached()
         if genesis_snap is None:
@@ -1929,7 +1935,7 @@ class MemoryStore:
         4. Min-max normalize per user to [0, 1]
         """
         try:
-            from nls_vllm_plugin.nls_format import load_nls, read_manifest
+            from pri.format import load_nls, read_manifest
         except ImportError:
             logger.warning("Cannot import nls_format; delta fact disabled")
             return
@@ -2150,7 +2156,7 @@ class MemoryStore:
 
     def _find_and_load_genesis(self):
         """Find and load the genesis (system prompt only) .nls file."""
-        from nls_vllm_plugin.nls_format import load_nls, read_manifest
+        from pri.format import load_nls, read_manifest
 
         genesis_env = os.environ.get("NLS_GENESIS_PATH", "")
         if genesis_env and Path(genesis_env).exists():
@@ -2213,7 +2219,7 @@ class MemoryStore:
         Used as a neutral reference when no genesis .nls exists. The mean
         ensures no single memory gets delta=0, preserving all information.
         """
-        from nls_vllm_plugin.nls_format import load_nls
+        from pri.format import load_nls
         import torch
 
         MAX_SAMPLE = 50
@@ -2902,7 +2908,7 @@ class MemoryStore:
             return
 
         try:
-            from nls_vllm_plugin.nls_format import load_nls
+            from pri.format import load_nls
             # JL #19.2 Phase 4 fix: use the cached helper which falls back to
             # `_compute_mean_reference()` when no `genesis_*.nls` exists.
             # Without this fallback, environments seeded post-boot (any new
@@ -3876,7 +3882,7 @@ class MemoryStore:
 
     def _recompute_semantic_embeddings(self) -> None:
         """Compute sentence-transformer embeddings for all memories."""
-        from nls_vllm_plugin.nls_format import read_manifest
+        from pri.format import read_manifest
 
         embedder = SentenceEmbedder.get()
         if not embedder._ensure_loaded():
@@ -4254,7 +4260,7 @@ class MemoryStore:
         #    points to a now-deleted .nls file.
         chains_dropped = 0
         try:
-            from nls_vllm_plugin.snapshot_connector import (
+            from pri.connector import (
                 _session_chains, _session_chains_lock,
             )
             with _session_chains_lock:

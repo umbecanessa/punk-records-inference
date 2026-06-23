@@ -1,7 +1,18 @@
 """Hot-patch _save_gdn_block_states in qwen3_next.py inside the container."""
+import os
 import sys
 
-TARGET = "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/qwen3_next.py"
+try:
+    import vllm
+
+    _vllm_root = os.path.dirname(os.path.dirname(vllm.__file__))
+    TARGET = os.path.join(
+        _vllm_root, "model_executor", "models", "qwen3_next.py"
+    )
+except ImportError:
+    TARGET = (
+        "/usr/local/lib/python3.12/dist-packages/vllm/model_executor/models/qwen3_next.py"
+    )
 
 OLD = """    # Save intermediate block states for each non-spec sequence
     for seq_idx in range(num_non_spec):
@@ -78,14 +89,22 @@ NEW = """    total_chunks_in_h = h.shape[1]
         last_block_id = state_indices[seq_idx, last_scheduled]
         ssm_state[last_block_id] = final_state[seq_idx].to(ssm_state.dtype)"""
 
-with open(TARGET, "r") as f:
+if not os.path.isfile(TARGET):
+    print(f"TARGET NOT FOUND: {TARGET}")
+    sys.exit(1)
+
+with open(TARGET, "r", encoding="utf-8") as f:
     content = f.read()
+
+if NEW in content:
+    print("ALREADY PATCHED")
+    sys.exit(0)
 
 if OLD in content:
     content = content.replace(OLD, NEW)
-    with open(TARGET, "w") as f:
+    with open(TARGET, "w", encoding="utf-8") as f:
         f.write(content)
-    print("PATCHED OK")
+    print(f"PATCHED OK: {TARGET}")
 else:
-    print("OLD PATTERN NOT FOUND — may already be patched or code changed")
+    print(f"OLD PATTERN NOT FOUND in {TARGET} — may need patch update for this vLLM version")
     sys.exit(1)

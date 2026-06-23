@@ -6,12 +6,22 @@ re-prefill full history.
 
 > **Status:** Private development repo. History will be squashed before public release.
 
+## Proof (GX10, stock Qwen3.5-35B-A3B-FP8, 2026-06-23)
+
+| Bench | Result | Artifact |
+|-------|--------|----------|
+| Tier-1 Marco facts (seed 42) | TEXT 5/5 · RESUME 5/5 | `bench/results/tier1_marco_facts_42.json` |
+| OpenCode long session (seed 42) | RECALL 6/6 | `bench/results/opencode_long_session.json` |
+| Manifest proof turn 2 (KL #648) | `rope_start=24` | `bench/results/manifest_opencode_t2.json` |
+
+See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for reproduction commands.
+
 ## What this is
 
 | In scope | Out of scope (legacy) |
 |----------|----------------------|
 | Turn capture → `.nls` | MoE expert slots / router bias |
-| Chain resume inject + RoPE | Hippocampus, CAMM, streaming-scorer hot-swap |
+| Chain resume inject + RoPE | MoE router bias, legacy CAMM, streaming scorer |
 | Optional Swiss retrieval | Hosted Punk Records SaaS |
 | Agent middleware (strip + capture) | Model weights (BYOC) |
 
@@ -20,37 +30,47 @@ See [docs/SHIP_PLAN.md](docs/SHIP_PLAN.md) for the full release plan.
 ## Layout
 
 ```
-pri/              Python package (canonical; migration from nls_vllm_plugin in progress)
-nls_vllm_plugin/  Compatibility shim for vLLM module paths (temporary)
-patches/          vLLM source patches (build time)
-docker/           Container entrypoint + Dockerfile
-bench/            Replication harnesses
-spec/             .nls format spec
-docs/             Architecture + client contract (stubs)
+pri/        Python package (connector, store, resume, agent_shim, admin, …)
+patches/    vLLM source patches (build time)
+docker/     Dockerfile + compose + start.sh
+bench/      Tier-1 + OpenCode harnesses
+spec/       .nls manifest schema + validator
+tests/      Unit tests (no GPU)
+docs/       Architecture, client contract, Docker
 ```
 
-## Quick start (development)
-
-Extracted from NLS branch `exp/chain-of-latest` @ `71a65774`.
+## Quick start
 
 ```bash
-# After Docker image is built (Phase 2):
-docker run --gpus all \
-  -v pri-data:/data/pri \
-  -v /path/to/checkpoint:/model:ro \
-  -e MODEL_PATH=/model \
-  -p 8000:8000 \
-  ghcr.io/punkrecords/inference:dev
+# Build + run (requires NVIDIA GPU + checkpoint on host)
+export MODEL_PATH=$HOME/.cache/huggingface/hub/models--Qwen--Qwen3.5-35B-A3B-FP8/snapshots/<revision>
+docker compose -f docker/compose.yaml up --build
+
+# Health check
+curl -s http://127.0.0.1:8000/v1/models
+
+# Tier-1 bench (host Python, live server)
+pip install requests
+./bench/run_suite.sh --tier 1 --base-url http://127.0.0.1:8000
+
+# OpenCode long session (direct vLLM)
+./bench/run_suite.sh --tier opencode --base-url http://127.0.0.1:8000 --seed 42
+
+# Unit tests (no vLLM)
+pip install pytest torch zstandard
+pytest tests/ -q
 ```
 
 Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
 
-## Development workflow
+## Documentation
 
-1. Work in this repo only (private until launch).
-2. Phase 0: KV-only cleanup — remove MoE wiring, parameterize `MODEL_PATH`.
-3. Phase 1–3: rename to `pri/`, Docker image, docs, tier-1 bench.
-4. Before public release: squash history → single clean initial commit.
+- [Architecture](docs/ARCHITECTURE.md)
+- [Client contract](docs/CLIENT_CONTRACT.md) — `kv_transfer_params`
+- [Docker](docs/DOCKER.md)
+- [Supported models](docs/SUPPORTED_MODELS.md)
+- [Benchmarks](docs/BENCHMARKS.md)
+- [Limitations](docs/LIMITATIONS.md)
 
 ## License
 

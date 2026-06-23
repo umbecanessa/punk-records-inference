@@ -30,9 +30,9 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from nls_vllm_plugin.memory_store import MemoryStore
+    from pri.store import MemoryStore
 
-from nls_vllm_plugin.chain_capture import default_resume_roles
+from pri.capture import default_resume_roles
 
 logger = logging.getLogger("nls_chain_resume")
 
@@ -105,7 +105,7 @@ def collect_chain_blocks(
         rope_start = int(getattr(mem, "rope_start", 0) or 0)
         if rope_start <= 0:
             try:
-                from nls_vllm_plugin.nls_format import read_manifest
+                from pri.format import read_manifest
                 manifest = read_manifest(mem.kv_path)
                 if manifest:
                     rope_start = int(manifest.get("rope_start", 0) or 0)

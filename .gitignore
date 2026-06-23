@@ -14,7 +14,7 @@ venv/
 # Data / artifacts
 /data/
 *.nls
-bench/results/*
+bench/results/*.log
 !bench/results/.gitkeep
 
 # IDE / OS
@@ -27,3 +27,11 @@ Thumbs.db
 # Secrets
 .env
 .env.*
+
+# Agent Room (local dev coordination — not shipped)
+.cursor/mcp.json
+.cursor/hooks.json
+.cursor/agent-room.json
+.cursor/agent-room-transcript.md
+.cursor/rules/
+.cursor/skills/

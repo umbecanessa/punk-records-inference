@@ -3,8 +3,8 @@
 Intercepts /admin/memory/* requests and handles them directly,
 passing all other requests through to the vLLM server unchanged.
 
-Usage in start_vllm_v3.sh:
-    --middleware nls_vllm_plugin.nls_admin_api:NLSAdminMiddleware
+Usage in docker/start.sh:
+    --middleware pri.admin.NLSAdminMiddleware
 
 Endpoints:
     GET  /admin/memory/stats           — memory store statistics
@@ -92,7 +92,7 @@ def _read_retrieval_log_from_disk(user_id: str = "", limit: int = 20) -> list[di
 def _get_store():
     """Lazily fetch the auto_memory store singleton."""
     try:
-        from nls_vllm_plugin import auto_memory
+        from pri import retrieve as auto_memory
         if auto_memory.is_enabled() and auto_memory._store is not None:
             return auto_memory._store
     except ImportError:
@@ -125,7 +125,7 @@ def _maybe_reload(store) -> None:
             new_lines = f.readlines()
         _last_index_offset = sz
 
-        from nls_vllm_plugin.memory_store import Memory
+        from pri.store import Memory
         valid_fields = {fld.name for fld in _fields(Memory)}
         added = 0
         known_ids = {m.id for m in store._memories}
@@ -328,7 +328,7 @@ class NLSAdminMiddleware(BaseHTTPMiddleware):
         if not skip_embedder:
             t0 = time.perf_counter()
             try:
-                from nls_vllm_plugin.memory_store import (
+                from pri.store import (
                     SentenceEmbedder, _SEMANTIC_MODEL_NAME,
                 )
                 embedder = SentenceEmbedder.get()
@@ -414,15 +414,14 @@ class NLSAdminMiddleware(BaseHTTPMiddleware):
             )
 
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
             auto_memory._load_embed_weights_lazy()
-            from nls_vllm_plugin.memory_store import compute_fingerprint
+            from pri.store import compute_fingerprint
 
             from transformers import AutoTokenizer
             import os
-            model_path = os.environ.get(
-                "NLS_MODEL_PATH",
-                "/root/.cache/huggingface/hub/qwen35-nls-512e-fp8",
+            model_path = os.environ.get("NLS_MODEL_PATH") or os.environ.get(
+                "MODEL_PATH", "/model"
             )
             tokenizer = AutoTokenizer.from_pretrained(model_path)
             token_ids = tokenizer.encode(query)
@@ -476,7 +475,7 @@ class NLSAdminMiddleware(BaseHTTPMiddleware):
             text = mem.description or ""
             if not text and hasattr(mem, 'kv_path') and mem.kv_path:
                 try:
-                    from nls_vllm_plugin.nls_format import read_manifest
+                    from pri.format import read_manifest
                     manifest = read_manifest(mem.kv_path)
                     text = manifest.get("conversation_text", "") or ""
                 except Exception:

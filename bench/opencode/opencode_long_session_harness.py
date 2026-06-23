@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Long OpenCode-style agent session through Punk Records API.
+"""Long OpenCode-style agent session through Punk Records API or direct vLLM.
 
 Builds a multi-turn transcript on one chain (full resend each HTTP call),
 plants **non-default** stack facts (seeded random ports/names), runs several
@@ -7,18 +7,21 @@ work turns, then probes recall. Strong pass = exact weird values recalled
 after many turns — not 3000/3001 guesses.
 
 Usage:
-    set PUNK_API_KEY=nls_live_...
-    python -u scripts/opencode_long_session_harness.py
-    python -u scripts/opencode_long_session_harness.py --seed 42
-    python -u scripts/opencode_long_session_harness.py --seed 42 --pause 0.5
+    # Direct vLLM (GX10 / local compose):
+    python -u bench/opencode/opencode_long_session_harness.py --base-url http://127.0.0.1:8000
 
-Env: PUNK_API_BASE, PUNK_API_KEY
+    # Hosted Punk Records API:
+    set PUNK_API_KEY=nls_live_...
+    python -u bench/opencode/opencode_long_session_harness.py
+
+Env: PRI_BASE_URL, PRI_API, PUNK_API_BASE, PUNK_API_KEY
 """
 
 from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 import uuid
@@ -31,21 +34,22 @@ if str(_SCRIPTS) not in sys.path:
     sys.path.insert(0, str(_SCRIPTS))
 
 from opencode_harness_lib import (
-    API_KEY,
-    API_BASE,
     BANNED_PORTS,
     SYSTEM_PROMPT,
     SessionFacts,
     agent_turn,
     generate_session_facts,
+    get_api_base,
+    get_harness_config,
     is_garbled_response,
+    reset_harness_config,
     safe_print,
     score_recall,
     stream_chat,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
-OUT_DIR = ROOT / "data" / "bench_output"
+OUT_DIR = ROOT / "results"
 
 
 def build_work_script(facts: SessionFacts) -> list[tuple[str, str]]:
@@ -137,6 +141,11 @@ def build_recall_probes(facts: SessionFacts) -> list[tuple[str, list[str], list[
 def main() -> int:
     parser = argparse.ArgumentParser(description="Long OpenCode NLS session harness")
     parser.add_argument(
+        "--base-url",
+        default=os.environ.get("PRI_BASE_URL", ""),
+        help="Direct vLLM base URL (sets PRI_BASE_URL for harness lib)",
+    )
+    parser.add_argument(
         "--seed",
         type=int,
         default=int(datetime.now(timezone.utc).strftime("%H%M%S")),
@@ -155,18 +164,24 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    if not API_KEY:
-        safe_print("ERROR: set PUNK_API_KEY")
+    if args.base_url:
+        os.environ["PRI_BASE_URL"] = args.base_url.rstrip("/")
+        reset_harness_config()
+
+    chat_url, api_key, direct_vllm = get_harness_config()
+    if not direct_vllm and not api_key:
+        safe_print("ERROR: set PUNK_API_KEY for hosted API, or --base-url for direct vLLM")
         return 2
 
     facts = generate_session_facts(args.seed)
     chain_id = f"long_{uuid.uuid4().hex[:12]}"
+    bench_user = f"opencode_{args.seed}"
     work = build_work_script(facts)
     probes = build_recall_probes(facts)
 
     safe_print("=" * 72)
     safe_print("OpenCode LONG session harness (Punk Records -> vLLM)")
-    safe_print(f"API: {API_BASE}")
+    safe_print(f"API: {chat_url} (direct_vllm={direct_vllm})")
     safe_print(f"chain_id: {chain_id}")
     safe_print(f"seed: {args.seed}")
     safe_print("Planted facts (non-default — recall must match exactly):")
@@ -188,6 +203,7 @@ def main() -> int:
             chain_id=chain_id,
             max_tokens=500 if label in ("plant", "env_draft", "docker_compose") else 350,
             pause_s=args.pause,
+            user_id=bench_user,
         )
         turn_log.append({
             "phase": "work",
@@ -209,6 +225,8 @@ def main() -> int:
             max_tokens=80,
             chain_id=chain_id,
             agent_mode=True,
+            tool_choice="none",
+            user_id=bench_user,
         )
         clean = ans.strip()
         if is_garbled_response(clean):

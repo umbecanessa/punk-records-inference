@@ -65,7 +65,7 @@ def _resolve_kv_path(kv_path: str) -> str:
 
 def _read_manifest(kv_path: str) -> dict | None:
     try:
-        from nls_vllm_plugin.nls_format import read_manifest
+        from pri.format import read_manifest
         return read_manifest(_resolve_kv_path(kv_path))
     except Exception:
         return None
@@ -239,7 +239,7 @@ def audit_mamba_resume_plan(
 
     if last_path and Path(last_path).exists():
         try:
-            from nls_vllm_plugin.nls_format import load_nls
+            from pri.format import load_nls
             data = load_nls(last_path)
             mamba_keys = sorted(
                 k for k in data if "mamba_ssm" in k or "mamba_conv" in k

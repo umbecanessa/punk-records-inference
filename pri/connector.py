@@ -21,7 +21,7 @@ Usage:
   Start vLLM with:
     --kv-transfer-config '{
       "kv_connector": "NLSSnapshotConnector",
-      "kv_connector_module_path": "nls_vllm_plugin.snapshot_connector",
+      "kv_connector_module_path": "pri.connector",
       "kv_role": "kv_both",
       "kv_connector_extra_config": {"snapshot_dir": "/tmp/nls_kv_snapshot"}
     }'
@@ -45,7 +45,7 @@ from typing import TYPE_CHECKING, Any
 
 import torch
 
-from nls_vllm_plugin.chain_capture import is_turn_capture_mode
+from pri.capture import is_turn_capture_mode
 
 from vllm.config import VllmConfig
 from vllm.distributed.kv_transfer.kv_connector.v1.base import (
@@ -68,7 +68,7 @@ logger = init_logger(__name__)
 
 # --- Auto-memory (Non-Stateless LLM) ---
 try:
-    from nls_vllm_plugin import auto_memory as _auto_mem
+    from pri import retrieve as _auto_mem
     logger.info("NLS auto-memory loaded (enabled=%s)", _auto_mem.is_enabled())
 except ImportError:
     _auto_mem = None
@@ -76,15 +76,11 @@ except ImportError:
 
 # --- Neural Scorer (model-native reranking) ---
 try:
-    from nls_vllm_plugin import neural_scorer as _neural
+    from pri import scorer as _neural
     logger.info("NLS neural scorer loaded (enabled=%s)", _neural.is_enabled())
 except ImportError:
     _neural = None
     logger.info("NLS neural scorer not available")
-
-# --- CAMM: Content-Addressable Mamba Memory ---
-CAMM_ENABLED = os.environ.get("NLS_CAMM", "1") == "1"
-logger.info("NLS CAMM (Content-Addressable Mamba Memory): %s", "ENABLED" if CAMM_ENABLED else "disabled")
 
 _last_prompt_token_ids: list[int] = []
 
@@ -114,7 +110,7 @@ def _get_strip_for_memory(kv_path: str) -> int:
     if STRIP_INJECT_SYS_BLOCK_LEN == 0:
         return 0
     try:
-        from nls_vllm_plugin.nls_format import read_manifest
+        from pri.format import read_manifest
         manifest = read_manifest(kv_path)
         if manifest and manifest.get("rope_start", 0) > 0:
             return 0
@@ -189,7 +185,7 @@ def _audit_resume_config_or_abort(cfg: dict) -> dict | None:
     if not cfg or cfg.get("inject_layout") != "resume":
         return cfg
     try:
-        from nls_vllm_plugin.inject_geometry_audit import (
+        from pri.inject_geometry_audit import (
             log_geometry_audit,
             resume_inject_aborted,
             summarize_geometry_audit,
@@ -282,7 +278,7 @@ if KV_K_SCALE != 1.0 or KV_V_SCALE != 1.0:
     )
 
 # Per-request capture registry (KL #476): maps request_id -> capture info
-# Populated by get_num_new_matched_tokens, consumed by router_bias_processor
+# Populated by get_num_new_matched_tokens, consumed by capture/readback paths
 _capture_registry: dict[str, dict] = {}
 
 # DeltaNet-only injection registry (KL #625 compounding).
@@ -996,7 +992,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         # Fable C′ session-resume (+ Arm D overflow augmentation).
         if cfg is None:
             try:
-                from nls_vllm_plugin.chain_resume import (
+                from pri.resume import (
                     is_resume_mode,
                     is_resume_overflow_mode,
                     try_resume_config,
@@ -1169,7 +1165,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
 
         # Refresh per-user inject stats (resume + swiss + force-inject).
         try:
-            from nls_vllm_plugin.nls_admin_api import record_retrieval_event
+            from pri.admin import record_retrieval_event
 
             event: dict = {
                 "user_id": str(_kvp.get("memory_user", "default")),
@@ -1222,15 +1218,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         is_force_inject = bool(_kvp.get("memory_force_inject", ""))
         _is_resume = bool(cfg and cfg.get("inject_layout") == "resume")
         num_register = 0
-        try:
-            from nls_vllm_plugin.streaming_scorer import (
-                is_enabled as _ss_enabled,
-                NUM_REGISTER_SLOTS, SLOT_TOKEN_CAPACITY,
-            )
-            if _ss_enabled() and not _is_resume:
-                num_register = NUM_REGISTER_SLOTS * SLOT_TOKEN_CAPACITY
-        except ImportError:
-            pass
 
         if num_snap > 0 and request.request_id not in self._requests_need_load:
             total_phantom = num_register + num_snap
@@ -1555,8 +1542,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         the readback only extracts Mamba state and merges it into the
         target session's existing .nls. No new memory entry is created.
         This is what enables the runtime two-pass storage contract for
-        the dual-centroid Q-vs-F signal (KL #651) and for future
-        PinkopaloNet/CAMM revival (KL #630).
+        the dual-centroid Q-vs-F signal (KL #651).
         """
         # ── Setup: full slot mapping including decode positions ─────────
         block_ids = info["block_ids"]
@@ -1942,7 +1928,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
             if full and tp + np_ <= len(full):
                 slice_ids = list(full[tp + cs : tp + np_])
                 try:
-                    from nls_vllm_plugin import auto_memory as _am
+                    from pri import retrieve as _am
                     tok = getattr(_am, "_tokenizer", None)
                     if tok is not None and slice_ids:
                         memory_text = tok.decode(
@@ -1995,7 +1981,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         if turn_index < 1 or not base_session_id:
             return ""
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
         except Exception:
             return ""
         if not auto_memory.is_enabled() or auto_memory._store is None:
@@ -2086,9 +2072,8 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
             kv_params["memory_prev_hash"] = ph
 
         return {
-            "model": os.environ.get(
-                "NLS_MODEL_PATH",
-                "/root/.cache/huggingface/hub/qwen35-nls-512e-fp8",
+            "model": os.environ.get("NLS_MODEL_PATH") or os.environ.get(
+                "MODEL_PATH", "/model"
             ),
             # Raw token IDs guarantee identical prefill. Falls back to
             # the user message text only if real_prompt_ids is empty
@@ -2148,7 +2133,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
 
     @staticmethod
     def _is_garbled_decode(text: str) -> bool:
-        from nls_vllm_plugin.text_quality import is_garbled_response
+        from pri.text_quality import is_garbled_response
 
         return is_garbled_response(text)
 
@@ -2156,7 +2141,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         if not token_ids:
             return ""
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
         except Exception:
             return ""
         tok = getattr(auto_memory, "_tokenizer", None)
@@ -2377,7 +2362,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 extra["conversation_text"] = mem_text
 
         try:
-            from nls_vllm_plugin.nls_format import save_nls
+            from pri.format import save_nls
             file_size = save_nls(save_data, filepath, extra_manifest=extra)
         except Exception:
             logger.error(
@@ -2422,7 +2407,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         indexes the assistant's text and not the user prompt.
         """
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
         except Exception:
             return
 
@@ -2457,7 +2442,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
 
         # KL #639/#651: language-agnostic Q-vs-F regex meta-score, applied
         # at retrieval as a debuff and here as a hard chitchat gate.
-        from nls_vllm_plugin.memory_store import compute_meta_score
+        from pri.store import compute_meta_score
         m_score = compute_meta_score(
             mem_text or "",
             role="user" if role == "turn" else role,
@@ -2591,7 +2576,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         future cross-request reuse, content-addressed integrity, and a
         canonical anchor for the dual-centroid Q-vs-F signal."""
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
         except Exception:
             return
         if not auto_memory.is_enabled() or auto_memory._store is None:
@@ -2642,7 +2627,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         # rerunning a tokenizer.
         sys_text = ""
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
             tok = getattr(auto_memory, "_tokenizer", None)
             if tok is not None and sys_token_ids:
                 sys_text = tok.decode(sys_token_ids, skip_special_tokens=True)
@@ -2718,7 +2703,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
             return
 
         try:
-            from nls_vllm_plugin.nls_format import (
+            from pri.format import (
                 load_nls, save_nls, read_manifest,
             )
             target_manifest = read_manifest(target_path)
@@ -2780,16 +2765,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         if not isinstance(metadata, NLSSnapshotMetadata) or not metadata.requests:
             return
 
-        # Disable any previous CAMM session before starting new injection
-        try:
-            from nls_vllm_plugin.router_bias_processor import (
-                disable_camm as _disable_camm, _camm_enabled,
-            )
-            if _camm_enabled:
-                _disable_camm()
-        except ImportError:
-            pass
-
         attn_metadata = forward_context.attn_metadata
         if attn_metadata is None:
             logger.warning("NLS snapshot: attn_metadata is None, skipping")
@@ -2842,7 +2817,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                     rope_old = 0
                     if req_meta.snapshot_path.endswith(".nls"):
                         try:
-                            from nls_vllm_plugin.nls_format import (
+                            from pri.format import (
                                 read_manifest as _rm,
                             )
                             _man = _rm(req_meta.snapshot_path)
@@ -3128,171 +3103,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 num_tokens, dt * 1000, req_meta.snapshot_path,
             )
 
-            # ── Streaming scorer: wire up after initial injection ──
-            try:
-                from nls_vllm_plugin.streaming_scorer import (
-                    is_enabled as _stream_enabled,
-                    get_manager as _stream_mgr,
-                )
-                if _stream_enabled() and req_meta.multi_snapshots:
-                    if getattr(req_meta, "inject_layout", "concat") == "resume":
-                        logger.info("Streaming scorer: skipped (resume inject)")
-                    else:
-                        reg_map = getattr(req_meta, 'register_slot_mapping', None)
-                        self._setup_streaming_scorer(
-                            forward_context,
-                            reg_map if reg_map is not None else slot_mapping,
-                            req_meta.multi_snapshots,
-                        )
-            except ImportError:
-                pass
-            except Exception as _se:
-                logger.warning("Streaming scorer setup error: %s", _se)
-
-            # ── CAMM: activate Content-Addressable Mamba Memory ──
-            camm_data = snapshot.get("_camm_per_memory") if CAMM_ENABLED else None
-            camm_sys = snapshot.get("_camm_sys_mamba") if CAMM_ENABLED else None
-            if camm_data and camm_sys:
-                try:
-                    from nls_vllm_plugin.router_bias_processor import (
-                        enable_camm, DELTANET_LAYERS,
-                    )
-                    camm_states: dict[int, list[torch.Tensor]] = {}
-                    camm_genesis: dict[int, torch.Tensor] = {}
-                    for key, states_list in camm_data.items():
-                        # key = "layer_{idx}_mamba_ssm"
-                        parts = key.split("_")
-                        layer_idx = int(parts[1])
-                        if layer_idx in DELTANET_LAYERS:
-                            camm_states[layer_idx] = states_list
-                    for key, state in camm_sys.items():
-                        if "mamba_ssm" in key:
-                            parts = key.split("_")
-                            layer_idx = int(parts[1])
-                            if layer_idx in DELTANET_LAYERS:
-                                camm_genesis[layer_idx] = state
-                    if camm_states and camm_genesis:
-                        enable_camm(
-                            memory_states=camm_states,
-                            sys_state=camm_genesis,
-                        )
-                except ImportError:
-                    pass
-                except Exception as _ce:
-                    logger.warning("CAMM setup error: %s", _ce, exc_info=True)
-
-    def _setup_streaming_scorer(
-        self,
-        forward_context,
-        slot_mapping: torch.Tensor,
-        multi_snapshots: list[dict],
-    ) -> None:
-        """Initialize the streaming memory scorer with fingerprints and candidates."""
-        from nls_vllm_plugin.streaming_scorer import (
-            get_manager, MemoryCandidate, NUM_REGISTER_SLOTS,
-        )
-        from nls_vllm_plugin import auto_memory as _am
-
-        mgr = get_manager()
-        current_user_id = getattr(_am, '_current_user_id', 'default')
-
-        # Load or refresh fingerprints on GPU — must match store._memories
-        store = None
-        if _auto_mem is not None and hasattr(_auto_mem, '_store'):
-            store = getattr(_auto_mem, '_store', None)
-        if store is not None:
-            fp = getattr(store, '_fingerprints', None)
-            if fp is not None and fp.shape[0] > 0:
-                needs_refresh = (
-                    mgr._fingerprints_gpu is None
-                    or mgr._fingerprints_gpu.shape[0] != fp.shape[0]
-                )
-                if needs_refresh:
-                    mgr.load_fingerprints_to_gpu(fp)
-
-        if mgr._fingerprints_gpu is None:
-            logger.info("Streaming scorer: no fingerprints available, skipping")
-            return
-
-        # Build candidate list from user/tool-role memories for the current user only.
-        # Assistant blocks produce high false-positive cosine similarity.
-        # Cross-user memories add massive noise (34K bench vs 50 test blocks).
-        candidates = []
-        swiss_mem_indices: set[int] = set()
-        path_to_idx: dict[str, int] = {}
-        skipped_asst = 0
-        skipped_user = 0
-
-        if store is not None:
-            for i, mem in enumerate(store._memories):
-                if not mem.kv_path:
-                    continue
-                if mem.role and mem.role not in ("user", "tool"):
-                    skipped_asst += 1
-                    continue
-                if current_user_id and current_user_id != "default" and mem.user_id != current_user_id:
-                    skipped_user += 1
-                    continue
-                desc = (getattr(mem, 'description', '') or '')[:120]
-                candidates.append(MemoryCandidate(
-                    mem_idx=i,
-                    mem_id=mem.id,
-                    session_id=mem.session_id,
-                    ring_type=mem.ring_type,
-                    kv_path=mem.kv_path,
-                    num_tokens=mem.num_tokens,
-                    rope_start=getattr(mem, 'rope_start', 0),
-                    base_session_id=getattr(mem, 'base_session_id', ''),
-                    description=desc,
-                ))
-                path_to_idx[mem.kv_path] = i
-            logger.info(
-                "Streaming scorer pool: %d candidates (user=%s), %d assistant skipped, %d other-user skipped",
-                len(candidates), current_user_id, skipped_asst, skipped_user,
-            )
-
-        # Identify which mem_indices were chosen by Swiss-Cheese
-        # using kv_path matching (multi_snapshots carries path but not session_id)
-        swiss_total = len(multi_snapshots)
-        for snap in multi_snapshots:
-            snap_path = snap.get("path", "")
-            if snap_path and snap_path in path_to_idx:
-                swiss_mem_indices.add(path_to_idx[snap_path])
-        logger.info(
-            "Streaming scorer swiss: %d/%d snapshots matched user pool",
-            len(swiss_mem_indices), swiss_total,
-        )
-
-        # Mark initial fills from Swiss-Cheese results that are in our
-        # user-only candidate pool (skip assistant blocks)
-        initial_fills = []
-        cand_by_mem_idx = {c.mem_idx: idx for idx, c in enumerate(candidates)}
-        for snap in multi_snapshots:
-            snap_path = snap.get("path", "")
-            mem_idx = path_to_idx.get(snap_path, -1)
-            if mem_idx >= 0 and mem_idx in cand_by_mem_idx:
-                initial_fills.append(cand_by_mem_idx[mem_idx])
-                if len(initial_fills) >= NUM_REGISTER_SLOTS:
-                    break
-
-        mgr._store_ref = store
-
-        slots = mgr.setup_request(
-            candidates, initial_fills,
-            swiss_cheese_indices=swiss_mem_indices,
-            user_id=current_user_id,
-        )
-        mgr.wire_cache_context(
-            forward_context, slot_mapping, self._composite_block_size,
-        )
-
-        logger.info(
-            "Streaming scorer wired: %d candidates (%d swiss), %d slots, "
-            "fingerprints=%s",
-            len(candidates), len(swiss_mem_indices), len(slots),
-            mgr._fingerprints_gpu.shape if mgr._fingerprints_gpu is not None else None,
-        )
-
     def _inject_deltanet_init_from_meta(
         self,
         forward_context: "ForwardContext",
@@ -3332,7 +3142,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 return
 
         try:
-            from nls_vllm_plugin.nls_format import load_nls
+            from pri.format import load_nls
             snapshot = load_nls(nls_path)
         except Exception as e:
             logger.warning(
@@ -3584,7 +3394,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
     def _get_assistant_mask(self, nls_path: str, strip: int, n_tok: int):
         """Read manifest segments and build a boolean mask for assistant positions."""
         try:
-            from nls_vllm_plugin.nls_format import read_manifest
+            from pri.format import read_manifest
             manifest = read_manifest(nls_path)
             if manifest is None or "segments" not in manifest:
                 return None
@@ -3616,7 +3426,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         if self._system_mamba_cache is not None:
             return self._system_mamba_cache
         try:
-            from nls_vllm_plugin import auto_memory
+            from pri import retrieve as auto_memory
             if auto_memory._store is None:
                 return None
             for mem in auto_memory._store._memories:
@@ -3667,7 +3477,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         try:
             if inject_layout == "resume":
                 try:
-                    from nls_vllm_plugin.inject_geometry_audit import (
+                    from pri.inject_geometry_audit import (
                         log_geometry_audit,
                         summarize_geometry_audit,
                     )
@@ -3714,7 +3524,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 manifest_role = ""
                 _manifest = None
                 if snap_info["path"].endswith(".nls"):
-                    from nls_vllm_plugin.nls_format import read_manifest
+                    from pri.format import read_manifest
                     _manifest = read_manifest(snap_info["path"])
                     if _manifest:
                         rope_start = int(_manifest.get("rope_start", rope_start) or 0)
@@ -3796,8 +3606,8 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                     elif is_mamba_ssm and sys_mamba and key in sys_mamba:
                         # KL #614: accumulate delta (mem_state - system_state).
                         # KL #714: per-memory shape guard. When a single memory
-                        # was captured under a different slot config (e.g. old
-                        # NLS_STREAM_SLOTS=2 captures vs current=5 genesis), its
+                        # was captured under a different slot config than the
+                        # current genesis cache, its
                         # mamba_ssm tensor's leading dim won't match the genesis.
                         # Skip THIS memory's contribution for THIS key but keep
                         # the genesis cache intact so other memories in the same
@@ -3841,11 +3651,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
 
                 total_tokens += n_tok
 
-            # KL #614 → KL #620 CAMM: Preserve per-memory Mamba states for
-            # Content-Addressable Mamba Memory.  During decode, the CAMM hook
-            # in router_bias_processor queries these states using the current
-            # ssm_state as a similarity key, making Mamba layers memory-aware.
-            #
             # KL #625: NLS_MAMBA_DELTA_SUM controls SSM injection strategy:
             #   0 (default) = genesis-only (original behavior)
             #   1 = genesis + Σ(deltas) — approximate accumulated state
@@ -3856,7 +3661,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 os.environ.get("NLS_MAMBA_DELTA_SUM", "0")
             )
 
-            camm_per_memory: dict[str, list[torch.Tensor]] = {}
             mamba_stitched = 0
 
             # Fable C′ resume: verbatim Mamba from the last chain block.
@@ -3944,14 +3748,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                         len(snapshot_list), mamba_stitched,
                     )
 
-                # CAMM: rebuild per-memory full states from deltas + genesis
-                for key, delta_list in mamba_deltas.items():
-                    if key in sys_mamba:
-                        full_states = []
-                        for delta in delta_list:
-                            full_state = sys_mamba[key].float() + delta
-                            full_states.append(full_state.cpu())
-                        camm_per_memory[key] = full_states
             else:
                 # Fallback: old behavior (concatenate) if system state unavailable
                 if not sys_mamba:
@@ -3968,19 +3764,13 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                             merged[key] = tensor.clone()
 
             merged["_meta_seq_len"] = torch.tensor([total_tokens])
-            if camm_per_memory:
-                merged["_camm_per_memory"] = camm_per_memory
-                merged["_camm_sys_mamba"] = {
-                    k: v.clone() for k, v in sys_mamba.items()
-                }
             logger.info(
                 "Multi-snapshot merged: %d files, %d total tokens, %d layer keys "
                 "(RoPE re-rotated, asst_V_suppressed=%d, mamba_stitched=%d/%d, "
-                "camm_memories=%d, delta_sum_mode=%d)",
+                "delta_sum_mode=%d)",
                 len(snapshot_list), total_tokens,
                 sum(1 for k in merged if not k.startswith("_")),
                 asst_suppressed_tokens, mamba_stitched, len(mamba_deltas),
-                len(next(iter(camm_per_memory.values()), [])) if camm_per_memory else 0,
                 _delta_sum_mode,
             )
             return merged
@@ -4003,7 +3793,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         candidates = sorted(cap_dir.glob("kv_snapshot_*.nls"), reverse=True)
         for p in candidates:
             try:
-                from nls_vllm_plugin.nls_format import read_manifest
+                from pri.format import read_manifest
                 manifest = read_manifest(p)
                 if manifest is None:
                     continue
@@ -4043,10 +3833,10 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
             return cached
         try:
             if path.endswith(".nls"):
-                from nls_vllm_plugin.nls_format import load_nls
+                from pri.format import load_nls
                 data = load_nls(path)
             elif path.endswith(".kvz"):
-                from nls_vllm_plugin.kv_compress import load_compressed
+                from pri.kv_compress import load_compressed
                 data = load_compressed(path)
             else:
                 data = torch.load(path, map_location="cpu", weights_only=True)
@@ -4098,33 +3888,6 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 request.request_id in _capture_registry,
             )
             reg_info = _capture_registry.pop(request.request_id, None)
-
-            # Teardown streaming scorer regardless of capture decision
-            try:
-                from nls_vllm_plugin.streaming_scorer import is_active, get_manager
-                if is_active():
-                    stats = get_manager().teardown_request()
-                    logger.info(
-                        "Streaming scorer stats: %s", stats,
-                    )
-                    if stats.get("swap_events"):
-                        try:
-                            from nls_vllm_plugin.nls_admin_api import record_retrieval_event
-                            record_retrieval_event(
-                                f"{request.request_id}_swaps",
-                                {
-                                    "type": "swap_stats",
-                                    "user_id": reg_info.get("user_id", "") if reg_info else "",
-                                    "swaps": stats["swaps"],
-                                    "probes": stats["probes"],
-                                    "decode_steps": stats["decode_steps"],
-                                    "swap_events": stats["swap_events"],
-                                },
-                            )
-                        except Exception as e:
-                            logger.warning("Failed to record swap events: %s", e)
-            except Exception:
-                pass
 
             if reg_info is None:
                 return False, None

@@ -37,7 +37,7 @@ request so the model does not re-prefill full history.
 |----------|-------------------------------------|
 | KV capture (turn snapshots) | Custom MoE expert slots (256→320 expansion) |
 | Chain resume inject + RoPE re-rotation | Router bias / thalamus / `router_bias_processor` |
-| `.nls` format + memory index on disk | Hippocampus, CAMM, streaming-scorer hot-swap |
+| `.nls` format + memory index on disk | MoE router bias, legacy CAMM, streaming scorer |
 | Optional Swiss retrieval (overflow profile) | Hosted Punk Records SaaS (separate product) |
 | Agent middleware (strip + capture_start) | LoRA mining, blockchain ingest, 700+ lab scripts |
 | Benchmarks + replication harnesses | Model weights (bring your own checkpoint) |
@@ -122,7 +122,7 @@ punk-records-inference/
 ├── LICENSE                   # Community license + patent notice
 ├── pyproject.toml            # package name: punk-records-inference
 │
-├── pri/                      # Python package (from nls_vllm_plugin)
+├── pri/                      # Python package (KV plugin)
 │   ├── connector.py          # ← snapshot_connector.py (trimmed)
 │   ├── resume.py             # ← chain_resume.py
 │   ├── capture.py            # ← chain_capture.py
@@ -249,23 +249,27 @@ Community license + patent notice (counsel TBD). RoPE/inject source fully open.
 
 ### Phase 0 — KV-only cleanup (`exp/chain-of-latest`)
 
-- [ ] Remove router_bias logits processor from `start_vllm_v3.sh`
-- [ ] Parameterize `MODEL_PATH`
-- [ ] Resume bench green on GX10
+- [x] Remove router_bias logits processor from `start_vllm_v3.sh`
+- [x] Parameterize `MODEL_PATH`
+- [x] Resume bench green on GX10 (tier1 marco_facts 5/5 RESUME, stock Qwen3.5)
 
 ### Phase 1 — Extract `punk-records-inference` repo
 
-- [ ] Core modules → `pri/` package
-- [ ] `agent_shim` middleware
-- [ ] CI + tests
+- [x] Core modules → `pri/` package
+- [x] `agent_shim` middleware
+- [x] CI + tests (pytest 8/8 local)
 
 ### Phase 2 — Docker image `punkrecords/inference`
 
-- [ ] Dockerfile, compose, CI smoke
+- [x] Dockerfile, compose, CI smoke (GX10 `pri-inference` running)
 
 ### Phase 3 — Docs + bench
 
-- [ ] Full `docs/`, tier-1 results JSON
+- [x] Full `docs/` (filled)
+- [x] Tier-1 results JSON on GX10 (`bench/results/tier1_marco_facts_42.json`)
+- [x] OpenCode harness direct-vLLM + results JSON in repo (6/6, seed 42)
+- [x] Image rebuild with baked fixes + vLLM digest pin (GX10)
+- [x] Remove `nls_vllm_plugin/` shims — `pri/` only
 
 ### Phase 4 — Public release
 
@@ -277,12 +281,12 @@ Community license + patent notice (counsel TBD). RoPE/inject source fully open.
 
 ## 12. Success criteria (v0.1)
 
-1. `docker run` + BYOC checkpoint → healthy  
-2. Tier-1 RESUME recall ≥ TEXT on cp20–60  
-3. OpenCode harness functional recall after 8+ turns  
-4. No MoE/thalamus/streaming_scorer in default image  
-5. Docs + license complete  
-6. One-command bench replication  
+1. [x] `docker run` + BYOC checkpoint → healthy (GX10 stock Qwen3.5)
+2. [x] Tier-1 RESUME recall ≥ TEXT (5/5 vs 5/5; cp20–80 sweep deferred post-v0.1)
+3. [x] OpenCode harness functional recall after 8+ turns (6/6)
+4. [x] No MoE/thalamus/streaming_scorer in default image
+5. [ ] Docs + license complete (docs done; LICENSE Phase 4)
+6. [x] One-command bench replication (`bench/run_suite.sh` tier 1 + opencode)
 
 ---
 
@@ -290,6 +294,6 @@ Community license + patent notice (counsel TBD). RoPE/inject source fully open.
 
 - Branch: `exp/chain-of-latest`
 - Research: `docs/research/TURN_RESUME_FABLE_C.md`
-- Plugin source: `nls_vllm_plugin/`
+- Plugin source: `pri/` (extracted from NLS monorepo)
 - Agent shim source: `punk-records/backend/src/openai/openai.service.ts`
 - Patent: `patent/provisional_patent_application.md`

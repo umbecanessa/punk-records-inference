@@ -1,0 +1,21 @@
+# GX10 / Hugging Face cache overlay — merge with compose.yaml
+#
+# Use when MODEL_PATH points at a checkpoint directory whose weight files are
+# symlinks into ~/.cache/huggingface (common with copied or partial HF layouts).
+#
+# Vanilla stock checkpoints mounted by snapshot path do NOT need this overlay.
+#
+#   export MODEL_PATH=$HOME/.cache/huggingface/hub/models--Qwen--Qwen3.5-35B-A3B-FP8/snapshots/<revision>
+#   export HF_CACHE=$HOME/.cache/huggingface
+#   docker compose -f docker/compose.yaml -f docker/compose.gx10.yaml up --build
+#
+# Symlink-heavy legacy layout (e.g. custom dirs with pointers into the hub):
+#
+#   export MODEL_PATH=$HOME/.cache/huggingface/hub/my-custom-checkpoint
+#   export HF_CACHE=$HOME/.cache/huggingface
+#   docker compose -f docker/compose.yaml -f docker/compose.gx10.yaml up --build
+
+services:
+  inference:
+    volumes:
+      - ${HF_CACHE:?Set HF_CACHE to host Hugging Face cache (~/.cache/huggingface)}:/root/.cache/huggingface:ro

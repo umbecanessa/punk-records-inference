@@ -83,7 +83,7 @@ def _load_embed_weights_lazy() -> bool:
     try:
         import glob
         from safetensors import safe_open
-        from nls_vllm_plugin.memory_store import set_embed_weights
+        from pri.store import set_embed_weights
 
         shard_files = sorted(glob.glob(os.path.join(mp, "*.safetensors")))
         for sf in shard_files:
@@ -122,7 +122,7 @@ ARIADNE_CACHE_PATHS = [
 def init(memory_dir: str, model_path: str = "") -> bool:
     global _store, _memory_dir, _enabled, _model_path
     try:
-        from nls_vllm_plugin.memory_store import MemoryStore
+        from pri.store import MemoryStore
 
         _model_path = model_path or os.environ.get("NLS_MODEL_PATH", "")
         _memory_dir = memory_dir
@@ -166,7 +166,7 @@ def _load_ariadne_deferred() -> None:
     if _ariadne_loaded or _store is None:
         return
     _ariadne_loaded = True
-    from nls_vllm_plugin.memory_store import _embed_weights
+    from pri.store import _embed_weights
     if _embed_weights is None:
         return
     for cache_path in ARIADNE_CACHE_PATHS:
@@ -187,7 +187,7 @@ def _reseed_fingerprints_if_needed() -> None:
     global _fingerprints_reseeded
     if _store is None:
         return
-    from nls_vllm_plugin.memory_store import _embed_weights, _embed_dim
+    from pri.store import _embed_weights, _embed_dim
     if _embed_weights is None:
         return
     fp = _store._fingerprints
@@ -595,7 +595,7 @@ def retrieve(
         query_text = _tokenizer.decode(search_tokens, skip_special_tokens=True)
 
     # Prepend temporal anchor so relative time queries align with indexed dates
-    from nls_vllm_plugin.memory_store import TEMPORAL_INDEX_ENABLED, temporal_query_anchor
+    from pri.store import TEMPORAL_INDEX_ENABLED, temporal_query_anchor
     if TEMPORAL_INDEX_ENABLED and query_text:
         query_text = temporal_query_anchor() + query_text
 
