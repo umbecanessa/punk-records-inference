@@ -101,7 +101,7 @@ Planning docs for release and benchmarking — see [internal/README.md](internal
 | `bench/` | Tier-1 + OpenCode harnesses |
 | `spec/` | `.nls` manifest schema |
 | `tests/` | Unit tests (no GPU) |
-| `assets/` | Logo and presentation assets |
+| `assets/` | Brand assets — `logo-mark-256.png`, banner (see `assets/README.md`) |
 
 ---
 

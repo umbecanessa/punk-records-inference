@@ -1,7 +1,7 @@
 # Punk Records Inference
 
 <p align="center">
-  <img src="assets/logo.svg" alt="Punk Records Inference" width="120" />
+  <img src="assets/logo-mark-256.png" alt="Punk Records Inference" width="160" />
 </p>
 
 <p align="center">
@@ -130,7 +130,7 @@ Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
 | [`spec/`](spec/) | `.nls` manifest schema + validator |
 | [`tests/`](tests/) | Unit tests (no GPU) |
 | [`docs/`](docs/) | Architecture, client contract, guides |
-| [`assets/`](assets/) | Logo and presentation assets |
+| [`assets/`](assets/) | Logo, straw-hat mark, banner (see `assets/README.md`) |
 
 ---
 
