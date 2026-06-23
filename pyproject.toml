@@ -1,0 +1,25 @@
+[project]
+name = "punk-records-inference"
+version = "0.0.1-dev"
+description = "KV-state persistence layer for vLLM (Punk Records Inference)"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "TBD" }
+authors = [{ name = "Punk Records" }]
+
+dependencies = [
+  "torch",
+  "zstandard",
+]
+
+[project.optional-dependencies]
+retrieval = ["sentence-transformers"]
+dev = ["pytest", "ruff"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pri*", "nls_vllm_plugin*"]
