@@ -1,4 +1,4 @@
-"""Build logo and social-preview assets from Punk Records frontend sources."""
+"""Build logo and social-preview assets."""
 
 from __future__ import annotations
 
@@ -21,8 +21,14 @@ def _load_font(size: int) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
     return ImageFont.load_default()
 
 
+def _logo_for_banner() -> Image.Image:
+    composite = ASSETS / "logo-composite.png"
+    plain = ASSETS / "logo.png"
+    path = composite if composite.is_file() else plain
+    return Image.open(path).convert("RGBA")
+
+
 def _social_preview_banner(logo: Image.Image) -> Image.Image:
-    """GitHub-recommended 1280×640 social preview (hex logo only — no hat overlay)."""
     banner = Image.new("RGBA", BANNER_SIZE, (13, 13, 13, 255))
     icon = logo.resize((320, 320), Image.Resampling.LANCZOS)
     banner.paste(icon, (72, (BANNER_SIZE[1] - icon.height) // 2), icon)
@@ -40,7 +46,7 @@ def _social_preview_banner(logo: Image.Image) -> Image.Image:
 
 
 def main() -> None:
-    logo = Image.open(ASSETS / "logo.png").convert("RGBA")
+    logo = _logo_for_banner()
     logo.resize((256, 256), Image.Resampling.LANCZOS).save(
         ASSETS / "logo-256.png", optimize=True
     )
@@ -49,7 +55,6 @@ def main() -> None:
     social.save(ASSETS / "social-preview.png", optimize=True)
     social.save(ASSETS / "banner.png", optimize=True)
 
-    print(f"Wrote {ASSETS / 'logo-256.png'}")
     print(f"Wrote {ASSETS / 'social-preview.png'} ({BANNER_SIZE[0]}x{BANNER_SIZE[1]})")
     print(f"Wrote {ASSETS / 'banner.png'}")
 

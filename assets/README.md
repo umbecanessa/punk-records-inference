@@ -5,14 +5,15 @@ Official Punk Records branding from the hosted product frontend
 
 | File | Use |
 |------|-----|
-| `logo.png` | Hex vinyl/circuit mark — **README header** (matches frontend) |
-| `logo-256.png` | Scaled logo for docs |
+| `logo-composite.png` | AI-composited hex + straw hat (512×512) — **README header** |
+| `logo-composite-256.png` | Scaled composite for docs/README |
+| `logo.png` | Hex mark source (frontend) |
 | `straw-hat.png` | Straw hat illustration (source — for manual design if needed) |
 | `social-preview.png` | GitHub social preview (1280×640, hex logo + text) |
 | `banner.png` | Alias of `social-preview.png` |
 | `favicon.ico` | Browser favicon |
 
-The README uses **`logo.png` only** (no programmatic hat overlay). The frontend does the same; hat compositing in raster assets looked wrong at small sizes.
+The README uses **`logo-composite.png`** — generated from `logo.png` + `straw-hat.png` (integrated illustration, not PIL paste).
 
 Regenerate banners:
 
