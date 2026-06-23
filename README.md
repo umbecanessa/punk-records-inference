@@ -1,17 +1,22 @@
 # Punk Records Inference
 
-<img src="assets/logo-mark-256.png" alt="Punk Records Inference" width="100" align="left" />
+<p align="center">
+  <img src="assets/logo.png" alt="Punk Records Inference" width="120" />
+</p>
 
-**KV-state persistence for vLLM** — capture attention + hybrid recurrent state after each agent turn, store on disk (`.nls`), re-inject on the next request so the model skips re-prefilling full history.
+<p align="center">
+  <strong>KV-state persistence for vLLM</strong> — capture attention + hybrid recurrent state after each agent turn,<br />
+  store on disk (<code>.nls</code>), re-inject on the next request so the model skips re-prefilling full history.
+</p>
 
-<p>
+<p align="center">
   <a href="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml"><img src="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/vLLM-plugin-teal.svg" alt="vLLM plugin">
   <img src="https://img.shields.io/badge/local--first-black.svg" alt="Local-first">
   <img src="https://img.shields.io/badge/license-TBD-lightgrey.svg" alt="License TBD">
 </p>
 
-<p>
+<p align="center">
   <a href="docs/getting-started/installation.md"><strong>Installation</strong></a> ·
   <a href="docs/getting-started/quickstart.md"><strong>Quickstart</strong></a> ·
   <a href="docs/index.md">Docs</a> ·
@@ -20,9 +25,9 @@
   <a href="llms.txt">llms.txt</a>
 </p>
 
-<sub><b>AI agents / LLMs:</b> read <a href="llms.txt"><code>llms.txt</code></a> for entry points and doc links.</sub>
-
-<br clear="left" />
+<p align="center"><sub>
+  <b>AI agents / LLMs:</b> read <a href="llms.txt"><code>llms.txt</code></a> for entry points and doc links.
+</sub></p>
 
 ---
 
