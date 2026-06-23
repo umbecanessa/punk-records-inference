@@ -14,14 +14,15 @@ def main() -> None:
     logo = Image.open(ASSETS / "logo.png").convert("RGBA")
     hat = Image.open(ASSETS / "straw-hat.png").convert("RGBA")
 
-    hat_w = int(logo.width * 0.52)
+    hat_w = int(logo.width * 0.48)
     hat_h = int(hat.height * (hat_w / hat.width))
     hat = hat.resize((hat_w, hat_h), Image.Resampling.LANCZOS)
-    hat = hat.rotate(-18, expand=True, resample=Image.Resampling.BICUBIC)
+    hat = hat.rotate(-22, expand=True, resample=Image.Resampling.BICUBIC)
 
     out = logo.copy()
-    x = (out.width - hat.width) // 2 + int(out.width * 0.02)
-    y = int(out.height * 0.02) - int(hat.height * 0.12)
+    # Perch the straw hat on the top-left corner of the hex mark
+    x = int(out.width * 0.04)
+    y = int(out.height * 0.01) - int(hat.height * 0.14)
     out.alpha_composite(hat, (x, y))
     out.save(ASSETS / "logo-mark.png", optimize=True)
 
