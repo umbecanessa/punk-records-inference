@@ -17,7 +17,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install test dependencies
-        run: pip install pytest torch zstandard
+        run: pip install pytest torch zstandard starlette numpy
 
       - name: Run unit tests
         env:
