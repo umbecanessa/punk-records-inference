@@ -1,31 +1,22 @@
-"""
-NLS Neural Scorer — Model-native memory reranking via in-context Q@K attention.
+"""Neural inject scoring — model-native memory reranking during prefill.
 
-Zero-cost retrieval refinement: during the normal query prefill, computes the
-model's actual attention scores between query tokens and each injected memory
-region.  Memories that the model itself finds irrelevant are suppressed (V
-values zeroed in-place) before generation begins.
+Active on ``resume_overflow`` and ``swiss`` inject profiles
+(``NLS_NEURAL_SCORING=1``). Off on v0.1 default ``resume``.
 
-How it works:
-  1. Swiss Cheese returns top-N coarse candidates (N = COARSE_K, default 20)
-  2. All N candidates are multi-injected into the KV cache
-  3. During prefill, the attention hook computes Q_query @ K_memory^T
-     per memory region, across all attention layers
-  4. Scores are aggregated per-memory (max-sim × layer-mean)
-  5. Low-scoring memories are suppressed (V zeroed in paged cache)
-  6. Generation proceeds with only neural-confirmed memories active
+After Swiss returns coarse candidates and they are injected into KV cache,
+an attention hook computes Q@K scores between the live query and each memory
+region across ``NLS_NEURAL_SCORE_LAYERS``. Low-scoring blocks get V values
+zeroed in-place before generation — suppressing memories the model ignores.
 
-Why this works when offline comparison failed:
-  - Q and K are from the SAME forward pass (model is conditioned on full context)
-  - This is literally what Transformer attention does — we just read the score
-  - Offline comparison failed because Q and K came from different contexts with
-    different sequence lengths, RoPE positions, and computational histories
+Pipeline:
 
-Cost: ~0.2ms of GPU compute per query (negligible vs prefill cost)
+  1. Coarse pool (``NLS_NEURAL_COARSE_K``) from ``pri.retrieve``
+  2. Multi-inject all candidates
+  3. Prefill attention hook → per-memory aggregate score
+  4. V-suppression at ``NLS_V_SUPPRESSION_AT_LAYER`` for scores below threshold
+  5. Decode with reduced inject set
 
-Usage:
-  Called automatically by auto_memory.retrieve() when scoring is enabled.
-  Controlled by NLS_NEURAL_SCORING env var or per-request kv_transfer_params.
+Env: ``docs/reference/env-vars.md`` (neural / V-suppression section).
 """
 
 from __future__ import annotations

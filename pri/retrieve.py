@@ -1,18 +1,19 @@
-"""
-NLS Auto-Memory v3 — The Non-Stateless LLM Controller.
+"""Swiss retrieval — semantic search and ranking over stored ``.nls`` blocks.
 
-Cryptex-inspired memory organization inside the inference server.
-Captures and retrieves labeled, multi-tenant KV snapshots automatically.
+Optional read path used when pure chain resume is insufficient (``resume_overflow``
+profile) or when ``NLS_INJECT_MODE=swiss``. Not active on the v0.1 default
+``resume`` profile (``NLS_NEURAL_SCORING=0``).
 
-Fingerprinting: Uses the LLM's own embedding layer (embed_tokens) for
-semantic fingerprints when available, falling back to SimHash.
+Flow:
 
-CAPTURE: After every meaningful prefill, saves KV + fingerprint with
-         ring_type, user_id, project_id, session_id labels.
+  1. **Query** — embed the live user message (model or sentence-transformer).
+  2. **Filter** — partition by ``memory_user``, ``NLS_ROLE_FILTER``, silo flags.
+  3. **Rank** — BM25 + cosine similarity + recency + delta-fact probe scores.
+  4. **Chain walk** — optional hop expansion along linked sessions.
+  5. **Return** — top-K block paths for multi-snapshot inject via ``pri.connector``.
 
-RETRIEVE: Before every request, searches the memory store filtered by
-          user/project, returns MULTIPLE memories sorted by ring priority
-          for concatenated multi-snapshot injection.
+Capture side-effects (when enabled): after meaningful prefills, index new blocks
+with ring labels and fingerprints. See ``docs/getting-started/concepts.md``.
 """
 
 from __future__ import annotations

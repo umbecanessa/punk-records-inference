@@ -1,6 +1,14 @@
-"""Inject geometry audit — RoPE pack plan, Mamba mode, capture provenance.
+"""Inject geometry audit — RoPE pack plan, Mamba provenance, capture consistency.
 
-Used at resume inject time (connector) and offline via ``bench/tier1/geometry_audit.py``.
+Validates that a resume inject pack is geometrically consistent before loading KV:
+
+  - Per-block ``rope_start`` → cumulative pack offset mapping
+  - Mamba delta-sum mode vs chain block order
+  - Strip prefix and token counts vs manifest
+
+Called at resume inject time inside ``pri.connector`` and offline by
+``bench/tier1/geometry_audit.py``. Abort controlled by
+``NLS_RESUME_ABORT_ON_ROPE_FAIL`` (default on).
 """
 
 from __future__ import annotations

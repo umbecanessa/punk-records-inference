@@ -1,41 +1,32 @@
-"""
-Persistent labeled memory index for KV capture blocks.
+"""On-disk memory index for captured ``.nls`` blocks and Swiss retrieval.
 
-Each memory is tagged with ring_type, user_id, project_id, session_id,
-and injection priority.
+Persists labeled KV snapshots under ``NLS_MEMORY_DIR`` with JSONL metadata,
+optional semantic embeddings (``sentence-transformers``), and BM25 text index.
 
-v0.1 default path (turn capture + resume inject) uses ring_type="general"
-for all blocks. Resume walks the chain by base_session_id and turn_index;
-ring labels are metadata on the manifest, not routing logic on that path.
+**v0.1 default path** (turn capture + resume inject):
 
-Optional Swiss retrieval (memory_inject_mode other than resume) uses ring_type
-for deduplication and injection priority — see RING_PRIORITIES below.
+  - All captures use ``ring_type="general"``.
+  - Resume walks the chain by ``base_session_id`` and ``turn_index``; ring labels
+    are manifest metadata, not routing logic on the resume path.
 
-Fingerprinting modes:
-  - "model": Uses the LLM's own embedding layer (embed_tokens) for
-    semantic fingerprints. Mean-pooled token embeddings from the model's
-    learned representations. Zero external dependencies.
-  - "simhash": Legacy fallback using SimHash on token IDs.
+**Swiss retrieval** (``resume_overflow`` or legacy ``swiss`` profile):
 
-Ring types (Swiss retrieval only — default capture/resume uses general):
-  - identity:       Soul axioms, agent personality  (always_inject)
-  - behavioral:     Communication patterns, rules   (always_inject)
-  - user_model:     User preferences, context
-  - project_facts:  Project-specific knowledge
-  - credentials:    API keys, connection strings
-  - instructions:   Task-specific directives
-  - orchestration:  Workflow state, plans
-  - consolidation:  Long-term distilled knowledge   (always_inject)
-  - general:        Default for v0.1 turn capture and benches
+  - Ranks memories by embedding + BM25 + recency + delta-fact probes.
+  - ``RING_PRIORITIES`` and ``always_inject`` rings apply on this path only.
 
-Multi-tenant: memories are partitioned by user_id. Cross-read memories
-(always_inject=True) are shared across all users within the same store.
+Fingerprinting:
 
-Storage:
+  - ``model`` — mean-pooled ``embed_tokens`` from the served checkpoint (preferred).
+  - ``simhash`` — legacy token-id SimHash fallback.
+
+Layout::
+
   {memory_dir}/
-    index.json          — metadata for all memories
-    fingerprints.npy    — dense matrix [N, fingerprint_dim]
-    kv_*.pt             — KV snapshot files
+    index.jsonl       — block metadata
+    captures/*.nls    — compressed manifests
+    embeddings/       — optional semantic cache
+
+Multi-tenant partition key: ``memory_user``. See ``docs/reference/env-vars.md``.
 """
 
 from __future__ import annotations

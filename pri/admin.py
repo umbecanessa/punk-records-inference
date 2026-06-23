@@ -1,23 +1,20 @@
-"""NLS Memory Management V2 — Admin API middleware for vLLM.
+"""Admin API middleware — debug and ops endpoints for the memory store.
 
-Intercepts /admin/memory/* requests and handles them directly,
-passing all other requests through to the vLLM server unchanged.
-
-Usage in docker/start.sh:
-    --middleware pri.admin.NLSAdminMiddleware
+Starlette middleware registered in ``docker/start.sh`` alongside agent shim.
+Intercepts ``/admin/memory/*``; all other requests pass through to vLLM.
 
 Endpoints:
-    GET  /admin/memory/stats           — memory store statistics
-    POST /admin/memory/reload          — hot-reload index + BM25 from disk
-    POST /admin/memory/warmup          — JL #20.5e: prime cold-start caches
-                                          (sentence-transformers model load,
-                                          delta_fp cache verification,
-                                          synthetic encode pass)
-    POST /admin/memory/delete          — delete memories by session_id
-    GET  /admin/memory/search          — run Swiss-Cheese retrieval (read-only debug)
-    GET  /admin/memory/user-memories   — list memories for a specific user
-    GET  /admin/memory/token-stats     — per-user token counts and savings estimate
-    GET  /admin/memory/retrieval-log   — retrieval events for a specific request
+
+  GET  ``/admin/memory/stats``         — index size, capture counts
+  POST ``/admin/memory/reload``        — hot-reload index + BM25 from disk
+  POST ``/admin/memory/warmup``        — prime embedder and delta-fp caches
+  POST ``/admin/memory/delete``        — delete by session_id
+  GET  ``/admin/memory/search``        — run Swiss retrieval (read-only debug)
+  GET  ``/admin/memory/user-memories`` — list blocks for a user
+  GET  ``/admin/memory/token-stats``   — per-user token savings estimate
+  GET  ``/admin/memory/retrieval-log`` — retrieval events for a request id
+
+Used by bench harnesses (``geometry_audit``, ``manifest_proof``) and local debugging.
 """
 
 from __future__ import annotations

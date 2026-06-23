@@ -1,4 +1,9 @@
-"""Parse comma-separated layer index lists from environment variables."""
+"""Parse comma-separated layer index lists from ``NLS_*`` environment variables.
+
+Used by ``pri.store``, ``pri.scorer``, and ``pri.startup_profile`` to read probe
+layer sets (``NLS_DELTA_FACT_PROBE_LAYERS``, ``NLS_NEURAL_SCORE_LAYERS``, etc.)
+with sensible fallbacks when unset.
+"""
 
 from __future__ import annotations
 

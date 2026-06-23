@@ -1,24 +1,25 @@
-"""Fable C′ session-resume: inject an ordered thread chain without Swiss retrieval.
+"""Chain resume — inject ordered ``base_session`` blocks without Swiss retrieval.
 
-Collects blockchain-linked blocks for a ``base_session_id``, packs them in
-turn order, and builds an inject config for the snapshot connector.
+Collects blockchain-linked ``.nls`` blocks for a ``memory_base_session``, packs them
+in turn order, and builds inject config for ``pri.connector``.
 
-Resume contract (v1, clean-room):
-  - Retrieval (Swiss-Cheese) is skipped when resume succeeds.
-  - Attention K/V: packed in turn order with per-block RoPE re-rotation
-    from each manifest ``rope_start`` to the cumulative pack offset.
+v0.1 default (``NLS_API_INJECT_MODE=resume``):
+
+  - Swiss retrieval is skipped when the chain walk succeeds.
+  - Attention K/V: packed in turn order with per-block RoPE re-rotation from each
+    manifest ``rope_start`` to the cumulative pack offset.
   - Mamba: ``NLS_RESUME_MAMBA_DELTA_SUM`` (default 1) = genesis + Σ(block−genesis)
     across the chain; 3 = last block verbatim; 2 = genesis + last delta only.
-  - System-prefix strip is disabled for every block.
-  - Pass-2 compound is skipped for resume requests (connector-side).
+  - System-prefix strip is disabled for every block in the pack.
+  - Pass-2 compound capture is skipped for resume requests (connector-side).
 
-Chain capture (``NLS_CHAIN_CAPTURE_MODE``):
-  - ``dual`` — separate user + assistant blocks per HTTP turn (legacy).
-  - ``turn`` — one contiguous user+assistant snapshot per turn (``role=turn``).
-    Resume inject uses turn blocks when present; Swiss still filters to
-    user/tool via ``NLS_ROLE_FILTER``.
+Capture mode (``NLS_CHAIN_CAPTURE_MODE``):
 
-When no chain blocks exist, callers fall back to normal auto-retrieval.
+  - ``turn`` — one contiguous user+assistant snapshot per HTTP turn (v0.1 default).
+  - ``dual`` — separate user + assistant blocks per turn (legacy).
+
+When no chain blocks exist, callers fall back to Swiss auto-retrieval.
+See ``docs/getting-started/concepts.md``.
 """
 
 from __future__ import annotations

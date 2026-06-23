@@ -1,4 +1,11 @@
-"""Detect degenerate model output (shared with bench scripts)."""
+"""Detect garbled or degenerate model decode output.
+
+Shared by ``pri.connector`` (capture hygiene — skip poisoned ``.nls`` writes when
+``NLS_TURN_STRIP_GARBLED_DECODE=1``) and bench harnesses (turn sweep retries).
+
+Heuristics: CJK noise in Latin context, abnormal vowel ratios, repeated tokens,
+tool-call XML fragments without structure, path-like garbage strings.
+"""
 
 from __future__ import annotations
 

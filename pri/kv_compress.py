@@ -1,16 +1,10 @@
-"""KV Snapshot Compression — Int8 quantization + zstd level 1.
+"""Int8 KV tensor compression and zstd packaging for ``.nls`` payloads.
 
-Proven strategy from KL #458: 42MB bf16 → 13.2MB (3.2× compression),
-22ms decompression. Max quantization error 0.08 per element.
+Symmetric per-tensor int8 quantization (max-abs / 127) plus zstd level 1.
+Typical ratio ~3× vs bf16 on hybrid checkpoints with fast decompress on inject.
 
-File format (.kvz):
-  zstd-compressed bytes of torch.save({
-    "tensors": {key: int8_tensor, ...},
-    "scales":  {key: float32_scale, ...},
-    "meta":    {key: non-tensor value, ...},
-  })
-
-Round-trip: save_compressed(data, path) → load_compressed(path) → original dict
+Used by ``pri.format`` when writing capture blobs. Legacy ``.kvz`` standalone
+format uses the same ``torch.save({tensors, scales, meta})`` envelope.
 """
 
 from __future__ import annotations

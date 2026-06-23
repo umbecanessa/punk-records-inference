@@ -1,4 +1,13 @@
-"""Chain capture mode: dual user/assistant blocks vs unified turn snapshots."""
+"""Turn capture mode — ``dual`` user/assistant blocks vs unified ``turn`` snapshots.
+
+Controlled by ``NLS_CHAIN_CAPTURE_MODE`` (default ``turn`` for v0.1).
+
+  - ``turn`` — one ``.nls`` per HTTP turn covering user + assistant decode (resume path).
+  - ``dual`` — separate user and assistant captures per turn (legacy).
+
+``default_resume_roles()`` returns which block roles ``pri.resume`` includes when
+walking the chain. See ``docs/reference/env-vars.md``.
+"""
 
 from __future__ import annotations
 

@@ -1,9 +1,19 @@
-"""Agent middleware for Punk Records Inference (vLLM).
+"""Agent middleware — transcript strip and ``kv_transfer_params`` for tool-calling clients.
 
-Extracted from hosted Punk Records ``openai.service.ts`` — strip agent transcript
-for resume inject and compute ``memory_capture_start`` / chain ``kv_transfer_params``.
+Port of hosted Punk Records ``openai.service.ts`` logic for standalone vLLM.
+When ``NLS_AGENT_SHIM=1`` (default), OpenCode-style chat completions get:
 
-Usage in docker/start.sh:
+  - **Strip** — remove prior assistant noise from the resend transcript on turn ≥ 2
+  - **capture_start** — token offset after system/tools (``memory_capture_start``,
+    ``memory_sys_prompt_hash``) so ``.nls`` manifests have correct ``rope_start``
+  - **Chain metadata** — ``memory_base_session``, ``memory_turn_index``,
+    ``memory_prev_hash``, ``memory_silo`` on turn 1, ``memory_inject_mode``
+
+Clients can instead send full ``kv_transfer_params`` explicitly — both paths work.
+See ``docs/guides/integrating-opencode.md`` and ``docs/CLIENT_CONTRACT.md``.
+
+Registered in ``docker/start.sh``::
+
     --middleware pri.middleware.agent_shim.AgentShimMiddleware
 """
 

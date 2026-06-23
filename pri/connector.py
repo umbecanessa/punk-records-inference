@@ -1,35 +1,25 @@
-"""
-NLS Snapshot Connector — Level 2 Zero-Padding KV Injection for vLLM v1
+"""vLLM KV connector — capture and inject ``.nls`` snapshots (``NLSSnapshotConnector``).
 
-Loads pre-captured KV snapshots directly into vLLM's paged KV cache
-without using any padding tokens or wasting compute on dummy prefill.
+Central hook registered via ``--kv-transfer-config`` in ``docker/start.sh``. Implements
+the read/write path for Punk Records Inference:
 
-Architecture:
-  Scheduler-side:
-    - Reads /tmp/nls_kv_snapshot/inject_config.json to detect active snapshot
-    - Reports N "externally computed" tokens to the scheduler
-    - Scheduler allocates KV blocks for those N tokens but never schedules them
-      for model compute; position IDs for real tokens start at N automatically
+  **Capture (write)** — after decode, serialize attention KV and hybrid recurrent state
+  into compressed ``.nls`` manifests under ``NLS_SNAPSHOT_DIR``.
 
-  Worker-side:
-    - In start_load_kv(), loads the .pt snapshot and writes K,V directly
-      into the allocated GPU KV cache blocks before the model forward pass
-    - The model only processes real prompt tokens, with full attention
-      to the pre-loaded snapshot KV
+  **Inject (read)** — before prefill, load prior chain blocks (resume) or Swiss-ranked
+  memories (overflow / legacy swiss profile) directly into vLLM's paged KV cache without
+  dummy padding tokens.
 
-Usage:
-  Start vLLM with:
-    --kv-transfer-config '{
-      "kv_connector": "NLSSnapshotConnector",
-      "kv_connector_module_path": "pri.connector",
-      "kv_role": "kv_both",
-      "kv_connector_extra_config": {"snapshot_dir": "/tmp/nls_kv_snapshot"}
-    }'
+Scheduler/worker split:
 
-  Then create /tmp/nls_kv_snapshot/inject_config.json:
-    {"path": "/tmp/nls_kv_snapshot/kv_snapshot_XXX.pt", "num_tokens": 916}
+  - Scheduler reads inject config and reports externally-computed token count so real
+    prompt positions start after injected KV.
+  - Worker ``start_load_kv()`` writes K/V (and Mamba state) into allocated blocks
+    before the model forward pass.
 
-  All new requests will get the snapshot injected until the config is removed.
+Configuration: ``NLS_SNAPSHOT_DIR``, ``NLS_API_INJECT_MODE`` (via ``startup_profile``),
+per-request ``kv_transfer_params``. See ``docs/ARCHITECTURE.md`` and
+``docs/CLIENT_CONTRACT.md``.
 """
 
 import hashlib

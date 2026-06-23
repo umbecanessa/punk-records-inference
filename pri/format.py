@@ -1,23 +1,18 @@
-"""NLS Snapshot Format — Binary format for hybrid Mamba+Attention state.
+"""``.nls`` binary format — hybrid Mamba + attention KV manifests.
 
-File layout (.nls):
-  [4 bytes]  Magic: b"NLS\\x01"
-  [2 bytes]  Format version (uint16 LE) — currently 1
-  [4 bytes]  Manifest length in bytes (uint32 LE)
-  [N bytes]  JSON manifest (UTF-8)
-  [rest]     zstd-compressed tensor payload (int8 quantized + scales)
+On-disk layout::
 
-The manifest is readable without decompressing tensors — useful for
-indexing, browsing, and debugging snapshots without loading GPU data.
+  [4 B]  Magic ``b"NLS\\x01"``
+  [2 B]  Format version (uint16 LE)
+  [4 B]  Manifest length (uint32 LE)
+  [N B]  JSON manifest (UTF-8, readable without decompressing tensors)
+  […]    zstd-compressed int8-quantized tensor payload
 
-Tensor payload is torch.save({
-    "tensors": {key: int8_tensor},
-    "scales":  {key: float32_scale},
-    "meta":    {key: non-tensor value (e.g. _meta_seq_len)},
-}) compressed with zstd level 1.
+Tensor payload is ``torch.save({tensors, scales, meta})`` compressed at zstd level 1.
+Per-tensor symmetric int8 quantization (max-abs / 127).
 
-Quantization: per-tensor symmetric int8 (max-abs / 127).
-Proven in KL #458: 42 MB bf16 -> 13.2 MB (3.2x), 22 ms decompress.
+Schema validation: ``spec/``. Used by ``pri.connector`` (read/write) and
+``pri.store`` (index metadata).
 """
 
 from __future__ import annotations
