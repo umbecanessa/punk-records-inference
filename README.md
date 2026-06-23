@@ -130,7 +130,7 @@ Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
 | [`spec/`](spec/) | `.nls` manifest schema + validator |
 | [`tests/`](tests/) | Unit tests (no GPU) |
 | [`docs/`](docs/) | Architecture, client contract, guides |
-| [`assets/`](assets/) | Logo, straw-hat mark, banner (see `assets/README.md`) |
+| [`assets/`](assets/) | Logo, social preview banner (see `assets/README.md`) |
 
 ---
 
