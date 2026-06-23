@@ -1,7 +1,7 @@
 # Punk Records Inference
 
 <p align="center">
-  <img src="assets/logo-composite-256.png" alt="Punk Records Inference" width="120" />
+  <img src="assets/logo-composite.png" alt="Punk Records Inference" width="180" />
 </p>
 
 <p align="center">

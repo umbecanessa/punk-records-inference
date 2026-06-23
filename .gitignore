@@ -28,6 +28,7 @@ Thumbs.db
 .env
 .env.*
 bench/.env
+assets/logo-composite-source.png
 
 # Agent Room (local dev coordination — not shipped)
 .cursor/mcp.json

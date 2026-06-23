@@ -5,8 +5,8 @@ Official Punk Records branding from the hosted product frontend
 
 | File | Use |
 |------|-----|
-| `logo-composite.png` | AI-composited hex + straw hat (512×512) — **README header** |
-| `logo-composite-256.png` | Scaled composite for docs/README |
+| `logo-composite.png` | Hex + straw hat, **transparent background**, 512×512 — README |
+| `logo-composite-256.png` | Scaled composite |
 | `logo.png` | Hex mark source (frontend) |
 | `straw-hat.png` | Straw hat illustration (source — for manual design if needed) |
 | `social-preview.png` | GitHub social preview (1280×640, hex logo + text) |
