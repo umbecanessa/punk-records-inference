@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Punk Records Inference">
+  <defs>
+    <linearGradient id="groove" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="label" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2d6a"/>
+      <stop offset="100%" stop-color="#c4004f"/>
+    </linearGradient>
+  </defs>
+  <circle cx="64" cy="64" r="60" fill="url(#groove)" stroke="#333" stroke-width="2"/>
+  <circle cx="64" cy="64" r="52" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  <circle cx="64" cy="64" r="44" fill="none" stroke="#242424" stroke-width="1"/>
+  <circle cx="64" cy="64" r="36" fill="none" stroke="#1f1f1f" stroke-width="1"/>
+  <circle cx="64" cy="64" r="28" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="64" cy="64" r="22" fill="url(#label)"/>
+  <circle cx="64" cy="64" r="6" fill="#0d0d0d"/>
+  <text x="64" y="68" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="11" font-weight="700" fill="#fff">PRI</text>
+  <!-- KV cache motif: stacked blocks -->
+  <rect x="88" y="28" width="14" height="10" rx="1" fill="#00d4aa" opacity="0.9"/>
+  <rect x="88" y="42" width="14" height="10" rx="1" fill="#00b894" opacity="0.75"/>
+  <rect x="88" y="56" width="14" height="10" rx="1" fill="#009874" opacity="0.6"/>
+</svg>

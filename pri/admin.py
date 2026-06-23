@@ -11,7 +11,7 @@ Endpoints:
     POST /admin/memory/reload          — hot-reload index + BM25 from disk
     POST /admin/memory/warmup          — JL #20.5e: prime cold-start caches
                                           (sentence-transformers model load,
-                                          delta_fp/ffn_sig cache verification,
+                                          delta_fp cache verification,
                                           synthetic encode pass)
     POST /admin/memory/delete          — delete memories by session_id
     GET  /admin/memory/search          — run Swiss-Cheese retrieval (read-only debug)
@@ -248,7 +248,6 @@ class NLSAdminMiddleware(BaseHTTPMiddleware):
                 "timings_ms": { "embedder_load_ms": ..., ... },
                 "details": {
                     "delta_fp": { "loaded", "shape", "recovered_count" },
-                    "ffn_sig": { ... same shape ... },
                     "embedder": { "loaded", "was_already_loaded",
                                   "dim", "model", "encode_ok" }
                 }
@@ -295,26 +294,6 @@ class NLSAdminMiddleware(BaseHTTPMiddleware):
             "loaded": delta_arr is not None,
             "shape": delta_shape,
             "recovered_count": delta_recovered,
-        }
-
-        t0 = time.perf_counter()
-        ffn_arr = getattr(store, "_ffn_sig_cache", None)
-        ffn_recovered = 0
-        ffn_shape: list[int] | None = None
-        if ffn_arr is not None:
-            ffn_shape = list(ffn_arr.shape)
-            try:
-                norms = _np.linalg.norm(ffn_arr, axis=1)
-                ffn_recovered = int((norms > 1e-6).sum())
-            except Exception:
-                ffn_recovered = -1
-        timings["ffn_sig_check_ms"] = round(
-            (time.perf_counter() - t0) * 1000, 2,
-        )
-        details["ffn_sig"] = {
-            "loaded": ffn_arr is not None,
-            "shape": ffn_shape,
-            "recovered_count": ffn_recovered,
         }
 
         skip_embedder = bool(body.get("skip_embedder", False))
@@ -366,15 +345,12 @@ class NLSAdminMiddleware(BaseHTTPMiddleware):
 
         logger.info(
             "Admin warmup completed: total=%dms, embedder_load=%dms "
-            "(was_loaded=%s), delta_fp_recovered=%d/%s, "
-            "ffn_sig_recovered=%d/%s",
+            "(was_loaded=%s), delta_fp_recovered=%d/%s",
             timings["total_ms"],
             timings.get("embedder_load_ms", 0),
             embedder_info.get("was_already_loaded"),
             delta_recovered,
             delta_shape[0] if delta_shape else "?",
-            ffn_recovered,
-            ffn_shape[0] if ffn_shape else "?",
         )
 
         return JSONResponse({

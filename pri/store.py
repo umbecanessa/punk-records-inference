@@ -56,6 +56,8 @@ from typing import Optional
 
 import numpy as np
 
+from pri.layer_env import parse_layer_list_env
+
 logger = logging.getLogger("nls_memory_store")
 
 # ── Sentence-transformer semantic embedder (singleton) ──────────────
@@ -168,7 +170,10 @@ RECENCY_FLOOR = float(os.environ.get("NLS_RECENCY_FLOOR", "1.0"))
 # Boost = 1 + DELTA_FACT_BOOST * normalized_energy  (factual memories win retrieval).
 DELTA_FACT_ENABLED = os.environ.get("NLS_DELTA_FACT", "1") != "0"
 DELTA_FACT_BOOST = float(os.environ.get("NLS_DELTA_FACT_BOOST", "0.35"))
-DELTA_FACT_PROBE_LAYERS = [2, 14, 26, 38]
+DELTA_FACT_PROBE_LAYERS = parse_layer_list_env(
+    "NLS_DELTA_FACT_PROBE_LAYERS",
+    fallback=[2, 14, 26, 38],
+)
 # JL #19.2 Phase 5: structured delta fingerprint dimension. Per probed
 # layer × 32 heads × 3 stats (Frobenius norm / mean / std). Persisted to
 # `delta_fingerprints.npy` so a server restart doesn't have to re-derive
@@ -177,31 +182,6 @@ DELTA_FACT_FP_DIM = len(DELTA_FACT_PROBE_LAYERS) * 32 * 3
 # Cache schema version. Bump on layout changes (probe layers, stat list,
 # dim ordering) so older caches invalidate and force a one-time rebuild.
 DELTA_FP_CACHE_VERSION = 1
-
-# JL #19.6 Step 3: Tier 2 FFN signature cache (R1 router-weight cosine,
-# picked in JL #19.5 spike). For each memory we persist a flat
-# ``[NUM_LAYERS × NUM_EXPERTS]`` vector: per-layer expert-firing
-# frequency normalized over (n_tokens × top_k) and L2-normalized over
-# the full vector. Layout matches ``r1_routing_weight_vector`` in
-# ``scripts/spike_ffn_sig_score.py`` so production scoring is bit-
-# compatible with the spike that selected this representation.
-#
-# Defaults track Qwen3-Next-80B-A3B-Instruct (40 MoE layers × 512
-# experts). Env-overridable so the same plugin works against future
-# checkpoints without a code change. Storage at the defaults is
-# 40 × 512 × 2 = 40 KB per memory at float16 (~5 GB at 100K mems);
-# float16 is precision-sufficient for the 0.4–0.55 cosine thresholds
-# Tier 2 uses (verified empirically vs the float32 spike scorer).
-FFN_SIG_NUM_LAYERS = int(os.environ.get("NLS_FFN_SIG_NUM_LAYERS", "40"))
-FFN_SIG_NUM_EXPERTS = int(os.environ.get("NLS_FFN_SIG_NUM_EXPERTS", "512"))
-FFN_SIG_DIM = FFN_SIG_NUM_LAYERS * FFN_SIG_NUM_EXPERTS
-# Cache schema version. Bump on layout changes (dim, dtype, normalization).
-FFN_SIG_CACHE_VERSION = 1
-# Whether the persisted Tier 2 cache is loaded at boot. Off by default
-# during cold-ship (Layer 6 is observation-only); flip on once Tier 2
-# enters composition path. Independent of write path: incremental
-# capture-time writes happen whenever the in-memory cache is populated.
-FFN_SIG_LOAD_AT_BOOT = os.environ.get("NLS_FFN_SIG_LOAD_AT_BOOT", "1") != "0"
 
 # Ring types with injection priority (lower = injected first = stronger attention)
 RING_PRIORITIES: dict[str, int] = {
@@ -667,17 +647,8 @@ class MemoryStore:
         # `_recompute_delta_fact_scores` skip per-memory `.nls` loads.
         self._delta_fp_cache: Optional[np.ndarray] = None
         self._delta_fp_cache_genesis_hash: Optional[str] = None
-        # JL #19.6 Step 3: Tier 2 FFN signature cache. Same parallel-array
-        # pattern as the delta fingerprint cache: shape (N, FFN_SIG_DIM)
-        # float16, indexed by memory position. Populated incrementally at
-        # capture time by ``snapshot_connector._readback_and_save`` and
-        # persisted alongside the existing delta_fingerprints.npy.
-        self._ffn_sig_cache: Optional[np.ndarray] = None
-        self._ffn_sig_cache_genesis_hash: Optional[str] = None
         if DELTA_FACT_ENABLED and not readonly:
             self._load_delta_fingerprints()
-        if FFN_SIG_LOAD_AT_BOOT and not readonly:
-            self._load_ffn_signatures()
         if not readonly:
             self._cleanup_orphans()
 
@@ -2459,277 +2430,6 @@ class MemoryStore:
         new_arr = np.zeros((new_size, DELTA_FACT_FP_DIM), dtype=np.float32)
         new_arr[: self._delta_fp_cache.shape[0]] = self._delta_fp_cache
         self._delta_fp_cache = new_arr
-
-    # ── JL #19.6 Step 3: Tier 2 FFN signature cache ─────────────────
-    # Mirrors the delta_fp pattern verbatim. The cache is a parallel
-    # (N, FFN_SIG_DIM) float16 array indexed by memory position; it is
-    # populated incrementally at capture time by snapshot_connector and
-    # persisted alongside delta_fingerprints.npy. Loaded at boot and
-    # validated against the same genesis hash as the delta_fp cache so
-    # both caches invalidate together when the genesis snapshot shifts.
-
-    def _ffn_sig_cache_paths(self) -> tuple[Path, Path]:
-        return (
-            self._dir / "ffn_signatures.npy",
-            self._dir / "ffn_signatures_meta.json",
-        )
-
-    def _load_ffn_signatures(self) -> None:
-        """Try to load the persisted FFN signature cache at boot.
-
-        On hit, the cache is available immediately for Tier 2; new
-        memories captured via the snapshot_connector hook append in-
-        place. On miss (no file, schema mismatch, dim mismatch, or id
-        mismatch), the cache stays at ``None`` and Tier 2 returns
-        ``INCONCLUSIVE`` for memories that don't have a signature.
-
-        Unlike the delta_fp cache there is no recompute fallback —
-        FFN signatures derive from per-token routing decisions which
-        are not persisted in the .nls snapshot. A one-time replay pass
-        would be required to backfill old memories; out of scope for
-        the JL #19.6 cold ship which runs on a fresh partition
-        (cal_v4_dense_milan).
-        """
-        if not self._memories:
-            return
-
-        genesis_snap = self._get_genesis_snap_cached()
-        if genesis_snap is None:
-            return
-        cached = self._try_load_ffn_sig_cache(genesis_snap)
-        if cached is not None:
-            self._ffn_sig_cache = cached
-            self._ensure_ffn_sig_cache_size(len(self._memories))
-            logger.info(
-                "FFN sig cache: loaded %d/%d signatures",
-                cached.shape[0], len(self._memories),
-            )
-        else:
-            self._ffn_sig_cache_genesis_hash = (
-                self._compute_genesis_hash(genesis_snap)
-            )
-            logger.info(
-                "FFN sig cache: cold-start (no valid cache on disk); "
-                "Tier 2 will populate incrementally via capture hook",
-            )
-
-    def _try_load_ffn_sig_cache(
-        self, genesis_snap: dict,
-    ) -> Optional[np.ndarray]:
-        """Load + validate the persisted FFN signature cache.
-
-        Validation: schema version, dim, num_layers, num_experts, and
-        genesis hash. Unlike the delta_fp cache (which assumes
-        ``_memories`` is loaded in the same order it was saved in),
-        FFN sigs are re-aligned to the current ``_memories`` order via
-        the saved ``memory_ids → row`` mapping. This tolerates JSONL
-        compaction and dict-ordering shifts during ``_load()`` that
-        would otherwise force a full discard at boot.
-
-        Memories that exist in the cache but are no longer in
-        ``_memories`` (deleted, evicted) are dropped silently. Memories
-        in ``_memories`` that have no cached signature get a zero row
-        (Tier 2's ``get_ffn_sig`` returns None on near-zero norm, so
-        the consumer correctly treats those as "no sig yet" and the
-        capture path will fill them on next observation).
-        """
-        fp_path, meta_path = self._ffn_sig_cache_paths()
-        if not fp_path.exists() or not meta_path.exists():
-            return None
-        try:
-            meta = json.loads(meta_path.read_text())
-        except Exception as e:
-            logger.debug("ffn_sig meta load failed: %s", e)
-            return None
-
-        if meta.get("version") != FFN_SIG_CACHE_VERSION:
-            logger.info(
-                "ffn_sig cache: version mismatch (%s vs %s), discarding",
-                meta.get("version"), FFN_SIG_CACHE_VERSION,
-            )
-            return None
-        if meta.get("dim") != FFN_SIG_DIM:
-            logger.info(
-                "ffn_sig cache: dim mismatch (%s vs %s), discarding",
-                meta.get("dim"), FFN_SIG_DIM,
-            )
-            return None
-        if meta.get("num_layers") != FFN_SIG_NUM_LAYERS:
-            logger.info(
-                "ffn_sig cache: num_layers mismatch (%s vs %s), discarding",
-                meta.get("num_layers"), FFN_SIG_NUM_LAYERS,
-            )
-            return None
-        if meta.get("num_experts") != FFN_SIG_NUM_EXPERTS:
-            logger.info(
-                "ffn_sig cache: num_experts mismatch (%s vs %s), discarding",
-                meta.get("num_experts"), FFN_SIG_NUM_EXPERTS,
-            )
-            return None
-
-        genesis_hash = self._compute_genesis_hash(genesis_snap)
-        if meta.get("genesis_hash") != genesis_hash:
-            logger.info(
-                "ffn_sig cache: genesis hash changed, discarding",
-            )
-            return None
-
-        cached_ids = meta.get("memory_ids") or []
-        cached_count = len(cached_ids)
-        current_count = len(self._memories)
-        if cached_count == 0:
-            return None
-
-        try:
-            saved_arr = np.load(str(fp_path))
-        except Exception as e:
-            logger.debug("ffn_sig cache load failed: %s", e)
-            return None
-        if saved_arr.dtype != np.float16:
-            saved_arr = saved_arr.astype(np.float16)
-        if saved_arr.shape != (cached_count, FFN_SIG_DIM):
-            logger.info(
-                "ffn_sig cache: array shape %s != expected (%d, %d), "
-                "discarding",
-                saved_arr.shape, cached_count, FFN_SIG_DIM,
-            )
-            return None
-
-        id_to_saved_row: dict[str, int] = {
-            sid: i for i, sid in enumerate(cached_ids)
-        }
-        new_cache = np.zeros(
-            (current_count, FFN_SIG_DIM), dtype=np.float16,
-        )
-        recovered = 0
-        for i, mem in enumerate(self._memories):
-            saved_row = id_to_saved_row.get(mem.id)
-            if saved_row is None:
-                continue
-            new_cache[i] = saved_arr[saved_row]
-            recovered += 1
-        logger.info(
-            "ffn_sig cache: realigned %d/%d signatures from %d cached rows "
-            "(reorder-tolerant load)",
-            recovered, current_count, cached_count,
-        )
-
-        self._ffn_sig_cache_genesis_hash = genesis_hash
-        return new_cache
-
-    def _save_ffn_sig_cache(self) -> None:
-        """Persist the in-memory FFN signature cache to disk.
-
-        Mirrors ``_save_delta_fp_cache`` — full rewrite per save,
-        atomic from the reader's POV via ``np.save``. Acceptable at
-        production scale (40 KB × 100K = 4 GB rewrites are bounded by
-        disk throughput, but only fire on genesis-hash recompute paths
-        and capture-time appends). When the per-add cost matters,
-        switch to an append-only sidecar with periodic compaction —
-        same future-work pin as the delta_fp cache.
-        """
-        if self._ffn_sig_cache is None:
-            return
-        if self._ffn_sig_cache_genesis_hash is None:
-            return
-        fp_path, meta_path = self._ffn_sig_cache_paths()
-        n = self._ffn_sig_cache.shape[0]
-        try:
-            np.save(str(fp_path), self._ffn_sig_cache[:n])
-        except Exception as e:
-            logger.debug("ffn_sig cache save failed: %s", e)
-            return
-        meta = {
-            "version": FFN_SIG_CACHE_VERSION,
-            "dim": FFN_SIG_DIM,
-            "num_layers": FFN_SIG_NUM_LAYERS,
-            "num_experts": FFN_SIG_NUM_EXPERTS,
-            "memory_count": n,
-            "memory_ids": [self._memories[i].id for i in range(n)],
-            "genesis_hash": self._ffn_sig_cache_genesis_hash,
-        }
-        try:
-            meta_path.write_text(json.dumps(meta))
-        except Exception as e:
-            logger.debug("ffn_sig meta save failed: %s", e)
-
-    def _ensure_ffn_sig_cache_size(self, new_size: int) -> None:
-        """Grow the FFN signature cache to at least ``new_size`` rows.
-
-        Fresh rows initialize to all-zero — Tier 2 readers detect the
-        absence of a signature via ``np.linalg.norm(row) < 1e-6`` and
-        return ``INCONCLUSIVE`` rather than scoring against a zero
-        vector (which would always cosine to 0 and falsely look like
-        an UNGROUNDED hit on every memory).
-        """
-        if self._ffn_sig_cache is None:
-            self._ffn_sig_cache = np.zeros(
-                (new_size, FFN_SIG_DIM), dtype=np.float16,
-            )
-            return
-        if self._ffn_sig_cache.shape[0] >= new_size:
-            return
-        new_arr = np.zeros((new_size, FFN_SIG_DIM), dtype=np.float16)
-        new_arr[: self._ffn_sig_cache.shape[0]] = self._ffn_sig_cache
-        self._ffn_sig_cache = new_arr
-
-    def attach_ffn_sig(self, mem_id: str, sig: np.ndarray) -> bool:
-        """Public API used by ``snapshot_connector._readback_and_save``.
-
-        Stores the L2-normalized R1 signature for the memory record
-        identified by ``mem_id`` into the cache and persists the cache
-        to disk. Returns ``True`` on success, ``False`` if the memory
-        id is unknown or the signature is the wrong shape (e.g. the
-        forward pass had no real tokens to capture, producing a zero-
-        norm projection — caller should not call us in that case).
-
-        Idempotent: re-attaching for the same memory id overwrites
-        the previous signature in place. Used by the dedup branch of
-        ``add()`` when the same prompt is captured twice — the second
-        capture's signature replaces the first.
-        """
-        if not isinstance(sig, np.ndarray) or sig.shape != (FFN_SIG_DIM,):
-            return False
-        norm = float(np.linalg.norm(sig))
-        if norm < 1e-8:
-            return False
-        idx = -1
-        for i, mem in enumerate(self._memories):
-            if mem.id == mem_id:
-                idx = i
-                break
-        if idx < 0:
-            return False
-        self._ensure_ffn_sig_cache_size(len(self._memories))
-        if self._ffn_sig_cache_genesis_hash is None:
-            genesis_snap = self._get_genesis_snap_cached()
-            if genesis_snap is not None:
-                self._ffn_sig_cache_genesis_hash = (
-                    self._compute_genesis_hash(genesis_snap)
-                )
-        sig_norm = (sig / norm).astype(np.float16, copy=False)
-        self._ffn_sig_cache[idx] = sig_norm
-        self._save_ffn_sig_cache()
-        return True
-
-    def get_ffn_sig(self, mem_idx: int) -> Optional[np.ndarray]:
-        """Public API used by ``layer6_tier2``.
-
-        Returns the L2-normalized signature for memory at index
-        ``mem_idx`` as a float32 ndarray (cosine compute precision),
-        or ``None`` if no signature is recorded for that memory
-        (cache miss → Tier 2 returns INCONCLUSIVE for ops that depend
-        on this memory's signature).
-        """
-        if self._ffn_sig_cache is None:
-            return None
-        if mem_idx < 0 or mem_idx >= self._ffn_sig_cache.shape[0]:
-            return None
-        row = self._ffn_sig_cache[mem_idx]
-        norm = float(np.linalg.norm(row))
-        if norm < 1e-6:
-            return None
-        return row.astype(np.float32, copy=False)
 
     @staticmethod
     def _compute_delta_fingerprint(snap: dict, genesis_snap: dict) -> list:

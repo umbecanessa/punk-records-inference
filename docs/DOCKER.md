@@ -61,6 +61,8 @@ curl -s http://127.0.0.1:8000/health
 
 ## Key environment variables
 
+See [Environment variables](reference/env-vars.md) for the full consolidated list. Common overrides:
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `MODEL_PATH` | *(required)* | Checkpoint directory |
@@ -68,6 +70,7 @@ curl -s http://127.0.0.1:8000/health
 | `NLS_SNAPSHOT_DIR` | `/data/pri/snapshot` | KV connector snapshot dir |
 | `NLS_AGENT_SHIM` | `1` | Agent middleware on/off |
 | `NLS_CHAIN_CAPTURE_MODE` | `turn` | Turn snapshots for resume |
+| `NLS_API_INJECT_MODE` | `resume` | Inject profile (`resume` \| `resume_overflow` \| `swiss`) |
 | `MAX_MODEL_LEN` | `32768` | vLLM context window |
 | `GPU_MEMORY_UTILIZATION` | `0.60` | vLLM GPU memory fraction |
 

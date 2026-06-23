@@ -27,6 +27,7 @@ Thumbs.db
 # Secrets
 .env
 .env.*
+bench/.env
 
 # Agent Room (local dev coordination — not shipped)
 .cursor/mcp.json

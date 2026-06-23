@@ -1,3 +1,5 @@
+> **Maintainer doc** — release planning and agent coordination. End users: [Documentation home](index.md).
+
 # Agent Room Handoff — Punk Records Inference setup review
 
 **Room code:** `7APVGK`  

@@ -1,0 +1,63 @@
+# Punk Records Inference
+
+> KV-state persistence for vLLM. Capture attention + hybrid recurrent state after each agent turn, store on disk (.nls), re-inject on the next request so the model skips re-prefilling full history. Docker plugin for vLLM; BYOC model checkpoint.
+
+PRI extends the OpenAI chat completions API with `kv_transfer_params` on each request. Agent middleware (NLS_AGENT_SHIM=1) can populate these for tool-calling clients automatically.
+
+## Canonical docs (start here)
+
+- [Documentation index](docs/index.md): Full map — getting started, guides, reference, internal.
+- [Installation](docs/getting-started/installation.md): GPU, Docker, checkpoint setup.
+- [Quickstart](docs/getting-started/quickstart.md): Docker build, health check, first bench.
+- [Core concepts](docs/getting-started/concepts.md): Capture, resume, Swiss, overflow.
+- [Integrating OpenCode](docs/guides/integrating-opencode.md): Agent shim, KVP, reference harness.
+- [Environment variables](docs/reference/env-vars.md): Consolidated NLS_* reference.
+- [Architecture](docs/ARCHITECTURE.md): Runtime flow, package layout.
+- [Client contract](docs/CLIENT_CONTRACT.md): kv_transfer_params fields and examples.
+- [Troubleshooting](docs/guides/troubleshooting.md): Common failures and diagnostics.
+- [GitHub repo](https://github.com/umbecanessa/punk-records-inference): Source (private until public release).
+
+## Install (copy-paste-runnable)
+
+```bash
+git clone https://github.com/umbecanessa/punk-records-inference.git
+cd punk-records-inference
+export MODEL_PATH=/path/to/your/checkpoint
+docker compose -f docker/compose.yaml up --build
+curl -s http://127.0.0.1:8000/v1/models
+```
+
+Unit tests (no GPU): `pip install pytest torch zstandard && pytest tests/ -q`
+
+## Key subsystems
+
+- Capture: WRITE turn state → .nls (NLS_CHAIN_CAPTURE_MODE=turn)
+- Resume: READ prior turn KV (memory_inject_mode=resume, turn ≥ 2)
+- Overflow: resume + Swiss when trim evicts (memory_inject_mode=resume_overflow, opt-in)
+- Agent shim: pri.middleware.agent_shim — strip transcript, capture_start, chain metadata
+
+## Package layout
+
+- pri/connector.py — vLLM KV connector (inject + capture)
+- pri/resume.py — chain block collection + resume inject config
+- pri/store.py — on-disk memory index (JSONL)
+- pri/retrieve.py — Swiss retrieval (optional)
+- pri/middleware/agent_shim.py — agent transcript strip + KVP enrichment
+- docker/start.sh — vLLM launch + startup_profile env gating
+
+## Benchmarks
+
+- Tier-1 Marco facts: ./bench/run_suite.sh --tier 1
+- OpenCode long session: ./bench/run_suite.sh --tier opencode --seed 42
+- Publication tables: in progress — see docs/BENCHMARKS.md (smoke baselines green; sweep/compare pending)
+
+## Limitations (v0.1)
+
+- KV capture/resume only — not text compression, not MoE routing, not hosted SaaS
+- Single-node, BYOC checkpoint required
+- Qwen3.5 hybrid validated; other topologies need startup_profile tuning
+- License TBD (provisional patent 64/050,345)
+
+## Internal (maintainers)
+
+- docs/internal/README.md — ship plan, bench data plan, agent handoff

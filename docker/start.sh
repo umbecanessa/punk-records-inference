@@ -29,13 +29,20 @@ export NLS_MODEL_PATH="${NLS_MODEL_PATH:-${MODEL_PATH}}"
 export NLS_MEMORY_DIR="${NLS_MEMORY_DIR:-/data/pri}"
 export NLS_SNAPSHOT_DIR="${NLS_SNAPSHOT_DIR:-/data/pri/snapshot}"
 
-# Neural scoring + V-suppression (inject path)
-export NLS_NEURAL_SCORING="${NLS_NEURAL_SCORING:-1}"
-export NLS_NEURAL_COARSE_K="${NLS_NEURAL_COARSE_K:-10}"
-export NLS_NEURAL_FINAL_K="${NLS_NEURAL_FINAL_K:-5}"
-export NLS_V_SUPPRESSION="${NLS_V_SUPPRESSION:-1}"
-export NLS_V_SUPPRESSION_KEEP_K="${NLS_V_SUPPRESSION_KEEP_K:-5}"
-export NLS_V_SUPPRESSION_AT_LAYER="${NLS_V_SUPPRESSION_AT_LAYER:-11}"
+mkdir -p "${NLS_MEMORY_DIR}" "${NLS_SNAPSHOT_DIR}/captures"
+
+# Model probe + inject-profile env (layer probes, Swiss/neural gating)
+PROFILE_ENV="${NLS_MEMORY_DIR}/profile.env"
+python3 -m pri.startup_profile \
+  --model-path "${MODEL_PATH}" \
+  --memory-dir "${NLS_MEMORY_DIR}" \
+  --inject-mode "${NLS_API_INJECT_MODE:-resume}" \
+  --write-env "${PROFILE_ENV}" \
+  --quiet
+# shellcheck source=/dev/null
+set -a
+source "${PROFILE_ENV}"
+set +a
 
 export NLS_KV_K_SCALE="${NLS_KV_K_SCALE:-1.3}"
 export NLS_KV_V_SCALE="${NLS_KV_V_SCALE:-1.0}"
@@ -51,13 +58,13 @@ export NLS_CHAIN_CAPTURE_MODE="${NLS_CHAIN_CAPTURE_MODE:-turn}"
 export NLS_API_INJECT_MODE="${NLS_API_INJECT_MODE:-resume}"
 export NLS_RESUME_ROLES="${NLS_RESUME_ROLES:-turn,tool}"
 
-mkdir -p "${NLS_MEMORY_DIR}" "${NLS_SNAPSHOT_DIR}/captures"
-
 echo "[start.sh] MODEL_PATH=${MODEL_PATH}"
 echo "[start.sh] NLS_MEMORY_DIR=${NLS_MEMORY_DIR}"
 echo "[start.sh] NLS_SNAPSHOT_DIR=${NLS_SNAPSHOT_DIR}"
 echo "[start.sh] NLS_AGENT_SHIM=${NLS_AGENT_SHIM}"
 echo "[start.sh] NLS_CHAIN_CAPTURE_MODE=${NLS_CHAIN_CAPTURE_MODE}"
+echo "[start.sh] PRI_INJECT_PROFILE=${PRI_INJECT_PROFILE:-}"
+echo "[start.sh] NLS_NEURAL_SCORING=${NLS_NEURAL_SCORING:-0}"
 
 exec python3 -m vllm.entrypoints.openai.api_server \
   --model "${MODEL_PATH}" \

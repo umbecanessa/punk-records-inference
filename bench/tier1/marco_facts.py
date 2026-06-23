@@ -27,6 +27,8 @@ if str(_TIER1) not in sys.path:
 
 from recall_helpers import score_recall_any
 
+from openrouter_client import chat as openrouter_chat, is_configured, resolve_model as openrouter_model  # noqa: E402
+
 SYSTEM_PROMPT = (
     "You are a personal assistant with persistent memory. "
     "Answer from prior conversation context when available."
@@ -123,6 +125,9 @@ def run_recall_arm(
     base_session: str,
     turns: list[tuple[str, str]],
     arm: str,
+    *,
+    text_backend: str = "local",
+    openrouter_model_id: str | None = None,
 ) -> list[dict]:
     results: list[dict] = []
     for question, expected in RECALL:
@@ -150,7 +155,16 @@ def run_recall_arm(
             }
 
         try:
-            answer, usage = chat(api, model, messages, user_id=user_id, kv=kv)
+            if arm == "text" and text_backend == "openrouter":
+                answer, usage = openrouter_chat(
+                    messages,
+                    model=openrouter_model_id,
+                    max_tokens=200,
+                    temperature=0.0,
+                    user_id=user_id,
+                )
+            else:
+                answer, usage = chat(api, model, messages, user_id=user_id, kv=kv)
             scored = score_recall_any(answer, expected)
         except Exception as exc:
             answer = ""
@@ -159,6 +173,10 @@ def run_recall_arm(
 
         row = {
             "arm": arm,
+            "backend": (
+                "openrouter" if arm == "text" and text_backend == "openrouter"
+                else "pri"
+            ),
             "question": question,
             "expected": expected,
             "answer": answer[:500],
@@ -180,7 +198,19 @@ def main() -> int:
     parser.add_argument("--base-url", default=os.environ.get("PRI_BASE_URL", "http://127.0.0.1:8000"))
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--out", type=Path, default=None)
+    parser.add_argument(
+        "--text-backend",
+        choices=("auto", "openrouter", "local"),
+        default="auto",
+    )
+    parser.add_argument("--openrouter-model", default=os.environ.get("OPENROUTER_MODEL", ""))
     args = parser.parse_args()
+
+    text_backend = "openrouter" if (
+        args.text_backend == "openrouter"
+        or (args.text_backend == "auto" and is_configured())
+    ) else "local"
+    or_model = args.openrouter_model.strip() or None
 
     api = f"{args.base_url.rstrip('/')}/v1/chat/completions"
     model = os.environ.get("PRI_MODEL") or resolve_model(args.base_url)
@@ -192,16 +222,25 @@ def main() -> int:
     print(f"  API:   {api}")
     print(f"  model: {model}")
     print(f"  user:  {user_id}")
+    if text_backend == "openrouter":
+        print(f"  TEXT:  openrouter ({openrouter_model(or_model)})")
     print("=" * 72)
 
     print("\n-- Planting facts --")
     turns = plant_facts(api, model, user_id, base_session)
 
     print("\n-- Recall TEXT arm --")
-    text_results = run_recall_arm(api, model, user_id, base_session, turns, "text")
+    text_results = run_recall_arm(
+        api, model, user_id, base_session, turns, "text",
+        text_backend=text_backend,
+        openrouter_model_id=or_model,
+    )
 
     print("\n-- Recall RESUME arm --")
-    resume_results = run_recall_arm(api, model, user_id, base_session, turns, "resume")
+    resume_results = run_recall_arm(
+        api, model, user_id, base_session, turns, "resume",
+        text_backend=text_backend,
+    )
 
     text_pass = sum(1 for r in text_results if r["pass"])
     resume_pass = sum(1 for r in resume_results if r["pass"])
@@ -211,6 +250,8 @@ def main() -> int:
         "user_id": user_id,
         "base_session": base_session,
         "model": model,
+        "text_backend": text_backend,
+        "openrouter_model": openrouter_model(or_model) if text_backend == "openrouter" else None,
         "text_pass": text_pass,
         "text_total": len(text_results),
         "resume_pass": resume_pass,

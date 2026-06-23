@@ -1,3 +1,5 @@
+> **Maintainer doc** — public release checklist and scope. End users: [Documentation home](index.md) · [Limitations](LIMITATIONS.md).
+
 # Punk Records Inference — Ship Plan
 
 **Status:** Planning (aligned 2026-06-23)  
@@ -282,7 +284,7 @@ Community license + patent notice (counsel TBD). RoPE/inject source fully open.
 ## 12. Success criteria (v0.1)
 
 1. [x] `docker run` + BYOC checkpoint → healthy (GX10 stock Qwen3.5)
-2. [x] Tier-1 RESUME recall ≥ TEXT (5/5 vs 5/5; cp20–80 sweep deferred post-v0.1)
+2. [ ] Tier-1 RESUME recall ≥ TEXT at cp20–60; cp80 documented (turn_sweep JSON)
 3. [x] OpenCode harness functional recall after 8+ turns (6/6)
 4. [x] No MoE/thalamus/streaming_scorer in default image
 5. [ ] Docs + license complete (docs done; LICENSE Phase 4)

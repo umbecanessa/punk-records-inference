@@ -37,13 +37,18 @@ from typing import Optional
 
 import torch
 
+from pri.layer_env import parse_layer_list_env
+
 logger = logging.getLogger("nls_neural_scorer")
 
 # ── Configuration ─────────────────────────────────────────────────────
 
 COARSE_K = int(os.environ.get("NLS_NEURAL_COARSE_K", "20"))
 FINAL_K = int(os.environ.get("NLS_NEURAL_FINAL_K", "5"))
-SCORE_LAYERS = [3, 7, 11, 15, 19, 23, 27, 31, 35, 39]
+SCORE_LAYERS = parse_layer_list_env(
+    "NLS_NEURAL_SCORE_LAYERS",
+    fallback=[3, 7, 11, 15, 19, 23, 27, 31, 35, 39],
+)
 SUPPRESS_THRESHOLD = float(os.environ.get("NLS_NEURAL_SUPPRESS_THRESHOLD", "0.15"))
 ENABLED = os.environ.get("NLS_NEURAL_SCORING", "1") == "1"
 META_NEURAL_PENALTY = float(os.environ.get("NLS_META_NEURAL_PENALTY", "1.0"))

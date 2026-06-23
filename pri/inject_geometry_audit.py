@@ -1,6 +1,6 @@
 """Inject geometry audit — RoPE pack plan, Mamba mode, capture provenance.
 
-Used at resume inject time (connector) and offline via scripts/audit_inject_geometry.py.
+Used at resume inject time (connector) and offline via ``bench/tier1/geometry_audit.py``.
 """
 
 from __future__ import annotations
@@ -12,8 +12,6 @@ from pathlib import Path
 from typing import Any
 
 logger = logging.getLogger("nls_inject_geometry_audit")
-
-PROBE_LAYERS = (3, 7, 11, 15, 19, 23, 27, 31, 35, 39)
 
 
 @dataclass
@@ -39,23 +37,26 @@ class BlockRopeAudit:
 
 def _resolve_kv_path(kv_path: str) -> str:
     """Map container paths to host paths when auditing outside Docker."""
-    p = Path(kv_path)
-    if p.exists():
-        return str(p)
+    path = Path(kv_path)
+    if path.exists():
+        return str(path)
+
+    mem_dir = os.environ.get("NLS_MEMORY_DIR", "/data/pri").rstrip("/")
+    snapshot_dir = os.environ.get("NLS_SNAPSHOT_DIR", f"{mem_dir}/snapshot").rstrip("/")
     replacements = (
-        ("/workspace/kv_snapshots", "/home/wasnaga/kv_snapshots"),
-        ("/workspace/", "/home/wasnaga/"),
+        ("/data/pri/snapshot", snapshot_dir),
+        ("/data/pri", mem_dir),
     )
     for old, new in replacements:
         if kv_path.startswith(old):
             alt = kv_path.replace(old, new, 1)
             if Path(alt).exists():
                 return alt
-    # basename fallback under common capture dirs
-    name = p.name
+
+    name = path.name
     for base in (
-        "/home/wasnaga/kv_snapshots/snapshot/captures",
-        "/workspace/kv_snapshots/snapshot/captures",
+        f"{snapshot_dir}/captures",
+        f"{mem_dir}/snapshot/captures",
     ):
         alt = str(Path(base) / name)
         if Path(alt).exists():

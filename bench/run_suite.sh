@@ -4,6 +4,8 @@
 # Usage:
 #   ./bench/run_suite.sh --tier 1 --base-url http://127.0.0.1:8000
 #   ./bench/run_suite.sh --tier opencode --base-url http://127.0.0.1:8000
+#   ./bench/run_suite.sh --tier sweep --base-url http://127.0.0.1:8000
+#   ./bench/run_suite.sh --tier geometry --base-url http://127.0.0.1:8000 --sweep-json bench/results/turn_sweep_cp20_80.json
 
 set -euo pipefail
 
@@ -12,6 +14,7 @@ TIER=""
 BASE_URL="${PRI_BASE_URL:-http://127.0.0.1:8000}"
 OUT_DIR="${ROOT}/bench/results"
 SEED=42
+SWEEP_JSON="${ROOT}/bench/results/turn_sweep_cp20_80.json"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -19,8 +22,9 @@ while [[ $# -gt 0 ]]; do
     --base-url) BASE_URL="$2"; shift 2 ;;
     --seed) SEED="$2"; shift 2 ;;
     --out) OUT_DIR="$2"; shift 2 ;;
+    --sweep-json) SWEEP_JSON="$2"; shift 2 ;;
     -h|--help)
-      echo "Usage: $0 --tier 1|opencode [--base-url URL] [--seed N]"
+      echo "Usage: $0 --tier 1|opencode|sweep|geometry|mode-compare [--base-url URL] [--seed N] [--noise-turns N]"
       exit 0
       ;;
     *) echo "Unknown arg: $1"; exit 1 ;;
@@ -28,7 +32,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ -z "$TIER" ]]; then
-  echo "ERROR: --tier required (1 or opencode)"
+  echo "ERROR: --tier required (1, opencode, sweep, geometry, mode-compare)"
   exit 1
 fi
 
@@ -55,6 +59,32 @@ case "$TIER" in
       --seed "$SEED" \
       --out "${OUT_DIR}/opencode_long_session.json" \
       2>&1 | tee "${OUT_DIR}/opencode_$(date +%Y%m%d_%H%M%S).log"
+    ;;
+  sweep)
+    python3 -u "${ROOT}/bench/tier1/turn_sweep.py" \
+      --base-url "$BASE_URL" \
+      --checkpoints 20,40,60,80 \
+      --garbled-retries 2 \
+      --out "${OUT_DIR}/turn_sweep_cp20_80_clean.json"
+    ;;
+  mode-compare)
+    python3 -u "${ROOT}/bench/tier1/inject_mode_compare.py" \
+      --base-url "$BASE_URL" \
+      --seed "$SEED" \
+      --noise-turns "${NOISE_TURNS:-0}" \
+      --out "${OUT_DIR}/inject_mode_compare_${SEED}.json"
+    ;;
+  geometry)
+    python3 -u "${ROOT}/bench/tier1/geometry_audit.py" \
+      --base-url "$BASE_URL" \
+      --from-sweep "$SWEEP_JSON" \
+      --out "${OUT_DIR}/geometry_audit_turn_sweep.json"
+    ;;
+  diagnose)
+    python3 -u "${ROOT}/bench/tier1/sweep_diagnose.py" \
+      "${SWEEP_JSON}" \
+      --base-url "$BASE_URL" \
+      --out "${OUT_DIR}/turn_sweep_cp20_80_diagnose.json"
     ;;
   *)
     echo "Unknown tier: $TIER"
