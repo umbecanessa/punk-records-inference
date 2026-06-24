@@ -5,12 +5,19 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2] - 2026-06-24
+
+### Changed
+
+- Adopted **[PolyForm Noncommercial License 1.0.0](LICENSE)** (SPDX: `PolyForm-Noncommercial-1.0.0`) — standard dual-license pattern; commercial use by separate agreement
+- Updated [docs/LICENSING.md](docs/LICENSING.md) for PolyForm noncommercial vs commercial model
+
 ## [0.1.1] - 2026-06-24
 
 ### Changed
 
-- Replaced Apache 2.0 with **Punk Records Community License 1.0** (PRC-1.0): free for research, evaluation, and self-host; commercial production use requires separate agreement
-- Added [docs/LICENSING.md](docs/LICENSING.md) explaining patent 64/050,345 and commercial licensing path
+- Replaced Apache 2.0 with Punk Records Community License 1.0 (PRC-1.0) — superseded by 0.1.2
+- Added docs/LICENSING.md explaining patent 64/050,345 and commercial licensing path
 
 ## [0.1.0] - 2026-06-24
 
@@ -35,5 +42,6 @@ First public release of **Punk Records Inference** — KV-state persistence for 
 
 See [docs/LIMITATIONS.md](docs/LIMITATIONS.md) and [bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md](bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md).
 
+[0.1.2]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.2
 [0.1.1]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.1
 [0.1.0]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.0

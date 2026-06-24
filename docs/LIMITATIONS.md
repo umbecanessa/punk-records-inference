@@ -48,6 +48,6 @@ turn sweep, and geometry audit — see [Benchmarks](BENCHMARKS.md).
 
 ## Legal
 
-This project is licensed under the [Punk Records Community License 1.0](../LICENSE) (PRC-1.0). See [Licensing](LICENSING.md) for what is free vs what requires a commercial agreement.
+This project is licensed under the [PolyForm Noncommercial License 1.0.0](../LICENSE). See [Licensing](LICENSING.md) for noncommercial vs commercial use.
 
-U.S. Provisional Patent Application No. 64/050,345 describes related methods. No broad patent license is granted for commercial use — contact via GitHub issue with label `licensing`.
+U.S. Provisional Patent Application No. 64/050,345. Commercial deployment requires a separate license — GitHub issue with label `licensing`.

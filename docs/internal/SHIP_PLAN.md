@@ -48,8 +48,8 @@ request so the model does not re-prefill full history.
 not MoE routing, not the hosted API product.
 
 **Patent:** Provisional 64/050,345 covers the method; the public release is the **reference
-implementation** with full RoPE/inject source under **PRC-1.0** (see LICENSE + LICENSING.md).
-Commercial production use requires a separate written license.
+implementation** with full RoPE/inject source under **PolyForm Noncommercial 1.0.0**
+(see LICENSE + LICENSING.md). Commercial production use requires a separate written license.
 
 ---
 
@@ -243,7 +243,7 @@ Commit `bench/results/*.json` for README proof tables.
 
 ## 10. License and legal
 
-PRC-1.0 community license + patent notice (64/050,345). Commercial use by
+PolyForm Noncommercial 1.0.0 + patent/commercial NOTICE (64/050,345). Commercial use by
 separate agreement — see [LICENSING.md](../LICENSING.md). RoPE/inject source
 fully published for study and improvement.
 

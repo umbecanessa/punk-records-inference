@@ -16,7 +16,7 @@ Headroom (Tejas Chopra, Netflix) went from personal pain → open repo → proof
 | **60-second start** | `pip install` + `headroom wrap claude` | `docker compose up` + curl health |
 | **Compared to** | Table vs RTK, Compresr, provider compaction | Table vs Headroom, prompt cache, compaction |
 | **llms.txt** | Agent-readable index at repo root | Done — `llms.txt` |
-| **PRC-1.0** | Community license + commercial path | Done — LICENSE + [LICENSING.md](LICENSING.md) |
+| **PolyForm NC** | Dual license: noncommercial free, commercial by agreement | Done — LICENSE + [LICENSING.md](LICENSING.md) |
 | **Star ask** | "Give it a ⭐ if it saves you money" | "Star if skip-prefill helps your self-hosted stack" |
 | **Deep dive** | Substack / blog post with architecture | Link `docs/ARCHITECTURE.md` + research pages |
 | **Talk** | OSS conference session (YouTube) | Optional — same story arc: problem → architecture → demo |
@@ -54,7 +54,7 @@ Reference posts:
 ### Hygiene
 
 - [x] Remove pre-public / private-repo language from README and llms.txt
-- [x] PRC-1.0 LICENSE + [LICENSING.md](LICENSING.md) (patent 64/050,345; commercial by agreement)
+- [x] PolyForm Noncommercial LICENSE + [LICENSING.md](LICENSING.md) (patent 64/050,345; commercial dual-license)
 - [x] Move maintainer plans to `docs/internal/` — not linked from hero README
 - [ ] Confirm `bench/.env` is gitignored and no secrets in history
 

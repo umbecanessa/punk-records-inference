@@ -13,7 +13,7 @@
   <a href="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml"><img src="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/vLLM-plugin-teal.svg" alt="vLLM plugin">
   <img src="https://img.shields.io/badge/local--first-black.svg" alt="Local-first">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-PRC--1.0-lightgrey.svg" alt="License PRC-1.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-PolyForm--NC-lightgrey.svg" alt="License PolyForm Noncommercial"></a>
 </p>
 
 <p align="center">
@@ -202,4 +202,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## License
 
-[Punk Records Community License 1.0](LICENSE) (PRC-1.0) — free to use, study, modify, and self-host for research and evaluation. **Commercial production use** requires a separate agreement ([Licensing](docs/LICENSING.md)). U.S. Provisional Patent Application No. 64/050,345.
+[PolyForm Noncommercial License 1.0.0](LICENSE) — free for research, personal use, and noncommercial organizations. **Commercial production use** requires a separate agreement ([Licensing](docs/LICENSING.md)). Patent 64/050,345; dual-license model.

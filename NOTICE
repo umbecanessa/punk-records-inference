@@ -1,17 +1,22 @@
 Punk Records Inference
 Copyright (c) 2026 Punk Records Contributors
 
-Licensed under the Punk Records Community License 1.0 (see LICENSE).
+Licensed under the PolyForm Noncommercial License 1.0.0 (see LICENSE).
 
-Patent notice
--------------
+Patent and commercial licensing
+---------------------------------
 
 U.S. Provisional Patent Application No. 64/050,345 describes methods related
-to KV-state capture, chain resume, and RoPE-aware re-injection for long agent
-sessions.
+to KV-state capture, chain resume, and RoPE-aware re-injection implemented
+in this software.
 
-Commercial use of the Software may require a separate written license.
-See docs/LICENSING.md and LICENSE section 2.
+PolyForm Noncommercial permits use, modification, and distribution for
+noncommercial purposes only. **Commercial use** (production deployment for
+a for-profit business, offering PRI as a service, OEM embedding, etc.)
+requires a **separate commercial license** from the licensor.
+
+For commercial licensing, open a GitHub issue with label `licensing` or see
+docs/LICENSING.md.
 
 Third-party components
 ----------------------
