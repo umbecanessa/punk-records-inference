@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="docs/OVERVIEW.md"><strong>Overview</strong></a> ·
   <a href="docs/getting-started/installation.md"><strong>Installation</strong></a> ·
   <a href="docs/getting-started/quickstart.md"><strong>Quickstart</strong></a> ·
   <a href="docs/index.md">Docs</a> ·
@@ -78,7 +79,7 @@ Agent client (OpenCode, curl, LangChain)
 | Turn sweep cp20–80 | cp20–40: 5/5 RESUME; cp60+: documented cliff | TEXT 5/5 at all checkpoints |
 | RoPE geometry audit | pass · 100% delta_uniformity | Garble at cp60+ is inject/decode, not pack geometry |
 
-Default inject mode: **`resume`**. [Full tables](docs/BENCHMARKS.md) · [Summary](bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md) · [Research analysis](bench/results/overnight_20260624_003614/research/README.md)
+Default inject mode: **`resume`**. [Overview & findings](docs/OVERVIEW.md) · [Key findings](bench/results/overnight_20260624_003614/research/00_findings.md) · [Full tables](docs/BENCHMARKS.md) · [Summary](bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md) · [Research](bench/results/overnight_20260624_003614/research/README.md)
 
 Reproduce:
 
@@ -159,9 +160,9 @@ Environment variables use the `NLS_*` prefix in v0.1. See [env vars](docs/refere
 
 | Start here | Go deeper |
 | --- | --- |
-| [Installation](docs/getting-started/installation.md) | [Architecture](docs/ARCHITECTURE.md) |
-| [Quickstart](docs/getting-started/quickstart.md) | [Client contract](docs/CLIENT_CONTRACT.md) |
-| [Core concepts](docs/getting-started/concepts.md) | [Benchmarks](docs/BENCHMARKS.md) |
+| [Overview](docs/OVERVIEW.md) | [Architecture](docs/ARCHITECTURE.md) |
+| [Installation](docs/getting-started/installation.md) | [Client contract](docs/CLIENT_CONTRACT.md) |
+| [Quickstart](docs/getting-started/quickstart.md) | [Benchmarks](docs/BENCHMARKS.md) |
 | [Integrating OpenCode](docs/guides/integrating-opencode.md) | [Limitations](docs/LIMITATIONS.md) |
 | [Licensing](docs/LICENSING.md) | [Research analysis](bench/results/overnight_20260624_003614/research/README.md) |
 

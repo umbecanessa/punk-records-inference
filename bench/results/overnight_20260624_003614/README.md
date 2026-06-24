@@ -11,6 +11,7 @@ This folder contains the canonical proof run referenced from the README and [doc
 | Document | Purpose |
 |----------|---------|
 | [**BENCHMARK_SUMMARY.md**](BENCHMARK_SUMMARY.md) | Headline tables (recall, tokens, latency, storage) |
+| [**research/00_findings.md**](research/00_findings.md) | Narrative findings + NLS phase mapping |
 | [**research/README.md**](research/README.md) | Extended analysis with Mermaid charts |
 | [**canonical_artifacts.json**](canonical_artifacts.json) | Index of all canonical JSON artifacts |
 | [**benchmark_summary.json**](phase_e_summary.json) | Machine-readable rollup |
@@ -38,7 +39,7 @@ This folder contains the canonical proof run referenced from the README and [doc
 | `opencode_long_session_*.json` | Multi-turn agent recall |
 | `turn_sweep_cp20_80_v5.json` | Length scaling at cp20–80 |
 | `geometry_audit_turn_sweep_v5_fixed.json` | Post-fix RoPE geometry (100% pass) |
-| `research/` | Nine analysis pages + `research_data.json` |
+| `research/` | Ten analysis pages (start at `00_findings.md`) + `research_data.json` |
 | `internal/` | Historical engineering notes (superseded) — not required reading |
 
 ---

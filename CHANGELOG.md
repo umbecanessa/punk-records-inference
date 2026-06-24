@@ -5,6 +5,20 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.4] - 2026-06-24
+
+### Added
+
+- [`docs/OVERVIEW.md`](docs/OVERVIEW.md) — launch narrative, NLS cross-reference, key discoveries
+- [`bench/results/.../research/00_findings.md`](bench/results/overnight_20260624_003614/research/00_findings.md) — findings narrative + NLS phase mapping
+
+### Changed
+
+- Wired Overview and findings into README, docs index, `llms.txt`, research index
+- Research latency page: removed misleading “ms per 1k prompt tok” column for RESUME
+- Scrubbed Nest-proxy / hardware codenames from user-facing integration docs
+- [`bench/build_research_reports.py`](bench/build_research_reports.py) — templates match public research index
+
 ## [0.1.3] - 2026-06-24
 
 ### Changed

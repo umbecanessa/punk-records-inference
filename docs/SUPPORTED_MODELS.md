@@ -19,10 +19,20 @@ Required vLLM flags (set in `docker/start.sh`):
 - `--no-disable-hybrid-kv-cache-manager`
 - `--kv-transfer-config` with `NLSSnapshotConnector`
 
-## Tier B — experimental
+## Tier B — plug-and-play matrix (experimental)
 
-- Qwen3.6 hybrid variants on same vLLM pin
-- Larger context when GPU memory allows (`MAX_MODEL_LEN` override)
+Mount checkpoint at `MODEL_PATH`, restart container. `startup_profile.py` probes
+`config.json` and sets layer probes + vLLM flags (see [`MODEL_MATRIX.md`](MODEL_MATRIX.md)).
+
+| Model class | Full Mamba resume | Matrix harness |
+|-------------|-------------------|----------------|
+| Qwen3.6 hybrid | Yes | `run_model_matrix.sh --model-tag qwen36` |
+| **Gemma 3 27B-it** | K/V only | `--model-tag gemma27b` |
+| **Llama 3.3 70B** | K/V only | `--model-tag llama70b` |
+| MoE on vLLM | If vLLM loads | tag per checkpoint |
+
+Run `./bench/run_model_matrix.sh` twice per model; compare to frozen Qwen baseline in
+`bench/results/overnight_20260624_003614/`.
 
 ## Tier C — out of scope v0.1
 

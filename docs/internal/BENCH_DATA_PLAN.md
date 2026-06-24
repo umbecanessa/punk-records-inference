@@ -10,7 +10,7 @@ Artifacts land in `bench/results/` with JSON schemas suitable for README proof
 tables and external charts.
 
 **Latest proof run:** `bench/results/overnight_20260624_003614/` ·
-[`PHASE_E_SUMMARY.md`](../bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md)
+[`BENCHMARK_SUMMARY.md`](../bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md)
 
 | Phase | Status | Outcome |
 |-------|--------|---------|
@@ -18,7 +18,7 @@ tables and external charts.
 | B — Standard vs PRI | ✅ | Marco + OpenCode + turn sweep measured |
 | C — Storage snapshot | ✅ | 143 captures, 648 MB (full sweep session) |
 | D — Latency breakdown | Optional | Per-request ms/tokens in harness JSON |
-| E — Publication summary | ✅ | Tables in BENCHMARKS.md + PHASE_E_SUMMARY.md |
+| E — Publication summary | ✅ | Tables in BENCHMARKS.md + BENCHMARK_SUMMARY.md |
 
 ---
 

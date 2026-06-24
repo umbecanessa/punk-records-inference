@@ -69,4 +69,4 @@ retrieval stats. Direct vLLM calls expose `/admin/memory/*` for debug.
 ```
 
 With `NLS_AGENT_SHIM=1`, OpenCode-style requests with tools get strip +
-`capture_start` automatically — no NestJS proxy required.
+`capture_start` automatically — no separate API proxy required.

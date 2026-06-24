@@ -4,7 +4,9 @@ Reproduce proof numbers on your own hardware with the harnesses in [`bench/`](..
 
 **Run overview:** [`bench/results/overnight_20260624_003614/README.md`](../bench/results/overnight_20260624_003614/README.md)  
 **Summary tables:** [`BENCHMARK_SUMMARY.md`](../bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md)  
-**Extended analysis:** [`research/README.md`](../bench/results/overnight_20260624_003614/research/README.md)
+**Key findings (narrative):** [`research/00_findings.md`](../bench/results/overnight_20260624_003614/research/00_findings.md)  
+**Extended analysis:** [`research/README.md`](../bench/results/overnight_20260624_003614/research/README.md)  
+**Architecture context:** [Overview](OVERVIEW.md) · [Neural Ledger System](https://github.com/umbecanessa/neural-ledger-system)
 
 ---
 

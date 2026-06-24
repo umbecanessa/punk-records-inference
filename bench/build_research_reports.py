@@ -699,15 +699,13 @@ def _write(path: Path, content: str) -> None:
 
 
 def _render_index(data: dict[str, Any], run_rel: str, charts: dict[str, str]) -> str:
-    return f"""# PRI bench research — analysis index
+    return f"""# PRI benchmark research — analysis index
 
-**Run:** `{run_rel}`  
-**Generated:** {data.get("generated_at")}  
-**Model:** `{data.get("model")}` · Git `{data.get("git_sha") or "unknown"}`
+**Run:** [`../README.md`](../README.md) · **Model:** `{data.get("model")}` · **Date:** 2026-06-24
 
-Publication-oriented analysis from the published proof run. Each page embeds
-**Mermaid charts** (GitHub-native `xychart-beta` / `pie`) with explicit y-axis ranges.
-For interactive exploration in Cursor, open the [PRI bench research canvas](/Users/umber/.cursor/projects/c-Users-umber-Documents-GitHub-punk-records-inference/canvases/pri-bench-research.canvas.tsx) beside the chat.
+Extended analysis from the published proof run. Start with **[Key findings](00_findings.md)** for narrative context and NLS cross-reference.
+
+Each page embeds **Mermaid charts** (GitHub `xychart-beta` / `pie`) with explicit y-axis ranges.
 
 ## Quick headline
 
@@ -719,42 +717,40 @@ For interactive exploration in Cursor, open the [PRI bench research canvas](/Use
 | Est. GPU energy / recall | {data.get("energy_cost", {}).get("long12_per_recall", {}).get("TEXT", {}).get("energy_wh_per_recall")} Wh | {data.get("energy_cost", {}).get("long12_per_recall", {}).get("RESUME", {}).get("energy_wh_per_recall")} Wh | **{data.get("energy_cost", {}).get("long12_savings", {}).get("energy_wh_savings_pct")}%** |
 | Capture disk | — | {data["storage"]["store_stats"].get("capture_disk_mb")} MB ({data["storage"]["store_stats"].get("capture_count")} files) | — |
 
-**Default inject mode:** `resume` · Executive summary: [`../BENCHMARK_SUMMARY.md`](../BENCHMARK_SUMMARY.md)
+**Default inject mode:** `resume` · Summary: [`../BENCHMARK_SUMMARY.md`](../BENCHMARK_SUMMARY.md)
 
 ## Analysis pages
 
 | # | Topic | File |
 |---|-------|------|
+| 0 | **Key findings & NLS context** | **[00_findings.md](00_findings.md)** |
 | 1 | Methodology & arms | [01_methodology.md](01_methodology.md) |
 | 2 | Token efficiency | [02_token_efficiency.md](02_token_efficiency.md) |
 | 3 | Latency | [03_latency_analysis.md](03_latency_analysis.md) |
-| 4 | Computational cost (prefill proxy) | [04_computational_cost.md](04_computational_cost.md) |
+| 4 | Computational cost | [04_computational_cost.md](04_computational_cost.md) |
 | 5 | Storage footprint | [05_storage_footprint.md](05_storage_footprint.md) |
 | 6 | Turn-sweep scaling | [06_turn_sweep_scaling.md](06_turn_sweep_scaling.md) |
 | 7 | RoPE geometry | [07_rope_geometry.md](07_rope_geometry.md) |
-| 8 | Failure modes & garble | [08_failure_modes.md](08_failure_modes.md) |
+| 8 | Failure modes | [08_failure_modes.md](08_failure_modes.md) |
 | 9 | Energy & cost | [09_energy_and_cost.md](09_energy_and_cost.md) |
 
-## Chart index
-
-Research pages embed Mermaid diagrams inline (no separate `charts/` folder). Regenerate with:
+## Regenerate
 
 ```bash
-python bench/build_research_reports.py --run-dir bench/results/<run_folder>
+python bench/build_research_reports.py --run-dir bench/results/{run_rel.split("/")[-1] if "/" in run_rel else run_rel}
 ```
 
 ## Machine-readable
 
-- [`research_data.json`](research_data.json) — all extracted metrics for charts / MoE comparison
-- [`../phase_e_summary.json`](../phase_e_summary.json) — Phase E rollup
-- [`../canonical_artifacts.json`](../canonical_artifacts.json) — artifact path index
+- [`research_data.json`](research_data.json) — extracted metrics
+- [`../phase_e_summary.json`](../phase_e_summary.json) — rollup JSON
+- [`../canonical_artifacts.json`](../canonical_artifacts.json) — artifact index
 
-## Related audits (historical)
+## Architecture context
 
-Pre-fix investigation notes (superseded where noted):
+Full pipeline narrative (retrieval-first design): [Neural Ledger System](https://github.com/umbecanessa/neural-ledger-system) · [docs/OVERVIEW.md](../../../docs/OVERVIEW.md)
 
-- [`../internal/FAILURE_AUDIT.md`](../internal/FAILURE_AUDIT.md) — harness bug triage (OpenRouter, garbled guard)
-- [`../internal/ROPE_DELTA_AUDIT.md`](../internal/ROPE_DELTA_AUDIT.md) — pre-RoPE-fix microscope (now **100%** — see page 7)
+Historical engineering triage (superseded): [`../internal/`](../internal/)
 """
 
 
@@ -916,7 +912,6 @@ def _render_latency(data: dict[str, Any], charts: dict[str, str]) -> str:
     lat = data["latency"]
     mean = lat["long12_ms_mean"]
     p95 = lat["long12_ms_p95"]
-    per_k = lat["ms_per_1k_prompt_tokens"]
     inject_rows = data["phase_e_summary"].get("inject_mode_compare") or []
 
     chart_labels = ["TEXT", "RESUME", "OVERFLOW"]
@@ -929,11 +924,13 @@ def _render_latency(data: dict[str, Any], charts: dict[str, str]) -> str:
         "",
         "## Summary — long12 recall (mean / p95)",
         "",
-        "| Arm | Mean ms | p95 ms | ms per 1k prompt tok |",
-        "|-----|--------:|-------:|---------------------:|",
-        f"| TEXT | {mean.get('TEXT')} | {p95.get('TEXT')} | {per_k.get('TEXT')} |",
-        f"| RESUME | {mean.get('RESUME')} | {p95.get('RESUME')} | {per_k.get('RESUME')} |",
-        f"| OVERFLOW | {mean.get('OVERFLOW')} | {p95.get('OVERFLOW')} | — |",
+        "| Arm | Mean ms | p95 ms |",
+        "|-----|--------:|-------:|",
+        f"| TEXT | {mean.get('TEXT')} | {p95.get('TEXT')} |",
+        f"| RESUME | {mean.get('RESUME')} | {p95.get('RESUME')} |",
+        f"| OVERFLOW | {mean.get('OVERFLOW')} | {p95.get('OVERFLOW')} |",
+        "",
+        "*Note: “ms per 1k prompt tokens” is misleading for RESUME (denominator ≈42 tok). Compare mean latency directly.*",
         "",
         f"**Mean latency reduction (RESUME vs TEXT):** {lat.get('latency_reduction_pct')}%",
         "",
@@ -1056,7 +1053,7 @@ def _render_energy_cost(data: dict[str, Any], charts: dict[str, str]) -> str:
         "",
         "| Parameter | Value | Notes |",
         "|-----------|------:|-------|",
-        f"| GPU average power | **{asm.get('gpu_power_w_default')} W** | Not measured; GB10-class inference estimate |",
+        f"| GPU average power | **{asm.get('gpu_power_w_default')} W** | Not wall-metered; typical inference-GPU estimate |",
         f"| PUE | {asm.get('pue')} | 1.0 = on-prem wall meter; use 1.2 for colo |",
         f"| Electricity | ${asm.get('electricity_usd_per_kwh')}/kWh | Illustrative |",
         f"| Cloud input | ${asm.get('cloud_input_usd_per_1m_tokens')}/1M tok | OpenRouter-class illustrative |",

@@ -2,7 +2,7 @@
 
 **KV-state persistence for vLLM** — capture attention and hybrid recurrent state after each agent turn, store on disk (`.nls`), re-inject on the next request so the model skips re-prefilling full history.
 
-**Start here:** [Installation](getting-started/installation.md) → [Quickstart](getting-started/quickstart.md) → [Core concepts](getting-started/concepts.md)
+**Start here:** [Overview](OVERVIEW.md) · [Installation](getting-started/installation.md) → [Quickstart](getting-started/quickstart.md)
 
 ---
 
@@ -28,6 +28,7 @@ Details: [Architecture](ARCHITECTURE.md)
 
 | Goal | Guide |
 |------|-------|
+| Big-picture story + NLS context | [Overview](OVERVIEW.md) |
 | Install GPU, Docker, and a model checkpoint | [Installation](getting-started/installation.md) |
 | Run the server and smoke-test | [Quickstart](getting-started/quickstart.md) |
 | Understand capture, resume, and overflow | [Core concepts](getting-started/concepts.md) |
@@ -48,6 +49,7 @@ Details: [Architecture](ARCHITECTURE.md)
 
 | Document | Description |
 |----------|-------------|
+| [Overview](OVERVIEW.md) | Story, NLS cross-reference, key discoveries |
 | [Architecture](ARCHITECTURE.md) | Runtime flow, package layout |
 | [Client contract](CLIENT_CONTRACT.md) | `kv_transfer_params` fields |
 | [Docker](DOCKER.md) | Image, compose, volumes |

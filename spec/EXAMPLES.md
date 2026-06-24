@@ -74,4 +74,4 @@ Sidecar: `bench/results/manifest_opencode_t2.json`
 `rope_start > 0` confirms capture sliced after the system-prompt boundary.
 Direct marco_facts bench bypasses agent shim → `rope_start=0` is expected there.
 OpenCode harness recall (6/6) uses agent shim for strip/inject; clients may also
-send kvp directly (production Nest proxy pattern).
+send kvp directly in the request body (same field set as the reference harness).

@@ -2,7 +2,9 @@
 
 **Run:** [`../README.md`](../README.md) · **Model:** Qwen3.5-35B-A3B-FP8 · **Date:** 2026-06-24
 
-Extended analysis from the published proof run. Each page embeds **Mermaid charts** (GitHub `xychart-beta` / `pie`) with explicit y-axis ranges.
+Extended analysis from the published proof run. Start with **[Key findings](00_findings.md)** for narrative context and NLS cross-reference.
+
+Each page embeds **Mermaid charts** (GitHub `xychart-beta` / `pie`) with explicit y-axis ranges.
 
 ## Quick headline
 
@@ -20,6 +22,7 @@ Extended analysis from the published proof run. Each page embeds **Mermaid chart
 
 | # | Topic | File |
 |---|-------|------|
+| 0 | **Key findings & NLS context** | **[00_findings.md](00_findings.md)** |
 | 1 | Methodology & arms | [01_methodology.md](01_methodology.md) |
 | 2 | Token efficiency | [02_token_efficiency.md](02_token_efficiency.md) |
 | 3 | Latency | [03_latency_analysis.md](03_latency_analysis.md) |
@@ -42,6 +45,8 @@ python bench/build_research_reports.py --run-dir bench/results/overnight_2026062
 - [`../phase_e_summary.json`](../phase_e_summary.json) — rollup JSON
 - [`../canonical_artifacts.json`](../canonical_artifacts.json) — artifact index
 
-## Historical notes
+## Architecture context
 
-Pre-fix engineering triage (superseded by canonical postfix artifacts): [`../internal/`](../internal/)
+Full pipeline narrative (retrieval-first design): [Neural Ledger System](https://github.com/umbecanessa/neural-ledger-system) · [docs/OVERVIEW.md](../../../docs/OVERVIEW.md)
+
+Historical engineering triage (superseded): [`../internal/`](../internal/)

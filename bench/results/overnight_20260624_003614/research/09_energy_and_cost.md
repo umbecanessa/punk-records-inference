@@ -6,7 +6,7 @@
 
 | Parameter | Value | Notes |
 |-----------|------:|-------|
-| GPU average power | **250 W** | Not measured; GB10-class inference estimate |
+| GPU average power | **250 W** | Not wall-metered; typical inference-GPU estimate |
 | PUE | 1.0 | 1.0 = on-prem wall meter; use 1.2 for colo |
 | Electricity | $0.15/kWh | Illustrative |
 | Cloud input | $0.18/1M tok | OpenRouter-class illustrative |

@@ -4,6 +4,7 @@
 
 ## Canonical docs
 
+- [Overview](docs/OVERVIEW.md): Story, NLS context, key bench discoveries
 - [Documentation index](docs/index.md)
 - [Installation](docs/getting-started/installation.md)
 - [Quickstart](docs/getting-started/quickstart.md)
@@ -15,6 +16,11 @@
 - [Limitations](docs/LIMITATIONS.md)
 - [Contributing](CONTRIBUTING.md)
 - [Security](SECURITY.md)
+
+## Related architecture
+
+- [Neural Ledger System](https://github.com/umbecanessa/neural-ledger-system): Full pipeline docs (retrieval-first narrative; PRI implements chain-resume slice)
+- [Key findings](bench/results/overnight_20260624_003614/research/00_findings.md): Bench narrative + NLS phase mapping
 
 ## Install
 

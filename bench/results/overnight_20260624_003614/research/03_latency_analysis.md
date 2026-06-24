@@ -4,11 +4,13 @@ End-to-end HTTP latency from harness (`latency_ms` per request). Includes networ
 
 ## Summary — long12 recall (mean / p95)
 
-| Arm | Mean ms | p95 ms | ms per 1k prompt tok |
-|-----|--------:|-------:|---------------------:|
-| TEXT | 2884.9 | 4976.4 | 770.7 |
-| RESUME | 1548.5 | 2114.6 | 36694.31 |
-| OVERFLOW | 1472.9 | 1955.4 | — |
+| Arm | Mean ms | p95 ms |
+|-----|--------:|-------:|
+| TEXT | 2884.9 | 4976.4 |
+| RESUME | 1548.5 | 2114.6 |
+| OVERFLOW | 1472.9 | 1955.4 |
+
+*Note: “ms per 1k prompt tokens” is misleading for RESUME (denominator ≈42 tok). Compare mean latency directly.*
 
 **Mean latency reduction (RESUME vs TEXT):** 46.3%
 

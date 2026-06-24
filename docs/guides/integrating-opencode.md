@@ -5,7 +5,7 @@ How to wire tool-calling agent clients to Punk Records Inference for turn captur
 PRI supports two integration paths:
 
 1. **Agent shim (recommended)** — send normal OpenAI chat requests; middleware injects `kv_transfer_params`
-2. **Explicit KVP** — client sets `kv_transfer_params` on every request (production Nest proxy pattern)
+2. **Explicit KVP** — client sets `kv_transfer_params` on every request (same fields as production deployments)
 
 ---
 
@@ -69,9 +69,9 @@ In practice, the harness uses a generated chain id per session and resends the f
 
 ---
 
-## Explicit `kv_transfer_params` (production pattern)
+## Explicit `kv_transfer_params`
 
-When not using the shim, or when mirroring hosted Punk Records, set KVP on each request. Critical fields for correct capture geometry (KL #648):
+When not using the shim, set KVP on each request. Required fields for correct capture geometry:
 
 | Field | Turn 1 | Turn ≥ 2 |
 |-------|--------|----------|
