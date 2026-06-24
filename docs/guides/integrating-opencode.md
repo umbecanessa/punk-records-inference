@@ -134,7 +134,7 @@ python bench/opencode/manifest_proof.py --base-url http://127.0.0.1:8000
 
 | Mode | When to use |
 |------|-------------|
-| `resume` | **Default v0.1** — short-to-medium sessions; GX10 proof: 5/5 recall, ~3.7k tokens saved vs TEXT on long12 ([Benchmarks](../BENCHMARKS.md)) |
+| `resume` | **Default v0.1** — short-to-medium sessions; bench proof: 5/5 recall, ~3.7k tokens saved vs TEXT on long12 ([Benchmarks](../BENCHMARKS.md)) |
 | `resume_overflow` | Long sessions where context trim evicts tokens; adds Swiss backfill — same recall as resume on short/long12; does not fix cp60+ cliff |
 
 Set container env before start:
@@ -150,16 +150,9 @@ See [Core concepts](../getting-started/concepts.md) for capture vs resume vs ove
 
 ---
 
-## Hosted Punk Records API (optional)
+## Optional: hosted API
 
-The same harness can target the hosted API instead of direct vLLM:
-
-```bash
-export PUNK_API_KEY=nls_live_...
-python bench/opencode/opencode_long_session_harness.py
-```
-
-Direct vLLM is the open-source path; hosted API adds DB-backed chain ids and compaction detection.
+Some deployments use a hosted Punk Records API with database-backed chain ids. The open-source path is **direct vLLM** as documented above. To run the harness against a hosted endpoint, set `PUNK_API_KEY` instead of `--base-url`.
 
 ---
 

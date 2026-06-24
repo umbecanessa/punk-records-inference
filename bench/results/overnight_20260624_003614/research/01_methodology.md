@@ -4,7 +4,7 @@
 
 | Field | Value |
 |-------|-------|
-| Host | GX10 (NVIDIA GB10 class) |
+| Host | NVIDIA GPU ≥24 GB VRAM (Qwen3.5-35B-A3B-FP8 validated) |
 | Model | `/model` (BYOC FP8 hybrid) |
 | API | vLLM OpenAI-compatible :8000 + PRI plugin |
 | Run folder | `bench/results/overnight_20260624_003614` |

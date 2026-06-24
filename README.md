@@ -21,7 +21,7 @@
   <a href="docs/getting-started/quickstart.md"><strong>Quickstart</strong></a> ·
   <a href="docs/index.md">Docs</a> ·
   <a href="#proof">Proof</a> ·
-  <a href="docs/CLIENT_CONTRACT.md">Client contract</a> ·
+  <a href="docs/BENCHMARKS.md">Benchmarks</a> ·
   <a href="docs/LICENSING.md">Licensing</a> ·
   <a href="llms.txt">llms.txt</a>
 </p>
@@ -34,7 +34,7 @@
 
 **Press a record of each turn's KV cache. Replay it on the next request instead of re-reading the full transcript.**
 
-PRI is a vLLM plugin: one Docker container, OpenAI-compatible API on port 8000, BYOC model checkpoint. It pairs naturally with agent clients (OpenCode, custom harnesses) and complements **text-compression** layers like [Headroom](https://github.com/headroomlabs-ai/headroom) — Headroom shrinks what you *send*; PRI skips re-computing what the model already *remembered*.
+PRI is a vLLM plugin: one Docker container, OpenAI-compatible API on port 8000, bring-your-own checkpoint. It pairs with agent clients (OpenCode, custom harnesses) and complements prompt-compression layers — compression shrinks what you send; PRI skips re-computing what the model already processed.
 
 ---
 
@@ -43,7 +43,7 @@ PRI is a vLLM plugin: one Docker container, OpenAI-compatible API on port 8000, 
 - **Turn capture** — serialize attention KV + hybrid recurrent state → compressed `.nls` manifests
 - **Chain resume** — inject prior turn state on turn ≥ 2; skip expensive re-prefill
 - **Agent middleware** — strip transcript, set `memory_capture_start`, enrich `kv_transfer_params` automatically
-- **Optional overflow** — resume + semantic Swiss retrieval when context trim evicts tokens (opt-in profile)
+- **Optional overflow** — resume + semantic retrieval when context trim evicts tokens (opt-in)
 - **Model-aware startup** — probes `config.json` and gates layer env by inject mode
 
 ## How it works (30 seconds)
@@ -68,7 +68,7 @@ Agent client (OpenCode, curl, LangChain)
 
 ## Proof
 
-**Qwen3.5-35B-A3B-FP8 · NVIDIA GB10-class GPU · 2026-06-24** ([full run](bench/results/overnight_20260624_003614/))
+**Qwen3.5-35B-A3B-FP8 · NVIDIA ≥24 GB VRAM · 2026-06-24**
 
 | Bench | Result | Notes |
 |-------|--------|-------|
@@ -78,9 +78,7 @@ Agent client (OpenCode, curl, LangChain)
 | Turn sweep cp20–80 | cp20–40: 5/5 RESUME; cp60+: documented cliff | TEXT 5/5 at all checkpoints |
 | RoPE geometry audit | pass · 100% delta_uniformity | Garble at cp60+ is inject/decode, not pack geometry |
 
-Default inject mode: **`resume`**. Full tables: [`PHASE_E_SUMMARY.md`](bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md) · [Benchmarks](docs/BENCHMARKS.md)
-
-Extended analysis (Mermaid charts, per-probe tables): [`research/README.md`](bench/results/overnight_20260624_003614/research/README.md)
+Default inject mode: **`resume`**. [Full tables](docs/BENCHMARKS.md) · [Summary](bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md) · [Research analysis](bench/results/overnight_20260624_003614/research/README.md)
 
 Reproduce:
 
@@ -104,15 +102,13 @@ curl -s http://127.0.0.1:8000/v1/models
 ```
 
 ```bash
-# Smoke bench (host Python, live server)
 pip install requests
 ./bench/run_suite.sh --tier 1 --base-url http://127.0.0.1:8000
 
-# Unit tests (no GPU)
 pip install pytest torch zstandard && pytest tests/ -q
 ```
 
-Full guide: [Installation](docs/getting-started/installation.md) · [Quickstart](docs/getting-started/quickstart.md)
+[Installation](docs/getting-started/installation.md) · [Quickstart](docs/getting-started/quickstart.md)
 
 ---
 
@@ -122,13 +118,13 @@ Full guide: [Installation](docs/getting-started/installation.md) · [Quickstart]
 
 - run long agent sessions on **self-hosted vLLM** and pay in GPU time for re-prefill
 - want **local-first** persistence — captures stay on disk under your control
-- already use OpenAI-compatible clients and can pass `kv_transfer_params` (or enable agent shim)
+- use OpenAI-compatible clients with `kv_transfer_params` (or enable agent shim)
 
 **Skip it if you…**
 
-- only need **text compression** — use [Headroom](https://github.com/headroomlabs-ai/headroom) or provider-native compaction instead
-- run on **hosted APIs** without KV transfer hooks — PRI requires vLLM + this plugin
-- need **multi-node** or replicated KV — v0.1 is single-node BYOC only
+- only need prompt compression — PRI optimizes GPU state, not text size
+- run on **hosted APIs** without KV transfer hooks
+- need **multi-node** replicated KV — v0.1 is single-node BYOC only
 
 ---
 
@@ -136,14 +132,13 @@ Full guide: [Installation](docs/getting-started/installation.md) · [Quickstart]
 
 PRI persists **model internal state** (KV + hybrid recurrent tensors), not chat text.
 
-| | What it optimizes | Deploy | Local | Needs vLLM |
-| --- | --- | --- | --- | --- |
-| **PRI** | Skip re-prefill via captured KV state | Docker plugin | Yes | Yes |
-| [Headroom](https://github.com/headroomlabs-ai/headroom) | Compress tool outputs, logs, RAG before the model | Proxy · library · MCP | Yes | No |
-| Provider prompt cache | Prefix reuse on identical prompts | Provider-native | No | No |
-| OpenAI compaction | Summarize conversation history | Provider-native | No | No |
+| | What it optimizes | Deploy | Needs vLLM |
+| --- | --- | --- | --- |
+| **PRI** | Skip re-prefill via captured KV state | Docker plugin | Yes |
+| Prompt compression tools | Shrink tool outputs and logs before the model | Proxy / library | No |
+| Provider prompt cache | Prefix reuse on identical prompts | Provider-native | No |
 
-Headroom and PRI stack well: compress incoming context, then resume prior turns without re-reading the full transcript.
+Prompt compression and PRI stack: compress incoming context, then resume prior turns without re-reading the full transcript.
 
 ---
 
@@ -153,25 +148,10 @@ Headroom and PRI stack well: compress incoming context, then resume prior turns 
 |----------|--------------|
 | Turn capture → `.nls` | MoE expert slots / router bias |
 | Chain resume inject + RoPE | Legacy CAMM, streaming scorer |
-| Optional Swiss retrieval | Hosted Punk Records SaaS |
-| Agent middleware (strip + capture) | Model weights (BYOC) |
+| Optional semantic retrieval | Hosted SaaS (separate product) |
+| Agent middleware | Model weights (BYOC) |
 
-Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
-
----
-
-## Repository layout
-
-| Path | Role |
-|------|------|
-| [`pri/`](pri/) | Python package — connector, store, resume, agent shim, admin |
-| [`patches/`](patches/) | vLLM source patches (build time) |
-| [`docker/`](docker/) | Dockerfile + compose + `start.sh` |
-| [`bench/`](bench/) | Tier-1 + OpenCode harnesses |
-| [`spec/`](spec/) | `.nls` manifest schema + validator |
-| [`tests/`](tests/) | Unit tests (no GPU) |
-| [`docs/`](docs/) | Architecture, client contract, guides |
-| [`assets/`](assets/) | Logo, social preview banner (see `assets/README.md`) |
+Environment variables use the `NLS_*` prefix in v0.1. See [env vars](docs/reference/env-vars.md).
 
 ---
 
@@ -182,24 +162,21 @@ Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
 | [Installation](docs/getting-started/installation.md) | [Architecture](docs/ARCHITECTURE.md) |
 | [Quickstart](docs/getting-started/quickstart.md) | [Client contract](docs/CLIENT_CONTRACT.md) |
 | [Core concepts](docs/getting-started/concepts.md) | [Benchmarks](docs/BENCHMARKS.md) |
-| [Integrating OpenCode](docs/guides/integrating-opencode.md) | [Benchmarks](docs/BENCHMARKS.md) |
-| [Licensing](docs/LICENSING.md) | [Limitations](docs/LIMITATIONS.md) |
-| [Environment variables](docs/reference/env-vars.md) | [Research analysis](bench/results/overnight_20260624_003614/research/README.md) |
+| [Integrating OpenCode](docs/guides/integrating-opencode.md) | [Limitations](docs/LIMITATIONS.md) |
+| [Licensing](docs/LICENSING.md) | [Research analysis](bench/results/overnight_20260624_003614/research/README.md) |
 
 ---
 
 ## Contributing
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md)
+
 ```bash
-git clone https://github.com/umbecanessa/punk-records-inference.git
-cd punk-records-inference
 pip install pytest torch zstandard && pytest tests/ -q
 ```
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ---
 
 ## License
 
-[PolyForm Noncommercial License 1.0.0](LICENSE) — free for research, personal use, and noncommercial organizations. **Commercial production use** requires a separate agreement ([Licensing](docs/LICENSING.md)). Patent 64/050,345; dual-license model.
+[PolyForm Noncommercial License 1.0.0](LICENSE) — free for research, personal use, and noncommercial organizations. **Commercial production use** requires a separate agreement. See [Licensing](docs/LICENSING.md). U.S. Provisional Patent Application No. 64/050,345.

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build Phase E publication summary from canonical bench artifacts.
+"""Build benchmark publication summary from canonical bench artifacts.
 
 Usage:
     python bench/build_phase_e_summary.py \\
         --run-dir bench/results/overnight_20260624_003614 \\
         --out-json bench/results/overnight_20260624_003614/phase_e_summary.json \\
-        --out-md bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md
+        --out-md bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md
 """
 
 from __future__ import annotations
@@ -199,7 +199,7 @@ def _phase_e_primary(inject_long: dict | None) -> dict[str, Any]:
 
 def _render_md(report: dict) -> str:
     lines = [
-        "# Phase E — Bench proof summary",
+        "# Benchmark proof summary",
         "",
         f"Generated: {report.get('generated_at')}",
         f"Run dir: `{report.get('run_dir')}`",
@@ -302,7 +302,7 @@ def _render_md(report: dict) -> str:
     store = report.get("store") or {}
     if store:
         lines.extend([
-            "## Storage (Phase C snapshot)",
+            "## Storage (turn-sweep session)",
             "",
             f"- Captures: {store.get('capture_count')} files, **{store.get('capture_disk_mb')} MB**",
             f"- Index rows: {store.get('index_row_count')}",
@@ -428,7 +428,7 @@ def main() -> int:
 
     run_dir = args.run_dir.resolve()
     out_json = args.out_json or run_dir / "phase_e_summary.json"
-    out_md = args.out_md or run_dir / "PHASE_E_SUMMARY.md"
+    out_md = args.out_md or run_dir / "BENCHMARK_SUMMARY.md"
 
     report = build_report(run_dir)
     out_json.write_text(json.dumps(report, indent=2), encoding="utf-8")

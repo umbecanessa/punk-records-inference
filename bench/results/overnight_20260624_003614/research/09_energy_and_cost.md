@@ -1,6 +1,6 @@
 # 9 — Energy impact & cost
 
-> GX10 overnight run did not capture wall power or SM clocks. Figures combine measured bench latency/tokens with documented assumptions below.
+> Proof run did not capture wall power or SM clocks. Figures combine measured bench latency/tokens with documented assumptions below.
 
 ## Assumptions (tunable)
 
@@ -116,6 +116,6 @@ For publication-grade energy claims, add to the next bench pass:
 
 - `nvidia-smi --query-gpu=power.draw` sampled per recall request
 - vLLM profiler / `engine_core` prefill vs decode split
-- Wall-meter validation on GX10 for at least one arm
+- Wall-meter validation on target hardware for at least one arm
 
 Raw: `inject_mode_compare_*_long12_postfix.json`, assumptions in `research_data.json` → `energy_cost`

@@ -5,6 +5,17 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2026-06-24
+
+### Changed
+
+- Production documentation pass: user-facing tone, removed internal phase naming and hardware codenames
+- [`docs/LICENSING.md`](docs/LICENSING.md) — authoritative PolyForm NC guide (no license comparisons)
+- [`docs/BENCHMARKS.md`](docs/BENCHMARKS.md) — streamlined publication tables and reproduce commands
+- Renamed `PHASE_E_SUMMARY.md` → [`BENCHMARK_SUMMARY.md`](bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md)
+- Moved maintainer audits to `bench/results/.../internal/`; moved launch playbook to `docs/internal/`
+- Added [`bench/README.md`](bench/README.md) and run folder [`README.md`](bench/results/overnight_20260624_003614/README.md)
+
 ## [0.1.2] - 2026-06-24
 
 ### Changed
@@ -40,8 +51,9 @@ First public release of **Punk Records Inference** — KV-state persistence for 
 - Qwen3.5 hybrid topology validated; other models need `startup_profile` tuning
 - Single-node, BYOC only — no hosted SaaS in this repo
 
-See [docs/LIMITATIONS.md](docs/LIMITATIONS.md) and [bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md](bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md).
+See [docs/LIMITATIONS.md](docs/LIMITATIONS.md) and [bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md](bench/results/overnight_20260624_003614/BENCHMARK_SUMMARY.md).
 
+[0.1.3]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.3
 [0.1.2]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.2
 [0.1.1]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.1
 [0.1.0]: https://github.com/umbecanessa/punk-records-inference/releases/tag/v0.1.0

@@ -9,7 +9,7 @@ docker build -f docker/Dockerfile -t ghcr.io/punkrecords/inference:dev .
 ```
 
 Base image: `vllm/vllm-openai:cu130-nightly` pinned by digest in `docker/Dockerfile`
-(GX10-validated: `@sha256:a20a9fc7…`). Override with `--build-arg VLLM_BASE=...`.
+(`@sha256:a20a9fc7…` on Qwen3.5-35B-FP8). Override with `--build-arg VLLM_BASE=...`.
 
 Build applies `patches/apply_patches.py` for GDN prefix-caching fix on Qwen hybrid.
 
@@ -23,7 +23,7 @@ docker compose -f docker/compose.yaml up --build
 ```
 
 **Symlink-heavy checkpoints** — when weight files in `MODEL_PATH` are symlinks into
-`~/.cache/huggingface`, merge the GX10 overlay so targets resolve inside the container:
+`~/.cache/huggingface`, merge the **HF cache overlay** (`compose.gx10.yaml`) so targets resolve inside the container:
 
 ```bash
 export MODEL_PATH=$HOME/.cache/huggingface/hub/my-checkpoint
@@ -37,7 +37,7 @@ Volumes:
 |-------|---------|
 | `pri-data:/data/pri` | Persistent `.nls` captures + memory index |
 | `${MODEL_PATH}:/model:ro` | BYOC checkpoint |
-| `${HF_CACHE}:/root/.cache/huggingface:ro` | *(optional, gx10 overlay)* resolves symlinked weights |
+| `${HF_CACHE}:/root/.cache/huggingface:ro` | *(optional HF cache overlay)* resolves symlinked weights |
 
 ## Run (manual)
 

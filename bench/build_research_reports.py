@@ -256,7 +256,7 @@ def _compute_energy_cost(
 
     return {
         "disclaimer": (
-            "GX10 overnight run did not capture wall power or SM clocks. "
+            "Proof run did not capture wall power or SM clocks. "
             "Figures combine measured bench latency/tokens with documented assumptions below."
         ),
         "assumptions": {
@@ -705,7 +705,7 @@ def _render_index(data: dict[str, Any], run_rel: str, charts: dict[str, str]) ->
 **Generated:** {data.get("generated_at")}  
 **Model:** `{data.get("model")}` · Git `{data.get("git_sha") or "unknown"}`
 
-Publication-oriented analysis from the GX10 overnight proof run. Each page embeds
+Publication-oriented analysis from the published proof run. Each page embeds
 **Mermaid charts** (GitHub-native `xychart-beta` / `pie`) with explicit y-axis ranges.
 For interactive exploration in Cursor, open the [PRI bench research canvas](/Users/umber/.cursor/projects/c-Users-umber-Documents-GitHub-punk-records-inference/canvases/pri-bench-research.canvas.tsx) beside the chat.
 
@@ -719,7 +719,7 @@ For interactive exploration in Cursor, open the [PRI bench research canvas](/Use
 | Est. GPU energy / recall | {data.get("energy_cost", {}).get("long12_per_recall", {}).get("TEXT", {}).get("energy_wh_per_recall")} Wh | {data.get("energy_cost", {}).get("long12_per_recall", {}).get("RESUME", {}).get("energy_wh_per_recall")} Wh | **{data.get("energy_cost", {}).get("long12_savings", {}).get("energy_wh_savings_pct")}%** |
 | Capture disk | — | {data["storage"]["store_stats"].get("capture_disk_mb")} MB ({data["storage"]["store_stats"].get("capture_count")} files) | — |
 
-**Default inject mode:** `resume` · Executive summary: [`../PHASE_E_SUMMARY.md`](../PHASE_E_SUMMARY.md)
+**Default inject mode:** `resume` · Executive summary: [`../BENCHMARK_SUMMARY.md`](../BENCHMARK_SUMMARY.md)
 
 ## Analysis pages
 
@@ -753,8 +753,8 @@ python bench/build_research_reports.py --run-dir bench/results/<run_folder>
 
 Pre-fix investigation notes (superseded where noted):
 
-- [`../FAILURE_AUDIT.md`](../FAILURE_AUDIT.md) — harness bug triage (OpenRouter, garbled guard)
-- [`../ROPE_DELTA_AUDIT.md`](../ROPE_DELTA_AUDIT.md) — pre-RoPE-fix microscope (now **100%** — see page 7)
+- [`../internal/FAILURE_AUDIT.md`](../internal/FAILURE_AUDIT.md) — harness bug triage (OpenRouter, garbled guard)
+- [`../internal/ROPE_DELTA_AUDIT.md`](../internal/ROPE_DELTA_AUDIT.md) — pre-RoPE-fix microscope (now **100%** — see page 7)
 """
 
 
@@ -768,7 +768,7 @@ def _render_methodology(data: dict[str, Any]) -> str:
 
 | Field | Value |
 |-------|-------|
-| Host | GX10 (NVIDIA GB10 class) |
+| Host | NVIDIA GPU ≥24 GB VRAM (Qwen3.5-35B-A3B-FP8 validated) |
 | Model | `{data.get("model")}` (BYOC FP8 hybrid) |
 | API | vLLM OpenAI-compatible :8000 + PRI plugin |
 | Run folder | `{data.get("run_dir")}` |
@@ -1155,7 +1155,7 @@ def _render_energy_cost(data: dict[str, Any], charts: dict[str, str]) -> str:
         "",
         "- `nvidia-smi --query-gpu=power.draw` sampled per recall request",
         "- vLLM profiler / `engine_core` prefill vs decode split",
-        "- Wall-meter validation on GX10 for at least one arm",
+        "- Wall-meter validation on target hardware for at least one arm",
         "",
         "Raw: `inject_mode_compare_*_long12_postfix.json`, assumptions in `research_data.json` → `energy_cost`",
     ])
@@ -1279,7 +1279,7 @@ def _render_geometry(data: dict[str, Any], charts: dict[str, str]) -> str:
 
 ## KPI: delta_uniformity
 
-Agent-room metric: fraction of turn blocks sharing the same **RoPE re-rotation delta**
+Bench metric: fraction of turn blocks sharing the same **RoPE re-rotation delta**
 (`rope_new − rope_old`) in the inject pack plan. **Not** retrieval cosine similarity.
 
 | Metric | Value | Grade |
@@ -1305,7 +1305,7 @@ All **{mic.get("uniform_blocks") or mic.get("block_count")}** blocks share mode 
 
 ## Post-fix status
 
-Pre-fix audit ([`ROPE_DELTA_AUDIT.md`](../ROPE_DELTA_AUDIT.md)) reported 98.8% (one turn-59 phantom outlier).
+Pre-fix audit ([`../internal/ROPE_DELTA_AUDIT.md`](../internal/ROPE_DELTA_AUDIT.md)) reported 98.8% (one turn-59 phantom outlier).
 After **chain-pack cumulative offset** fix in `pri/resume.py` / `pri/connector.py`:
 
 - **100%** delta_uniformity on v5 sweep chain
@@ -1357,14 +1357,14 @@ From `turn_sweep_cp60_80_garble_inv_garble_cause_cp60.json`:
 ## Session isolation
 
 Each harness uses unique `memory_user` / `memory_base_session`. No cross-test `.nls` bleed
-(see [`FAILURE_AUDIT.md`](../FAILURE_AUDIT.md) §1).
+(see [`../internal/FAILURE_AUDIT.md`](../internal/FAILURE_AUDIT.md) §1).
 
 ## Historical audits
 
 | Doc | Scope |
 |-----|-------|
-| [`FAILURE_AUDIT.md`](../FAILURE_AUDIT.md) | Pre-fix triage (OpenRouter reasoning, unguarded plants) |
-| [`ROPE_DELTA_AUDIT.md`](../ROPE_DELTA_AUDIT.md) | Pre-fix turn-59 phantom outlier |
+| [`../internal/FAILURE_AUDIT.md`](../internal/FAILURE_AUDIT.md) | Pre-fix triage (OpenRouter reasoning, unguarded plants) |
+| [`../internal/ROPE_DELTA_AUDIT.md`](../internal/ROPE_DELTA_AUDIT.md) | Pre-fix turn-59 phantom outlier |
 
 Post-fix canonical artifacts: [`canonical_artifacts.json`](../canonical_artifacts.json)
 

@@ -27,14 +27,14 @@ From `turn_sweep_cp60_80_garble_inv_garble_cause_cp60.json`:
 ## Session isolation
 
 Each harness uses unique `memory_user` / `memory_base_session`. No cross-test `.nls` bleed
-(see [`FAILURE_AUDIT.md`](../FAILURE_AUDIT.md) §1).
+(see [`../internal/FAILURE_AUDIT.md`](../internal/FAILURE_AUDIT.md) §1).
 
 ## Historical audits
 
 | Doc | Scope |
 |-----|-------|
-| [`FAILURE_AUDIT.md`](../FAILURE_AUDIT.md) | Pre-fix triage (OpenRouter reasoning, unguarded plants) |
-| [`ROPE_DELTA_AUDIT.md`](../ROPE_DELTA_AUDIT.md) | Pre-fix turn-59 phantom outlier |
+| [`../internal/FAILURE_AUDIT.md`](../internal/FAILURE_AUDIT.md) | Pre-fix triage (OpenRouter reasoning, unguarded plants) |
+| [`../internal/ROPE_DELTA_AUDIT.md`](../internal/ROPE_DELTA_AUDIT.md) | Pre-fix turn-59 phantom outlier |
 
 Post-fix canonical artifacts: [`canonical_artifacts.json`](../canonical_artifacts.json)
 

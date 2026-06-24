@@ -9,7 +9,7 @@ Punk Records Inference ships **no model weights**. Mount your checkpoint at
 |------|-------------|
 | Architecture | Qwen3 Next hybrid (FullAttention + Mamba/DeltaNet) |
 | Engine | Pinned vLLM nightly with GDN prefix-caching patch applied |
-| Checkpoint | Stock **Qwen3.5-A3B-FP8** (or equivalent hybrid) on GB10/GX10 class GPU |
+| Checkpoint | Stock **Qwen3.5-A3B-FP8** (or equivalent hybrid) on NVIDIA GPU ≥24 GB VRAM |
 | Context | `--max-model-len 32768` default in `docker/start.sh` |
 
 Required vLLM flags (set in `docker/start.sh`):

@@ -10,7 +10,7 @@ Hardware, software, and checkpoint requirements for running Punk Records Inferen
 
 | Component | Minimum | Validated (v0.1) |
 |-----------|---------|------------------|
-| GPU | NVIDIA with CUDA, ≥24 GB VRAM for 35B FP8 | GB10 / GX10 class |
+| GPU | NVIDIA with CUDA, ≥24 GB VRAM for 35B FP8 | Qwen3.5-35B-A3B-FP8 validated |
 | RAM | 32 GB host RAM | 64 GB+ recommended |
 | Disk | Checkpoint size + `/data/pri` growth | NVMe preferred for `.nls` I/O |
 
@@ -63,7 +63,7 @@ export MODEL_PATH=/path/to/my-qwen35-checkpoint
 
 ### Symlink-heavy layouts
 
-When weight files in `MODEL_PATH` are symlinks into `~/.cache/huggingface`, use the GX10 overlay so targets resolve inside the container:
+When weight files in `MODEL_PATH` are symlinks into `~/.cache/huggingface`, use the **HF cache overlay** so targets resolve inside the container:
 
 ```bash
 export HF_CACHE=$HOME/.cache/huggingface
@@ -169,7 +169,7 @@ pip install pytest torch zstandard   # unit tests
 |---------|--------------|-----|
 | `MODEL_PATH must point at...` | Env not set | Export `MODEL_PATH` before compose |
 | CUDA / GPU not found | Missing NVIDIA toolkit | Install container toolkit; use `--gpus all` |
-| Weight file not found | Symlink layout | Use `compose.gx10.yaml` + `HF_CACHE` |
+| Weight file not found | Symlink layout | Use `compose.gx10.yaml` HF cache overlay + `HF_CACHE` |
 | Empty `/v1/models` | vLLM still starting | Wait for startup logs; check GPU memory |
 | Resume recall fails | Wrong inject mode / capture | See [Core concepts](concepts.md), [Troubleshooting](../guides/troubleshooting.md) |
 

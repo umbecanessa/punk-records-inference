@@ -2,7 +2,7 @@
 
 ## KPI: delta_uniformity
 
-Agent-room metric: fraction of turn blocks sharing the same **RoPE re-rotation delta**
+Bench metric: fraction of turn blocks sharing the same **RoPE re-rotation delta**
 (`rope_new − rope_old`) in the inject pack plan. **Not** retrieval cosine similarity.
 
 | Metric | Value | Grade |
@@ -41,7 +41,7 @@ xychart-beta
 
 ## Post-fix status
 
-Pre-fix audit ([`ROPE_DELTA_AUDIT.md`](../ROPE_DELTA_AUDIT.md)) reported 98.8% (one turn-59 phantom outlier).
+Pre-fix audit ([`../internal/ROPE_DELTA_AUDIT.md`](../internal/ROPE_DELTA_AUDIT.md)) reported 98.8% (one turn-59 phantom outlier).
 After **chain-pack cumulative offset** fix in `pri/resume.py` / `pri/connector.py`:
 
 - **100%** delta_uniformity on v5 sweep chain

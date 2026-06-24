@@ -1,6 +1,6 @@
 # Environment variables
 
-Consolidated reference for `NLS_*` environment variables. v0.1 keeps the `NLS_` prefix for migration from the research branch; `PRI_*` rename planned for v0.2.
+Consolidated reference for `NLS_*` environment variables used in v0.1.
 
 **Inject profiles** are selected via `NLS_API_INJECT_MODE` and applied at startup by `pri/startup_profile.py`. See [Core concepts](../getting-started/concepts.md).
 

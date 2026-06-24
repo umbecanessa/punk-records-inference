@@ -31,7 +31,7 @@ docker run --rm --gpus all nvidia/cuda:12.0-base nvidia-smi
 
 **Cause:** Checkpoint symlinks point outside the mounted `/model` volume.
 
-**Fix:** Use the GX10 overlay:
+**Fix:** Use the HF cache overlay (`compose.gx10.yaml`):
 
 ```bash
 export HF_CACHE=$HOME/.cache/huggingface
@@ -184,4 +184,4 @@ docker exec <container> cat /data/pri/model_profile.json
 
 1. Collect: model id, GPU, `NLS_API_INJECT_MODE`, bench artifact JSON
 2. Check [Limitations](../LIMITATIONS.md) for known v0.1 gaps
-3. Open a GitHub issue once the repo is public
+3. Open a [GitHub issue](https://github.com/umbecanessa/punk-records-inference/issues)

@@ -49,9 +49,9 @@ Validate with:
 python spec/validate.py /data/pri/snapshot/captures/
 ```
 
-## GX10 manifest proof (KL #648, 2026-06-23)
+## Production manifest example (2026-06-23)
 
-Real turn-2 capture from `bench/opencode/manifest_proof.py` on stock Qwen3.5
+Turn-2 capture from `bench/opencode/manifest_proof.py` on stock Qwen3.5
 (client sends `memory_capture_start` via `nls_kvp_helpers.enrich_kv_params`):
 
 ```json

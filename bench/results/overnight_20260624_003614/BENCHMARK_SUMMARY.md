@@ -1,4 +1,4 @@
-# Phase E — Bench proof summary
+# Benchmark proof summary
 
 Generated: 2026-06-24T11:18:55.461291+00:00
 Run dir: `bench/results/overnight_20260624_003614`
@@ -55,7 +55,7 @@ Default inject mode: **resume**
 | turn_sweep v5 (RoPE fix audit) | pass | 83 | 100.0% | -22 |
 | garble_inv chain | pass | 83 | 100.0% | -22 |
 
-## Storage (Phase C snapshot)
+## Storage (turn-sweep session)
 
 - Captures: 143 files, **648.11 MB**
 - Index rows: 143
