@@ -15,7 +15,8 @@ PRI extends the OpenAI chat completions API with `kv_transfer_params` on each re
 - [Architecture](docs/ARCHITECTURE.md): Runtime flow, package layout.
 - [Client contract](docs/CLIENT_CONTRACT.md): kv_transfer_params fields and examples.
 - [Troubleshooting](docs/guides/troubleshooting.md): Common failures and diagnostics.
-- [GitHub repo](https://github.com/umbecanessa/punk-records-inference): Source (Apache 2.0).
+- [GitHub repo](https://github.com/umbecanessa/punk-records-inference): Source (PRC-1.0 community license).
+- [Licensing](docs/LICENSING.md): What is free vs commercial; patent 64/050,345.
 
 ## Install (copy-paste-runnable)
 
@@ -62,8 +63,9 @@ Unit tests (no GPU): `pip install pytest torch zstandard && pytest tests/ -q`
 - KV capture/resume only — not text compression, not MoE routing, not hosted SaaS
 - Single-node, BYOC checkpoint required
 - Qwen3.5 hybrid validated; other topologies need startup_profile tuning
-- Apache 2.0; see NOTICE for patent 64/050,345
+- PRC-1.0 community license; commercial use requires separate agreement — see [LICENSING.md](docs/LICENSING.md)
+- U.S. Provisional Patent Application No. 64/050,345
 
 ## License
 
-Apache License 2.0 — see LICENSE and NOTICE.
+Punk Records Community License 1.0 — see LICENSE, NOTICE, and docs/LICENSING.md.

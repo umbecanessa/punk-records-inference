@@ -48,6 +48,6 @@ turn sweep, and geometry audit — see [Benchmarks](BENCHMARKS.md).
 
 ## Legal
 
-This project is licensed under [Apache License 2.0](../LICENSE). See [NOTICE](../NOTICE).
+This project is licensed under the [Punk Records Community License 1.0](../LICENSE) (PRC-1.0). See [Licensing](LICENSING.md) for what is free vs what requires a commercial agreement.
 
-U.S. Provisional Patent Application No. 64/050,345 describes related methods. The Apache 2.0 patent grant applies to Contributions in this repository. For commercial licensing questions beyond this open-source release, open a GitHub issue with the label `licensing`.
+U.S. Provisional Patent Application No. 64/050,345 describes related methods. No broad patent license is granted for commercial use — contact via GitHub issue with label `licensing`.

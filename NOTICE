@@ -1,8 +1,7 @@
 Punk Records Inference
-Copyright 2026 Punk Records Contributors
+Copyright (c) 2026 Punk Records Contributors
 
-This product includes software developed as part of the Punk Records Inference
-project (https://github.com/umbecanessa/punk-records-inference).
+Licensed under the Punk Records Community License 1.0 (see LICENSE).
 
 Patent notice
 -------------
@@ -11,10 +10,8 @@ U.S. Provisional Patent Application No. 64/050,345 describes methods related
 to KV-state capture, chain resume, and RoPE-aware re-injection for long agent
 sessions.
 
-This reference implementation is licensed under the Apache License, Version 2.0
-(see LICENSE). The Apache 2.0 patent grant applies to Contributions in this
-repository. For commercial licensing questions beyond the scope of this
-open-source release, open a GitHub issue with the label `licensing`.
+Commercial use of the Software may require a separate written license.
+See docs/LICENSING.md and LICENSE section 2.
 
 Third-party components
 ----------------------

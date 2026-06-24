@@ -16,7 +16,7 @@ Headroom (Tejas Chopra, Netflix) went from personal pain → open repo → proof
 | **60-second start** | `pip install` + `headroom wrap claude` | `docker compose up` + curl health |
 | **Compared to** | Table vs RTK, Compresr, provider compaction | Table vs Headroom, prompt cache, compaction |
 | **llms.txt** | Agent-readable index at repo root | Done — `llms.txt` |
-| **Apache 2.0** | Clear license, no friction | Done — LICENSE + NOTICE |
+| **PRC-1.0** | Community license + commercial path | Done — LICENSE + [LICENSING.md](LICENSING.md) |
 | **Star ask** | "Give it a ⭐ if it saves you money" | "Star if skip-prefill helps your self-hosted stack" |
 | **Deep dive** | Substack / blog post with architecture | Link `docs/ARCHITECTURE.md` + research pages |
 | **Talk** | OSS conference session (YouTube) | Optional — same story arc: problem → architecture → demo |
@@ -54,7 +54,7 @@ Reference posts:
 ### Hygiene
 
 - [x] Remove pre-public / private-repo language from README and llms.txt
-- [x] Apache 2.0 LICENSE + NOTICE (patent 64/050,345)
+- [x] PRC-1.0 LICENSE + [LICENSING.md](LICENSING.md) (patent 64/050,345; commercial by agreement)
 - [x] Move maintainer plans to `docs/internal/` — not linked from hero README
 - [ ] Confirm `bench/.env` is gitignored and no secrets in history
 
@@ -128,6 +128,6 @@ Target: r/LocalLLaMA, vLLM Discord, agent-framework channels. Lead with reproduc
 
 - Internal monorepo URLs or agent-room coordination codes
 - Unreleased product roadmaps beyond v0.1 scope table
-- "Free commercial use" beyond Apache 2.0 + NOTICE — direct licensing questions to GitHub `licensing` label
+- "Free commercial use" — production/commercial use requires a separate license; see [LICENSING.md](LICENSING.md)
 
 See [internal/SHIP_PLAN.md](internal/SHIP_PLAN.md) for maintainer scope boundaries.

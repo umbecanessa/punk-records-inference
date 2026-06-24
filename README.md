@@ -13,7 +13,7 @@
   <a href="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml"><img src="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/vLLM-plugin-teal.svg" alt="vLLM plugin">
   <img src="https://img.shields.io/badge/local--first-black.svg" alt="Local-first">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License Apache 2.0"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-PRC--1.0-lightgrey.svg" alt="License PRC-1.0"></a>
 </p>
 
 <p align="center">
@@ -22,6 +22,7 @@
   <a href="docs/index.md">Docs</a> ·
   <a href="#proof">Proof</a> ·
   <a href="docs/CLIENT_CONTRACT.md">Client contract</a> ·
+  <a href="docs/LICENSING.md">Licensing</a> ·
   <a href="llms.txt">llms.txt</a>
 </p>
 
@@ -181,7 +182,8 @@ Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
 | [Installation](docs/getting-started/installation.md) | [Architecture](docs/ARCHITECTURE.md) |
 | [Quickstart](docs/getting-started/quickstart.md) | [Client contract](docs/CLIENT_CONTRACT.md) |
 | [Core concepts](docs/getting-started/concepts.md) | [Benchmarks](docs/BENCHMARKS.md) |
-| [Integrating OpenCode](docs/guides/integrating-opencode.md) | [Limitations](docs/LIMITATIONS.md) |
+| [Integrating OpenCode](docs/guides/integrating-opencode.md) | [Benchmarks](docs/BENCHMARKS.md) |
+| [Licensing](docs/LICENSING.md) | [Limitations](docs/LIMITATIONS.md) |
 | [Environment variables](docs/reference/env-vars.md) | [Research analysis](bench/results/overnight_20260624_003614/research/README.md) |
 
 ---
@@ -200,4 +202,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## License
 
-Apache 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE). U.S. Provisional Patent Application No. 64/050,345. Commercial licensing questions: GitHub issue with label `licensing`.
+[Punk Records Community License 1.0](LICENSE) (PRC-1.0) — free to use, study, modify, and self-host for research and evaluation. **Commercial production use** requires a separate agreement ([Licensing](docs/LICENSING.md)). U.S. Provisional Patent Application No. 64/050,345.

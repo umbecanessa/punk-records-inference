@@ -4,7 +4,7 @@
 
 New users: [Installation](getting-started/installation.md) → [Quickstart](getting-started/quickstart.md) → [Core concepts](getting-started/concepts.md).
 
-**Public release:** [Announcement playbook](ANNOUNCE.md) · [Changelog](../CHANGELOG.md) · [License](../LICENSE)
+**Public release:** [Announcement playbook](ANNOUNCE.md) · [Licensing](LICENSING.md) · [Changelog](../CHANGELOG.md) · [License](../LICENSE)
 
 ---
 
@@ -43,6 +43,7 @@ Details: [Architecture](ARCHITECTURE.md)
 | Announce or launch publicly | [Announcement playbook](ANNOUNCE.md) |
 | Fix something broken | [Troubleshooting](guides/troubleshooting.md) |
 | Know what v0.1 does *not* do | [Limitations](LIMITATIONS.md) |
+| Understand community vs commercial use | [Licensing](LICENSING.md) |
 
 ---
 
@@ -76,6 +77,7 @@ Details: [Architecture](ARCHITECTURE.md)
 | [Supported models](SUPPORTED_MODELS.md) | Qwen hybrid, topology requirements |
 | [Benchmarks](BENCHMARKS.md) | Tier-1, OpenCode, inject compare, reproduction commands |
 | [Limitations](LIMITATIONS.md) | Scope, legal, known gaps |
+| [Licensing](LICENSING.md) | Community vs commercial use, patent notice |
 
 ### Spec
 

@@ -47,9 +47,9 @@ request so the model does not re-prefill full history.
 **One sentence:** Persistent inference state for long agent sessions — not text compression,
 not MoE routing, not the hosted API product.
 
-**Patent:** Provisional 64/050,345 covers the method; the open release is the **reference
-implementation** with full RoPE/inject source under **Apache 2.0** (see LICENSE + NOTICE).
-Commercial licensing questions: GitHub issue with label `licensing`.
+**Patent:** Provisional 64/050,345 covers the method; the public release is the **reference
+implementation** with full RoPE/inject source under **PRC-1.0** (see LICENSE + LICENSING.md).
+Commercial production use requires a separate written license.
 
 ---
 
@@ -243,7 +243,9 @@ Commit `bench/results/*.json` for README proof tables.
 
 ## 10. License and legal
 
-Apache 2.0 + NOTICE (patent 64/050,345). RoPE/inject source fully open.
+PRC-1.0 community license + patent notice (64/050,345). Commercial use by
+separate agreement — see [LICENSING.md](../LICENSING.md). RoPE/inject source
+fully published for study and improvement.
 
 ---
 
