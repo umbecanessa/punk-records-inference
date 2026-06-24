@@ -4,6 +4,8 @@
 
 New users: [Installation](getting-started/installation.md) → [Quickstart](getting-started/quickstart.md) → [Core concepts](getting-started/concepts.md).
 
+**Public release:** [Announcement playbook](ANNOUNCE.md) · [Changelog](../CHANGELOG.md) · [License](../LICENSE)
+
 ---
 
 ## How it works (30 seconds)
@@ -38,6 +40,7 @@ Details: [Architecture](ARCHITECTURE.md)
 | Pick a supported model | [Supported models](SUPPORTED_MODELS.md) |
 | Reproduce benchmark results | [Benchmarks](BENCHMARKS.md) |
 | Read bench research analysis | [overnight run research/](../bench/results/overnight_20260624_003614/research/README.md) |
+| Announce or launch publicly | [Announcement playbook](ANNOUNCE.md) |
 | Fix something broken | [Troubleshooting](guides/troubleshooting.md) |
 | Know what v0.1 does *not* do | [Limitations](LIMITATIONS.md) |
 
@@ -80,15 +83,14 @@ Details: [Architecture](ARCHITECTURE.md)
 |------|-------------|
 | [`spec/`](../spec/) | `.nls` manifest schema and validator |
 
-### Internal (maintainers)
+### Maintainers
 
 Planning docs for release and benchmarking — see [internal/README.md](internal/README.md).
 
 | Guide | Description |
 |-------|-------------|
-| [Ship plan](SHIP_PLAN.md) | Public release checklist |
-| [Bench data plan](BENCH_DATA_PLAN.md) | Measurement matrix for value case |
-| [Agent room handoff](AGENT_ROOM_HANDOFF.md) | Multi-agent coordination notes |
+| [Ship plan](internal/SHIP_PLAN.md) | Scope, naming, release checklist |
+| [Bench data plan](internal/BENCH_DATA_PLAN.md) | Measurement matrix for value case |
 
 ---
 

@@ -1,8 +1,8 @@
-> **Maintainer doc** — public release checklist and scope. End users: [Documentation home](index.md) · [Limitations](LIMITATIONS.md).
+> **Maintainer doc** — release checklist and scope. End users: [Documentation home](../index.md) · [Limitations](../LIMITATIONS.md).
 
 # Punk Records Inference — Ship Plan
 
-**Status:** Planning (aligned 2026-06-23)  
+**Status:** Public release (v0.1.0 — 2026-06-24)  
 **Source branch:** `exp/chain-of-latest`  
 **Product name:** **Punk Records Inference**  
 **Repo:** `punk-records-inference` · **Docker image:** `punkrecords/inference`
@@ -48,8 +48,8 @@ request so the model does not re-prefill full history.
 not MoE routing, not the hosted API product.
 
 **Patent:** Provisional 64/050,345 covers the method; the open release is the **reference
-implementation** with full RoPE/inject source. Commercial use requires a separate license;
-non-commercial / research use under community license (TBD with counsel).
+implementation** with full RoPE/inject source under **Apache 2.0** (see LICENSE + NOTICE).
+Commercial licensing questions: GitHub issue with label `licensing`.
 
 ---
 
@@ -243,7 +243,7 @@ Commit `bench/results/*.json` for README proof tables.
 
 ## 10. License and legal
 
-Community license + patent notice (counsel TBD). RoPE/inject source fully open.
+Apache 2.0 + NOTICE (patent 64/050,345). RoPE/inject source fully open.
 
 ---
 

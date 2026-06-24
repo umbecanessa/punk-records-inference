@@ -48,5 +48,6 @@ turn sweep, and geometry audit — see [Benchmarks](BENCHMARKS.md).
 
 ## Legal
 
-Provisional patent 64/050,345 covers the method. Community license TBD before
-public release. Commercial use requires separate license (counsel pending).
+This project is licensed under [Apache License 2.0](../LICENSE). See [NOTICE](../NOTICE).
+
+U.S. Provisional Patent Application No. 64/050,345 describes related methods. The Apache 2.0 patent grant applies to Contributions in this repository. For commercial licensing questions beyond this open-source release, open a GitHub issue with the label `licensing`.

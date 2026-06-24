@@ -13,7 +13,7 @@
   <a href="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml"><img src="https://github.com/umbecanessa/punk-records-inference/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <img src="https://img.shields.io/badge/vLLM-plugin-teal.svg" alt="vLLM plugin">
   <img src="https://img.shields.io/badge/local--first-black.svg" alt="Local-first">
-  <img src="https://img.shields.io/badge/license-TBD-lightgrey.svg" alt="License TBD">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License Apache 2.0"></a>
 </p>
 
 <p align="center">
@@ -33,9 +33,7 @@
 
 **Press a record of each turn's KV cache. Replay it on the next request instead of re-reading the full transcript.**
 
-PRI is a vLLM plugin: one Docker container, OpenAI-compatible API on port 8000, BYOC model checkpoint. It pairs naturally with agent clients (OpenCode, custom harnesses) and complements text-compression layers like [Headroom](https://github.com/chopratejas/headroom) and agent platforms like [Babo](https://github.com/umbecanessa/babo).
-
-> **Status:** Pre-public release. Docs and presentation are being polished for open source; license TBD.
+PRI is a vLLM plugin: one Docker container, OpenAI-compatible API on port 8000, BYOC model checkpoint. It pairs naturally with agent clients (OpenCode, custom harnesses) and complements **text-compression** layers like [Headroom](https://github.com/headroomlabs-ai/headroom) — Headroom shrinks what you *send*; PRI skips re-computing what the model already *remembered*.
 
 ---
 
@@ -69,7 +67,7 @@ Agent client (OpenCode, curl, LangChain)
 
 ## Proof
 
-GX10 · stock Qwen3.5-35B-A3B-FP8 · **2026-06-24** ([full run](bench/results/overnight_20260624_003614/))
+**Qwen3.5-35B-A3B-FP8 · NVIDIA GB10-class GPU · 2026-06-24** ([full run](bench/results/overnight_20260624_003614/))
 
 | Bench | Result | Notes |
 |-------|--------|-------|
@@ -81,20 +79,14 @@ GX10 · stock Qwen3.5-35B-A3B-FP8 · **2026-06-24** ([full run](bench/results/ov
 
 Default inject mode: **`resume`**. Full tables: [`PHASE_E_SUMMARY.md`](bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md) · [Benchmarks](docs/BENCHMARKS.md)
 
-Extended analysis pages (charts, per-probe tables): [`research/README.md`](bench/results/overnight_20260624_003614/research/README.md)
+Extended analysis (Mermaid charts, per-probe tables): [`research/README.md`](bench/results/overnight_20260624_003614/research/README.md)
 
-Interactive charts (Cursor): open [`pri-bench-research.canvas.tsx`](/Users/umber/.cursor/projects/c-Users-umber-Documents-GitHub-punk-records-inference/canvases/pri-bench-research.canvas.tsx) beside the chat. GitHub renders **Mermaid** charts inline in `research/*.md`.
+Reproduce:
 
-<details>
-<summary>Smoke baselines (2026-06-23)</summary>
-
-| Bench | Result | Artifact |
-|-------|--------|----------|
-| Tier-1 Marco facts (seed 42) | TEXT 5/5 · RESUME 5/5 | `bench/results/tier1_marco_facts_42.json` |
-| OpenCode long session (seed 42) | RECALL 6/6 | `bench/results/opencode_long_session.json` |
-| Manifest proof turn 2 (KL #648) | `rope_start=24` | `bench/results/manifest_opencode_t2.json` |
-
-</details>
+```bash
+./bench/run_suite.sh --tier 1 --base-url http://127.0.0.1:8000
+./bench/run_suite.sh --tier mode-compare --seed 42 --base-url http://127.0.0.1:8000
+```
 
 ---
 
@@ -120,6 +112,37 @@ pip install pytest torch zstandard && pytest tests/ -q
 ```
 
 Full guide: [Installation](docs/getting-started/installation.md) · [Quickstart](docs/getting-started/quickstart.md)
+
+---
+
+## When to use · When to skip
+
+**Great fit if you…**
+
+- run long agent sessions on **self-hosted vLLM** and pay in GPU time for re-prefill
+- want **local-first** persistence — captures stay on disk under your control
+- already use OpenAI-compatible clients and can pass `kv_transfer_params` (or enable agent shim)
+
+**Skip it if you…**
+
+- only need **text compression** — use [Headroom](https://github.com/headroomlabs-ai/headroom) or provider-native compaction instead
+- run on **hosted APIs** without KV transfer hooks — PRI requires vLLM + this plugin
+- need **multi-node** or replicated KV — v0.1 is single-node BYOC only
+
+---
+
+## Compared to
+
+PRI persists **model internal state** (KV + hybrid recurrent tensors), not chat text.
+
+| | What it optimizes | Deploy | Local | Needs vLLM |
+| --- | --- | --- | --- | --- |
+| **PRI** | Skip re-prefill via captured KV state | Docker plugin | Yes | Yes |
+| [Headroom](https://github.com/headroomlabs-ai/headroom) | Compress tool outputs, logs, RAG before the model | Proxy · library · MCP | Yes | No |
+| Provider prompt cache | Prefix reuse on identical prompts | Provider-native | No | No |
+| OpenAI compaction | Summarize conversation history | Provider-native | No | No |
+
+Headroom and PRI stack well: compress incoming context, then resume prior turns without re-reading the full transcript.
 
 ---
 
@@ -153,22 +176,28 @@ Env vars keep the `NLS_*` prefix for migration; `PRI_*` rename planned for v0.2.
 
 ## Documentation
 
-- **[Documentation home](docs/index.md)** — full map (getting started, guides, reference, internal)
-- [Installation](docs/getting-started/installation.md)
-- [Quickstart](docs/getting-started/quickstart.md)
-- [Core concepts](docs/getting-started/concepts.md)
-- [Integrating OpenCode](docs/guides/integrating-opencode.md)
-- [Environment variables](docs/reference/env-vars.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Client contract](docs/CLIENT_CONTRACT.md) — `kv_transfer_params`
-- [Docker](docs/DOCKER.md)
-- [Supported models](docs/SUPPORTED_MODELS.md)
-- [Benchmarks](docs/BENCHMARKS.md)
-- [Troubleshooting](docs/guides/troubleshooting.md)
-- [Limitations](docs/LIMITATIONS.md)
+| Start here | Go deeper |
+| --- | --- |
+| [Installation](docs/getting-started/installation.md) | [Architecture](docs/ARCHITECTURE.md) |
+| [Quickstart](docs/getting-started/quickstart.md) | [Client contract](docs/CLIENT_CONTRACT.md) |
+| [Core concepts](docs/getting-started/concepts.md) | [Benchmarks](docs/BENCHMARKS.md) |
+| [Integrating OpenCode](docs/guides/integrating-opencode.md) | [Limitations](docs/LIMITATIONS.md) |
+| [Environment variables](docs/reference/env-vars.md) | [Research analysis](bench/results/overnight_20260624_003614/research/README.md) |
+
+---
+
+## Contributing
+
+```bash
+git clone https://github.com/umbecanessa/punk-records-inference.git
+cd punk-records-inference
+pip install pytest torch zstandard && pytest tests/ -q
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) · [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ---
 
 ## License
 
-TBD — community license + patent notice (provisional 64/050,345). See [Limitations](docs/LIMITATIONS.md).
+Apache 2.0 — see [LICENSE](LICENSE) and [NOTICE](NOTICE). U.S. Provisional Patent Application No. 64/050,345. Commercial licensing questions: GitHub issue with label `licensing`.

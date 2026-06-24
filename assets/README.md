@@ -1,19 +1,18 @@
 # Brand assets
 
-Official Punk Records branding from the hosted product frontend
-(`NLS/punk-records/frontend/public/`).
+Official Punk Records branding.
 
 | File | Use |
 |------|-----|
 | `logo-composite.png` | Hex + straw hat, **transparent background**, 512×512 — README |
 | `logo-composite-256.png` | Scaled composite |
-| `logo.png` | Hex mark source (frontend) |
+| `logo.png` | Hex mark source |
 | `straw-hat.png` | Straw hat illustration (source — for manual design if needed) |
 | `social-preview.png` | GitHub social preview (1280×640, hex logo + text) |
 | `banner.png` | Alias of `social-preview.png` |
 | `favicon.ico` | Browser favicon |
 
-The README uses **`logo-composite.png`** — generated from `logo.png` + `straw-hat.png` (integrated illustration, not PIL paste).
+The README uses **`logo-composite.png`** — generated from `logo.png` + `straw-hat.png`.
 
 Regenerate banners:
 
@@ -26,12 +25,12 @@ python scripts/build_logo_assets.py
 
 GitHub has no API for this — upload manually or use `scripts/upload_social_preview.py`.
 
-**Private repo note:** **Social preview** appears on **public** repos (or private repos that already had one). While private, the Settings section is often hidden.
+**Settings** → **Social preview** → upload `assets/social-preview.png`
 
-When public: **Settings** → **Social preview** → upload `assets/social-preview.png`
-
-Verify:
+Verify after upload:
 
 ```bash
 gh api graphql -f query='query { repository(owner:"umbecanessa", name:"punk-records-inference") { openGraphImageUrl } }'
 ```
+
+See [docs/ANNOUNCE.md](../docs/ANNOUNCE.md) for the full public-release checklist.

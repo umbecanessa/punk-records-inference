@@ -80,8 +80,8 @@ Schema and validator live in [`spec/`](../../spec/).
 
 | Not PRI | Alternative |
 |---------|-------------|
-| Text/context compression | See [Headroom](https://github.com/chopratejas/headroom) |
-| Long-term agent memory (facts, soul) | See [Babo](https://github.com/umbecanessa/babo) |
+| Text/context compression | See [Headroom](https://github.com/headroomlabs-ai/headroom) |
+| Long-term agent memory (facts, soul) | External agent-memory products — out of scope for PRI |
 | MoE expert routing / router bias | Legacy NLS research — out of scope |
 | Hosted SaaS | BYOC self-host only in this repo |
 

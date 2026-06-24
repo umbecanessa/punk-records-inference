@@ -2,7 +2,7 @@
 
 Reproduce proof artifacts with one command against a live vLLM instance.
 
-**Full measurement matrix:** [BENCH_DATA_PLAN.md](BENCH_DATA_PLAN.md) (maintainer doc — Phases A–E for inject-mode default, value case, storage, latency).
+**Full measurement matrix:** [BENCH_DATA_PLAN.md](internal/BENCH_DATA_PLAN.md) (maintainer doc — Phases A–E for inject-mode default, value case, storage, latency).
 
 ---
 
@@ -74,7 +74,7 @@ RoPE pack geometry audit: **100%** delta_uniformity (83 blocks, verdict `pass`) 
 | D — Latency breakdown | Optional (prompt/latency in JSON per run) |
 | E — Publication summary | ✅ Complete |
 
-Maintainer matrix: [BENCH_DATA_PLAN.md](BENCH_DATA_PLAN.md)
+Maintainer matrix: [BENCH_DATA_PLAN.md](internal/BENCH_DATA_PLAN.md)
 
 ### Research analysis (extended)
 

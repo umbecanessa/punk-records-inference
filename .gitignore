@@ -30,6 +30,14 @@ Thumbs.db
 bench/.env
 assets/logo-composite-source.png
 
+# Local scratch / archives
+.github/playwright-profile/
+*.tar.gz
+bench/results/garbled_diag_*
+bench/results/tier1_marco_facts_0f05806459.json
+bench/results/turn_sweep_cp20_80_v4*.json
+bench/results/turn_sweep_cp20_80_clean_diagnose.json
+
 # Agent Room (local dev coordination — not shipped)
 .cursor/mcp.json
 .cursor/hooks.json

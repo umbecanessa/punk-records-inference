@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for your interest in Punk Records Inference. This repo is preparing for public open source release.
+Thanks for your interest in Punk Records Inference.
 
 ## Development setup
 
@@ -33,7 +33,7 @@ Document new results in `docs/BENCHMARKS.md` with artifact paths.
 
 ## Documentation
 
-User-facing docs live under `docs/` with entry at [docs/index.md](docs/index.md). Internal release planning docs (`SHIP_PLAN.md`, `BENCH_DATA_PLAN.md`, etc.) are listed under "Internal" in the index — keep them separate from getting-started guides.
+User-facing docs live under `docs/` with entry at [docs/index.md](docs/index.md). Maintainer planning docs live under [docs/internal/](docs/internal/) — keep them separate from getting-started guides.
 
 When adding features, update:
 
@@ -45,8 +45,12 @@ When adding features, update:
 
 - Focused diffs — one concern per PR when possible
 - All CI unit tests must pass (`pytest tests/ -q`)
-- Do not commit secrets, API keys, or `.cursor/` agent room files
+- Do not commit secrets, API keys, or `.cursor/` local agent files
 
 ## Questions
 
-Open a GitHub issue once the repo is public. Until then, coordinate via the maintainers' internal channels.
+Open a [GitHub issue](https://github.com/umbecanessa/punk-records-inference/issues) or start a Discussion. For security reports, see [SECURITY.md](SECURITY.md).
+
+## Code of conduct
+
+See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).

@@ -1,4 +1,4 @@
-> **Maintainer doc** — bench measurement matrix for choosing inject-mode default and building proof tables. End users: [Benchmarks](BENCHMARKS.md).
+> **Maintainer doc** — bench measurement matrix for choosing inject-mode default and building proof tables. End users: [Benchmarks](../BENCHMARKS.md).
 
 # Benchmark data plan — Punk Records Inference value case
 
