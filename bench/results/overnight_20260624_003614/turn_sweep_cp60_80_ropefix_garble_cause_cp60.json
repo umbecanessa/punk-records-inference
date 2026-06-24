@@ -1,0 +1,81 @@
+{
+  "sweep_json": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_ropefix.json",
+  "user_id": "turn_sweep_a84ac84397",
+  "base_session": "chain_thread_d05fd16bec96",
+  "checkpoint": 60,
+  "sweep_row_scores": {
+    "text_pass_clean": 5,
+    "resume_pass_clean": 3,
+    "arm_d_pass_clean": 4
+  },
+  "experiments": {
+    "chain_scan": {
+      "blocks": 0,
+      "tokens": 0,
+      "suspicious_previews": [],
+      "neutral_meta_previews": []
+    },
+    "isolated_hotel_resume": {
+      "arm": "resume",
+      "pass_clean": false,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "latency_ms": 0.5
+    },
+    "sequential_through_hotel": {
+      "arm": "resume",
+      "pass_clean": false,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "latency_ms": 1.2
+    },
+    "resume_facts_only_3blocks": {
+      "arm": "resume",
+      "pass_clean": false,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "latency_ms": 0.5
+    },
+    "resume_full_chain": {
+      "arm": "resume",
+      "pass_clean": false,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "latency_ms": 0.5
+    },
+    "work_resume_full": {
+      "arm": "resume",
+      "pass_clean": false,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "latency_ms": 0.6
+    },
+    "work_arm_d_full": {
+      "arm": "arm_d",
+      "pass_clean": false,
+      "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+      "latency_ms": 0.3
+    },
+    "hotel_resume_repeats": [
+      {
+        "arm": "resume",
+        "pass_clean": false,
+        "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+        "latency_ms": 0.3
+      },
+      {
+        "arm": "resume",
+        "pass_clean": false,
+        "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+        "latency_ms": 1.6
+      },
+      {
+        "arm": "resume",
+        "pass_clean": false,
+        "error": "('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))",
+        "latency_ms": 1.2
+      }
+    ]
+  },
+  "interpretation": [
+    "TEXT 5/5 + RESUME <5 on same checkpoint: failure is inject-mediated decode, not the model lacking inline context.",
+    "Hotel probe fails even in isolation: static chain inject state or model decode under ~17k inject tokens.",
+    "Even facts-only inject fails: unlikely to be noise-tail pollution alone; check RoPE/inject geometry or probe difficulty.",
+    "Hotel probe fails all repeats: stable failure mode under current inject."
+  ]
+}

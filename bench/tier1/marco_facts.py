@@ -25,6 +25,7 @@ _TIER1 = Path(__file__).resolve().parent
 if str(_TIER1) not in sys.path:
     sys.path.insert(0, str(_TIER1))
 
+from chain_helpers import fresh_chain_ids  # noqa: E402
 from recall_helpers import score_recall_any
 
 from openrouter_client import chat as openrouter_chat, is_configured, resolve_model as openrouter_model  # noqa: E402
@@ -196,7 +197,27 @@ def run_recall_arm(
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-url", default=os.environ.get("PRI_BASE_URL", "http://127.0.0.1:8000"))
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--run-id",
+        default="",
+        help="Suffix for the output JSON filename only (default: random)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Legacy output filename suffix only — does not reuse memory chain ids",
+    )
+    parser.add_argument(
+        "--user-id",
+        default="",
+        help="Debug override for memory_user (must pair with --base-session)",
+    )
+    parser.add_argument(
+        "--base-session",
+        default="",
+        help="Debug override for memory_base_session (must pair with --user-id)",
+    )
     parser.add_argument("--out", type=Path, default=None)
     parser.add_argument(
         "--text-backend",
@@ -214,14 +235,28 @@ def main() -> int:
 
     api = f"{args.base_url.rstrip('/')}/v1/chat/completions"
     model = os.environ.get("PRI_MODEL") or resolve_model(args.base_url)
-    user_id = f"bench_marco_{args.seed}"
-    base_session = f"chain_marco_{args.seed}"
+    run_label = args.run_id or (
+        str(args.seed) if args.seed is not None else uuid.uuid4().hex[:10]
+    )
+    if args.user_id or args.base_session:
+        if not (args.user_id and args.base_session):
+            parser.error("--user-id and --base-session must be used together")
+        user_id = args.user_id
+        base_session = args.base_session
+        print(
+            "WARNING: reusing memory_user/base_session stacks chains — "
+            "use fresh ids per run unless debugging",
+            file=sys.stderr,
+        )
+    else:
+        user_id, base_session = fresh_chain_ids("marco_facts")
 
     print("=" * 72)
     print("Tier-1 Marco facts (TEXT vs RESUME)")
     print(f"  API:   {api}")
     print(f"  model: {model}")
     print(f"  user:  {user_id}")
+    print(f"  chain: {base_session}")
     if text_backend == "openrouter":
         print(f"  TEXT:  openrouter ({openrouter_model(or_model)})")
     print("=" * 72)
@@ -246,6 +281,7 @@ def main() -> int:
     resume_pass = sum(1 for r in resume_results if r["pass"])
     payload = {
         "timestamp": time.time(),
+        "run_id": run_label,
         "seed": args.seed,
         "user_id": user_id,
         "base_session": base_session,
@@ -260,7 +296,7 @@ def main() -> int:
         "resume_results": resume_results,
     }
 
-    out_path = args.out or Path("bench/results") / f"tier1_marco_facts_{args.seed}.json"
+    out_path = args.out or Path("bench/results") / f"tier1_marco_facts_{run_label}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 

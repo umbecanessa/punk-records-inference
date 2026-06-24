@@ -66,6 +66,8 @@ def chat(
         "max_tokens": max_tokens,
         "temperature": temperature,
         "user": user_id,
+        # OpenRouter ignores vLLM-style chat_template_kwargs; use unified reasoning API.
+        "reasoning": {"effort": "none"},
     }
 
     response = requests.post(

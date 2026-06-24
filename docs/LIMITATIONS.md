@@ -34,12 +34,17 @@ See `bench/opencode/nls_kvp_helpers.py` for harness parity with production.
 - Resume walks `base_session_id` chain blocks — cross-chain retrieval does not apply
 - RoPE re-rotation assumes Qwen hybrid head layout on pinned vLLM
 - Overflow profile (`resume_overflow`) is opt-in and less validated than pure resume
+- **Long-chain cliff (GX10, 2026-06-24):** at ~17–23k inject tokens, RESUME recall
+  degrades (cp60 **3/5**, cp80 **0/5**) while full inline TEXT stays **5/5**. RoPE pack
+  geometry audit passes at 100% delta_uniformity — failure mode is inject-mediated decode,
+  not manifest geometry. Facts-only inject (`max_blocks=3`) still garbles. See
+  [`PHASE_E_SUMMARY.md`](../bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md).
 
 ## Benchmarks
 
-Tier-1 Marco facts is a **smoke/regression** harness, not a published leaderboard.
-OpenCode harness requires live GPU + stable vLLM; garbled-output detection is
-best-effort via `pri.text_quality`.
+Tier-1 Marco facts and OpenCode harnesses are **regression + value-case** tools, not a
+published leaderboard. GX10 proof run (2026-06-24): inject compare, Marco, OpenCode,
+turn sweep, and geometry audit — see [Benchmarks](BENCHMARKS.md).
 
 ## Legal
 

@@ -1,0 +1,2 @@
+[2026-06-24T01:11:45+02:00] === STEP: admin_stats ===
+{"size":64,"total_tokens":16087,"avg_tokens":251.359375,"users":2,"user_ids":["marco_facts_4e6c5f4a99","turn_sweep_90a4ddcdaf"],"rings":{"general":64},"always_inject_count":0,"oldest_hours":0.552236429254214,"newest_hours":0.07087175269921621,"total_accesses":0,"bm25_entries":0,"capture_dir":"/data/pri/snapshot/captures","index_path":"/data/pri/index.json"}[2026-06-24T01:11:45+02:00] === STEP OK: admin_stats ===

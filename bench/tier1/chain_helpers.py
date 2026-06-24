@@ -4,10 +4,21 @@ from __future__ import annotations
 
 import json
 import os
+import uuid
 from pathlib import Path
 from typing import Any
 
 import requests
+
+
+def fresh_chain_ids(prefix: str = "bench") -> tuple[str, str]:
+    """Return a new ``(memory_user, memory_base_session)`` pair for one chain run.
+
+    Each bench invocation should use a fresh pair so turn captures never stack on
+    an old chain for the same user/session keys.
+    """
+    run_id = uuid.uuid4().hex[:10]
+    return f"{prefix}_{run_id}", f"chain_thread_{uuid.uuid4().hex[:12]}"
 
 DEFAULT_CHAIN_ROLES = frozenset({"user", "tool"})
 TURN_ROLES = frozenset({"turn", "tool"})
@@ -122,6 +133,16 @@ def select_chain_latest(
     if not blocks:
         return []
 
+    latest_by_slot: dict[tuple[int, str], dict[str, Any]] = {}
+    for block in blocks:
+        turn = int(block.get("turnIndex") or -1)
+        role = str(block.get("role") or "user")
+        ts = float(block.get("timestamp") or 0)
+        slot = (turn, role)
+        prev = latest_by_slot.get(slot)
+        if prev is None or ts >= float(prev.get("timestamp") or 0):
+            latest_by_slot[slot] = block
+    blocks = list(latest_by_slot.values())
     blocks.sort(key=lambda m: (int(m.get("turnIndex") or -1), float(m.get("timestamp") or 0)))
 
     if max_tokens <= 0:

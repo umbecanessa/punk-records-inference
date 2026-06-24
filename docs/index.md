@@ -37,6 +37,7 @@ Details: [Architecture](ARCHITECTURE.md)
 | Deploy with Docker | [Docker](DOCKER.md) |
 | Pick a supported model | [Supported models](SUPPORTED_MODELS.md) |
 | Reproduce benchmark results | [Benchmarks](BENCHMARKS.md) |
+| Read bench research analysis | [overnight run research/](../bench/results/overnight_20260624_003614/research/README.md) |
 | Fix something broken | [Troubleshooting](guides/troubleshooting.md) |
 | Know what v0.1 does *not* do | [Limitations](LIMITATIONS.md) |
 
@@ -70,7 +71,7 @@ Details: [Architecture](ARCHITECTURE.md)
 | [Client contract](CLIENT_CONTRACT.md) | `kv_transfer_params` fields and examples |
 | [Docker](DOCKER.md) | Image, compose, env vars, volumes |
 | [Supported models](SUPPORTED_MODELS.md) | Qwen hybrid, topology requirements |
-| [Benchmarks](BENCHMARKS.md) | Tier-1, OpenCode, reproduction commands |
+| [Benchmarks](BENCHMARKS.md) | Tier-1, OpenCode, inject compare, reproduction commands |
 | [Limitations](LIMITATIONS.md) | Scope, legal, known gaps |
 
 ### Spec

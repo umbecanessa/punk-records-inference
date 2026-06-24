@@ -1,0 +1,3 @@
+[2026-06-24T08:48:50+02:00] === STEP: pytest ===
+/usr/bin/python3: No module named pytest
+[2026-06-24T08:48:50+02:00] === STEP FAIL: pytest ===

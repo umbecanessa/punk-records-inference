@@ -1,0 +1,182 @@
+{
+  "generated_at": "2026-06-24T08:35:49.947150+00:00",
+  "chain_id": "long_f82229c1e31d",
+  "seed": 42,
+  "baseline": true,
+  "facts": {
+    "backend_port": 52145,
+    "frontend_port": 17536,
+    "metrics_port": 11879,
+    "redis_port": 58838,
+    "db_name": "icf_eval_x5506",
+    "api_prefix": "/v5/icf-38"
+  },
+  "work_turns": 8,
+  "recall_passed": 6,
+  "recall_total": 6,
+  "recall_results": [
+    {
+      "question": "What exact backend port did we pick? Reply with the number only.",
+      "must": [
+        "52145"
+      ],
+      "must_not": [
+        "8000",
+        "4000",
+        "4200",
+        "5000",
+        "3306",
+        "8080",
+        "5173",
+        "3000",
+        "5432",
+        "3001",
+        "17536"
+      ],
+      "answer": "52145",
+      "pass": true,
+      "turn_index": null
+    },
+    {
+      "question": "What exact frontend port did we pick? Reply with the number only.",
+      "must": [
+        "17536"
+      ],
+      "must_not": [
+        "8000",
+        "4000",
+        "4200",
+        "5000",
+        "3306",
+        "8080",
+        "5173",
+        "3000",
+        "5432",
+        "3001",
+        "52145"
+      ],
+      "answer": "17536",
+      "pass": true,
+      "turn_index": null
+    },
+    {
+      "question": "What is the dev database name we chose? Reply with the name only.",
+      "must": [
+        "icf_eval_x5506"
+      ],
+      "must_not": [
+        "icf_coaching_dev",
+        "postgres",
+        "3000",
+        "3001"
+      ],
+      "answer": "icf_eval_x5506",
+      "pass": true,
+      "turn_index": null
+    },
+    {
+      "question": "What metrics port did we assign? Reply with the number only.",
+      "must": [
+        "11879"
+      ],
+      "must_not": [
+        "8000",
+        "4000",
+        "4200",
+        "5000",
+        "3306",
+        "8080",
+        "5173",
+        "3000",
+        "5432",
+        "3001"
+      ],
+      "answer": "11879",
+      "pass": true,
+      "turn_index": null
+    },
+    {
+      "question": "What redis port did we assign? Reply with the number only.",
+      "must": [
+        "58838"
+      ],
+      "must_not": [
+        "6379"
+      ],
+      "answer": "58838",
+      "pass": true,
+      "turn_index": null
+    },
+    {
+      "question": "What is our API path prefix? Reply with the path only.",
+      "must": [
+        "/v5/icf-38"
+      ],
+      "must_not": [
+        "/api",
+        "/v1"
+      ],
+      "answer": "/v5/icf-38",
+      "pass": true,
+      "turn_index": null
+    }
+  ],
+  "turn_log": [
+    {
+      "phase": "work",
+      "label": "plant",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": "- Initialized monorepo structure with pnpm workspaces to manage shared dependencies and isolated packages.\n- Configured environment variables for backend (52145), frontend (17536), metrics (11879), and Redis (58838) services.\n- Set up the API route prefix `/v5/icf-38` and defined the local PostgreSQ"
+    },
+    {
+      "phase": "work",
+      "label": "confirm",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": "The Phase 1 scaffold utilizes a pnpm monorepo with a backend on port 52145, frontend on 17536, metrics on 11879, and Redis on 58838, connecting to the `icf_eval_x5506` database via the `/v5/icf-38` API prefix."
+    },
+    {
+      "phase": "work",
+      "label": "api_layout",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": ""
+    },
+    {
+      "phase": "work",
+      "label": "env_draft",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": ""
+    },
+    {
+      "phase": "work",
+      "label": "tangent_git",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": "For feature branches, squash merging is generally preferred to keep the main branch history clean and linear, while merge commits are better if preserving the exact branch topology and context of a feature is critical. The choice depends on whether your team values a clean history (squash) or a comp"
+    },
+    {
+      "phase": "work",
+      "label": "frontend_proxy",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": "The frontend dev server should proxy all requests starting with `/v5/icf-38` to the backend's local address (e.g., `http://localhost:52145`), stripping the prefix before forwarding so the backend receives the request at its root, or alternatively, configuring the proxy to forward the full path if th"
+    },
+    {
+      "phase": "work",
+      "label": "docker_compose",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": ""
+    },
+    {
+      "phase": "work",
+      "label": "pre_recall_check",
+      "turn_index": null,
+      "chain_id": null,
+      "response_preview": "- Backend Port: 52145\n- Frontend Port: 17536\n- Metrics Port: 11879\n- Redis Port: 58838\n- Database Name: icf_eval_x5506\n- API Path Prefix: /v5/icf-38"
+    }
+  ]
+}

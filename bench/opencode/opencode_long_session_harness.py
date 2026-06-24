@@ -45,6 +45,7 @@ from opencode_harness_lib import (
     reset_harness_config,
     safe_print,
     score_recall,
+    set_baseline_mode,
     stream_chat,
 )
 
@@ -162,11 +163,19 @@ def main() -> int:
         default=str(OUT_DIR / "opencode_long_session.json"),
         help="JSON results path",
     )
+    parser.add_argument(
+        "--baseline",
+        action="store_true",
+        help="TEXT-style baseline: full inline history, memory_off=1 (no KV inject)",
+    )
     args = parser.parse_args()
 
     if args.base_url:
         os.environ["PRI_BASE_URL"] = args.base_url.rstrip("/")
         reset_harness_config()
+
+    if args.baseline:
+        set_baseline_mode(True)
 
     chat_url, api_key, direct_vllm = get_harness_config()
     if not direct_vllm and not api_key:
@@ -180,7 +189,8 @@ def main() -> int:
     probes = build_recall_probes(facts)
 
     safe_print("=" * 72)
-    safe_print("OpenCode LONG session harness (Punk Records -> vLLM)")
+    mode_label = "BASELINE (memory_off, full history)" if args.baseline else "PRI agent session"
+    safe_print(f"OpenCode LONG session harness — {mode_label}")
     safe_print(f"API: {chat_url} (direct_vllm={direct_vllm})")
     safe_print(f"chain_id: {chain_id}")
     safe_print(f"seed: {args.seed}")
@@ -259,6 +269,7 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "chain_id": chain_id,
         "seed": args.seed,
+        "baseline": args.baseline,
         "facts": {
             "backend_port": facts.backend_port,
             "frontend_port": facts.frontend_port,

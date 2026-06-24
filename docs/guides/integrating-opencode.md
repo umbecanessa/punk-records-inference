@@ -134,8 +134,8 @@ python bench/opencode/manifest_proof.py --base-url http://127.0.0.1:8000
 
 | Mode | When to use |
 |------|-------------|
-| `resume` | **Default v0.1** — short-to-medium sessions, validated on GX10 |
-| `resume_overflow` | Long sessions where context trim evicts tokens; adds Swiss backfill |
+| `resume` | **Default v0.1** — short-to-medium sessions; GX10 proof: 5/5 recall, ~3.7k tokens saved vs TEXT on long12 ([Benchmarks](../BENCHMARKS.md)) |
+| `resume_overflow` | Long sessions where context trim evicts tokens; adds Swiss backfill — same recall as resume on short/long12; does not fix cp60+ cliff |
 
 Set container env before start:
 
@@ -168,7 +168,7 @@ Direct vLLM is the open-source path; hosted API adds DB-backed chain ids and com
 | Issue | Cause | Fix |
 |-------|-------|-----|
 | `rope_start=0` in manifests | Missing `memory_capture_start` | Use shim or `nls_kvp_helpers.enrich_kv_params` |
-| Resume recall degrades at long sessions | Pure resume window exceeded | Try `resume_overflow`; see bench turn sweep |
+| Resume recall degrades at long sessions | Pure resume window exceeded (~17k+ inject tok) | Documented cliff — see [Limitations](../LIMITATIONS.md#resume-inject); try `resume_overflow` for trim scenarios |
 | Garbled captures pollute chain | Bad decode captured | `NLS_TURN_STRIP_GARBLED_DECODE=1` (default) |
 | Cross-session bleed on turn 1 | Missing silo | Set `memory_silo=1` on turn 1 |
 | System preamble in captures | No strip / wrong capture_start | Enable agent shim |

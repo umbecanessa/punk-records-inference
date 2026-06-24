@@ -1,0 +1,39 @@
+{
+  "block_count": 69,
+  "total_inject_tokens": 18049,
+  "verdict": "fail_rope_pack",
+  "mode_rope_delta": -22,
+  "delta_uniformity": 0.9855,
+  "delta_uniformity_pct": 98.55,
+  "uniform_blocks": 68,
+  "outlier_blocks": 1,
+  "delta_distribution": {
+    "-22": 68,
+    "18007": 1
+  },
+  "delta_stdev": 2154.6513,
+  "manifest_rope_gaps": 68,
+  "uniform_manifest_rope_start": true,
+  "shared_rope_start": 22,
+  "outliers": [
+    {
+      "index": 68,
+      "turn_index": -1,
+      "session_id": "",
+      "rope_delta": 18007,
+      "mode_delta": -22,
+      "pack_offset": 18029,
+      "manifest_rope_start": 22,
+      "capture_num_phantom": 0,
+      "rope_old_effective": 22,
+      "expected_phantom_from_rope_old": 0,
+      "phantom_mismatch": null,
+      "num_tokens": 20
+    }
+  ],
+  "kpi_notes": "delta_uniformity = fraction of blocks sharing mode RoPE delta (research target ~0.92\u20130.99; 1.0 = perfectly uniform pack rotation).",
+  "kpi_grade": "research_baseline",
+  "likely_causes": [
+    "manifest rope_start/rope_end gaps between blocks (expected for per-request rope_start=22 resume-shaped captures; not pack gaps)"
+  ]
+}

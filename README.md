@@ -69,7 +69,24 @@ Agent client (OpenCode, curl, LangChain)
 
 ## Proof
 
-GX10 · stock Qwen3.5-35B-A3B-FP8 · 2026-06-23
+GX10 · stock Qwen3.5-35B-A3B-FP8 · **2026-06-24** ([full run](bench/results/overnight_20260624_003614/))
+
+| Bench | Result | Notes |
+|-------|--------|-------|
+| Inject mode compare (long12) | TEXT 5/5 · RESUME 5/5 · OVERFLOW 5/5 | **~3701 prompt tokens saved** per recall vs inline TEXT |
+| Tier-1 Marco facts | TEXT 5/5 · RESUME 5/5 | Local + OpenRouter TEXT baseline |
+| OpenCode long session (seed 42) | PRI 6/6 · baseline 6/6 | Agent-style multi-turn recall |
+| Turn sweep cp20–80 | cp20–40: 5/5 RESUME; cp60+: documented cliff | TEXT 5/5 at all checkpoints |
+| RoPE geometry audit | pass · 100% delta_uniformity | Garble at cp60+ is inject/decode, not pack geometry |
+
+Default inject mode: **`resume`**. Full tables: [`PHASE_E_SUMMARY.md`](bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md) · [Benchmarks](docs/BENCHMARKS.md)
+
+Extended analysis pages (charts, per-probe tables): [`research/README.md`](bench/results/overnight_20260624_003614/research/README.md)
+
+Interactive charts (Cursor): open [`pri-bench-research.canvas.tsx`](/Users/umber/.cursor/projects/c-Users-umber-Documents-GitHub-punk-records-inference/canvases/pri-bench-research.canvas.tsx) beside the chat. GitHub renders **Mermaid** charts inline in `research/*.md`.
+
+<details>
+<summary>Smoke baselines (2026-06-23)</summary>
 
 | Bench | Result | Artifact |
 |-------|--------|----------|
@@ -77,7 +94,7 @@ GX10 · stock Qwen3.5-35B-A3B-FP8 · 2026-06-23
 | OpenCode long session (seed 42) | RECALL 6/6 | `bench/results/opencode_long_session.json` |
 | Manifest proof turn 2 (KL #648) | `rope_start=24` | `bench/results/manifest_opencode_t2.json` |
 
-Reproduce: [Benchmarks](docs/BENCHMARKS.md) — publication tables expand when bench sweeps complete.
+</details>
 
 ---
 

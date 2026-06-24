@@ -2326,15 +2326,31 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         if prev_hash:
             extra["prev_hash"] = prev_hash
         turn_index = info.get("turn_index", -1)
+        base_sid = info.get("base_session_id", "")
         if turn_index >= 0:
             extra["turn_index"] = turn_index
-        base_sid = info.get("base_session_id", "")
         if base_sid:
             extra["base_session_id"] = base_sid
         sys_prompt_hash = info.get("sys_prompt_hash", "")
         if sys_prompt_hash:
             extra["sys_prompt_hash"] = sys_prompt_hash
-        capture_phantom = int(info.get("num_phantom", 0) or 0)
+        capture_phantom = 0
+        ti = int(turn_index if turn_index is not None else -1)
+        uid = info.get("user_id", "default")
+        if role == "turn" and base_sid and ti >= 0:
+            try:
+                from pri import retrieve as auto_memory
+                from pri.resume import chain_pack_phantom_before_turn
+
+                if auto_memory.is_enabled() and auto_memory._store is not None:
+                    capture_phantom = chain_pack_phantom_before_turn(
+                        auto_memory._store,
+                        uid,
+                        base_sid,
+                        ti,
+                    )
+            except Exception:
+                capture_phantom = 0
         if capture_phantom > 0:
             extra["capture_num_phantom"] = capture_phantom
         # The user/tool block carries the user-provided memory_text.
@@ -3526,14 +3542,14 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 # the legacy rope_start-only accounting.
                 phantom_at_capture = 0
                 if inject_layout == "resume":
-                    if _manifest:
+                    if manifest_role == "turn":
+                        # Pack cumulative offset is authoritative for turn
+                        # captures; manifest capture_num_phantom is provenance.
+                        phantom_at_capture = total_tokens
+                    elif _manifest:
                         phantom_at_capture = int(
                             _manifest.get("capture_num_phantom", 0) or 0
                         )
-                    if phantom_at_capture <= 0 and manifest_role == "turn":
-                        # Prior chain tokens injected when this turn was captured
-                        # equal pack offset before this block (register excluded).
-                        phantom_at_capture = total_tokens
 
                 # KL #609: read manifest segments for V-suppression of assistant turns
                 asst_mask = None

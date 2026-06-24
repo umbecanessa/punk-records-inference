@@ -47,9 +47,10 @@ Unit tests (no GPU): `pip install pytest torch zstandard && pytest tests/ -q`
 
 ## Benchmarks
 
-- Tier-1 Marco facts: ./bench/run_suite.sh --tier 1
-- OpenCode long session: ./bench/run_suite.sh --tier opencode --seed 42
-- Publication tables: in progress — see docs/BENCHMARKS.md (smoke baselines green; sweep/compare pending)
+- Tier-1 Marco facts: `./bench/run_suite.sh --tier 1`
+- OpenCode long session: `./bench/run_suite.sh --tier opencode --seed 42`
+- Inject mode compare: `./bench/run_suite.sh --tier mode-compare --seed 42`
+- Publication tables (GX10 2026-06-24): [docs/BENCHMARKS.md](docs/BENCHMARKS.md) · [PHASE_E_SUMMARY.md](bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md) · [research analysis](bench/results/overnight_20260624_003614/research/README.md)
 
 ## Limitations (v0.1)
 

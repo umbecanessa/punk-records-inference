@@ -87,7 +87,7 @@ def collect_chain_blocks(
     if not base_session_id or not user_id:
         return []
 
-    blocks: list[ChainBlock] = []
+    latest_by_slot: dict[tuple[int, str], tuple[float, ChainBlock]] = {}
     for mem in store._memories:
         if mem.user_id != user_id:
             continue
@@ -112,17 +112,24 @@ def collect_chain_blocks(
                     rope_start = int(manifest.get("rope_start", 0) or 0)
             except Exception:
                 rope_start = 0
-        blocks.append(ChainBlock(
+        turn_index = int(getattr(mem, "turn_index", -1))
+        block = ChainBlock(
             kv_path=mem.kv_path,
             num_tokens=int(mem.num_tokens),
             rope_start=rope_start,
-            turn_index=int(getattr(mem, "turn_index", -1)),
+            turn_index=turn_index,
             role=role,
             session_id=mem.session_id or mem.id,
             ring_type=mem.ring_type or "general",
             meta_score=float(getattr(mem, "meta_score", 0.0) or 0.0),
-        ))
+        )
+        slot = (turn_index, role)
+        ts = float(getattr(mem, "timestamp", 0) or 0)
+        prev = latest_by_slot.get(slot)
+        if prev is None or ts >= prev[0]:
+            latest_by_slot[slot] = (ts, block)
 
+    blocks = [block for _, block in latest_by_slot.values()]
     blocks.sort(
         key=lambda b: (
             b.turn_index if b.turn_index >= 0 else 10**9,
@@ -177,6 +184,35 @@ def trim_chain_blocks(
             sum(b.num_tokens for b in selected),
         )
     return selected
+
+
+def chain_pack_phantom_before_turn(
+    store: "MemoryStore",
+    user_id: str,
+    base_session_id: str,
+    turn_index: int,
+    *,
+    roles: frozenset[str] | None = None,
+) -> int:
+    """Return cumulative chain tokens packed before ``turn_index``.
+
+    Resume RoPE re-rotation uses this pack-replay phantom (prior blocks in
+    ``base_session_id`` order). It is **not** the live request ``num_phantom``
+    from inject on the wire — that value reflects the current HTTP prefill and
+    can diverge from chain pack math after trim, neutral fallback, or register
+    layout.
+    """
+    if not base_session_id or not user_id or turn_index <= 1:
+        return 0
+    role_set = roles if roles is not None else RESUME_ROLES
+    blocks = collect_chain_blocks(
+        store, user_id, base_session_id, roles=role_set,
+    )
+    return sum(
+        b.num_tokens
+        for b in blocks
+        if 0 <= b.turn_index < turn_index
+    )
 
 
 def build_resume_inject_config(blocks: list[ChainBlock]) -> Optional[dict]:

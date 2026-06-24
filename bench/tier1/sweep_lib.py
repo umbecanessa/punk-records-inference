@@ -8,6 +8,7 @@ import re
 import sys
 import time
 import uuid
+from dataclasses import dataclass
 from pathlib import Path
 
 import requests
@@ -62,6 +63,10 @@ NOISE_BANK = [
     "What is the difference between Baroque and Rococo art?",
     "Describe the water cycle for a ten-year-old.",
 ]
+
+# Substitute turn when the real prompt/decode is garbled after retries — keeps turn_index
+# contiguous without poisoning the chain (no skip, no empty assistant).
+NEUTRAL_TURN_USER = "I'm having trouble generating a response."
 
 RECALL = [
     ("What's my name and where do I live?", ["Marco", "Milan"]),
@@ -207,6 +212,19 @@ def delete_session_captures(api_root: str, session_ids: list[str]) -> dict:
     return response.json()
 
 
+@dataclass(frozen=True)
+class PlantHygieneResult:
+    user_text: str
+    assistant_text: str
+    new_prev_hash: str
+    block_session: str
+    still_garbled: bool
+    deletes: int
+    neutral_fallback: bool
+    original_user_msg: str
+    garbled_probe_attempts: int
+
+
 def plant_turn(
     api: str,
     model: str,
@@ -217,7 +235,10 @@ def plant_turn(
     prev_hash: str,
     user_msg: str,
     repetition_penalty: float = 1.15,
-) -> tuple[str, str]:
+    max_tokens: int = 300,
+    capture: bool = True,
+) -> tuple[str, str, str]:
+    """Send one chain plant turn. When ``capture=False``, sets ``memory_no_capture=1``."""
     block_session = f"{base_session}_t{turn_index}_user"
     kv: dict[str, str] = {
         "memory_user": user_id,
@@ -234,6 +255,8 @@ def plant_turn(
         kv["memory_silo"] = "1"
     else:
         kv["memory_inject_mode"] = "resume"
+    if not capture:
+        kv["memory_no_capture"] = "1"
 
     kv = enrich_kv_params(kv, SYSTEM_PROMPT, api_root=api_root_from_chat_url(api), model=model)
 
@@ -243,7 +266,7 @@ def plant_turn(
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": user_msg},
         ],
-        "max_tokens": 300,
+        "max_tokens": max_tokens,
         "temperature": 0.0,
         "repetition_penalty": repetition_penalty,
         "kv_transfer_params": kv,
@@ -254,7 +277,64 @@ def plant_turn(
     response.raise_for_status()
     data = response.json()
     content = (data["choices"][0]["message"]["content"] or "").strip()
-    return content, block_hash(block_session), block_session
+    new_hash = block_hash(block_session) if capture else prev_hash
+    return content, new_hash, block_session
+
+
+def _plant_neutral_turn(
+    api: str,
+    model: str,
+    api_root: str,
+    *,
+    user_id: str,
+    base_session: str,
+    turn_index: int,
+    prev_hash: str,
+    deletes: int,
+) -> PlantHygieneResult:
+    """Capture a short neutral turn so turn_index stays contiguous."""
+    block_session = f"{base_session}_t{turn_index}_user"
+    for attempt in range(4):
+        cap_content, new_hash, block_session = plant_turn(
+            api,
+            model,
+            user_id=user_id,
+            base_session=base_session,
+            turn_index=turn_index,
+            prev_hash=prev_hash,
+            user_msg=NEUTRAL_TURN_USER,
+            repetition_penalty=1.0,
+            max_tokens=64,
+            capture=True,
+        )
+        cap_asst, cap_garbled = assistant_for_history(cap_content)
+        if not cap_garbled and cap_asst:
+            return PlantHygieneResult(
+                user_text=NEUTRAL_TURN_USER,
+                assistant_text=cap_asst,
+                new_prev_hash=new_hash,
+                block_session=block_session,
+                still_garbled=False,
+                deletes=deletes,
+                neutral_fallback=True,
+                original_user_msg="",
+                garbled_probe_attempts=0,
+            )
+        delete_session_captures(api_root, [block_session])
+        deletes += 1
+        time.sleep(0.3)
+
+    return PlantHygieneResult(
+        user_text=NEUTRAL_TURN_USER,
+        assistant_text="",
+        new_prev_hash=prev_hash,
+        block_session=block_session,
+        still_garbled=True,
+        deletes=deletes,
+        neutral_fallback=True,
+        original_user_msg="",
+        garbled_probe_attempts=0,
+    )
 
 
 def plant_turn_hygiene(
@@ -269,15 +349,20 @@ def plant_turn_hygiene(
     user_msg: str,
     repetition_penalty: float = 1.15,
     max_garbled_retries: int = 2,
-) -> tuple[str, str, str, bool, int]:
-    """Plant one turn; delete capture and retry when assistant output is garbled.
+) -> PlantHygieneResult:
+    """Probe with no capture, then capture only when assistant output is clean.
 
-    Returns (assistant_text, new_prev_hash, block_session, was_garbled, deletes).
-    On persistent garbled, returns empty assistant and does not advance prev_hash.
+    After ``max_garbled_retries`` failed probes/captures on ``user_msg``, substitutes
+    a neutral user+assistant turn (``NEUTRAL_TURN_USER``) at the same turn_index
+    so the inject chain stays contiguous without poisoned decode.
     """
     deletes = 0
-    for attempt in range(max(1, max_garbled_retries)):
-        content, new_hash, block_session = plant_turn(
+    block_session = f"{base_session}_t{turn_index}_user"
+    attempts = max(1, max_garbled_retries)
+    garbled_probe_attempts = 0
+
+    for attempt in range(attempts):
+        probe_content, _, _ = plant_turn(
             api,
             model,
             user_id=user_id,
@@ -286,17 +371,67 @@ def plant_turn_hygiene(
             prev_hash=prev_hash,
             user_msg=user_msg,
             repetition_penalty=repetition_penalty,
+            capture=False,
         )
-        asst, garbled = assistant_for_history(content)
-        if not garbled:
-            return asst, new_hash, block_session, False, deletes
+        probe_asst, probe_garbled = assistant_for_history(probe_content)
+        if probe_garbled:
+            garbled_probe_attempts += 1
+            if attempt + 1 < attempts:
+                time.sleep(0.3)
+            continue
+
+        cap_content, new_hash, block_session = plant_turn(
+            api,
+            model,
+            user_id=user_id,
+            base_session=base_session,
+            turn_index=turn_index,
+            prev_hash=prev_hash,
+            user_msg=user_msg,
+            repetition_penalty=repetition_penalty,
+            capture=True,
+        )
+        cap_asst, cap_garbled = assistant_for_history(cap_content)
+        if not cap_garbled:
+            return PlantHygieneResult(
+                user_text=user_msg,
+                assistant_text=cap_asst,
+                new_prev_hash=new_hash,
+                block_session=block_session,
+                still_garbled=False,
+                deletes=deletes,
+                neutral_fallback=False,
+                original_user_msg=user_msg,
+                garbled_probe_attempts=garbled_probe_attempts,
+            )
 
         delete_session_captures(api_root, [block_session])
         deletes += 1
-        if attempt + 1 < max_garbled_retries:
+        garbled_probe_attempts += 1
+        if attempt + 1 < attempts:
             time.sleep(0.3)
 
-    return "", prev_hash, block_session, True, deletes
+    neutral = _plant_neutral_turn(
+        api,
+        model,
+        api_root,
+        user_id=user_id,
+        base_session=base_session,
+        turn_index=turn_index,
+        prev_hash=prev_hash,
+        deletes=deletes,
+    )
+    return PlantHygieneResult(
+        user_text=neutral.user_text,
+        assistant_text=neutral.assistant_text,
+        new_prev_hash=neutral.new_prev_hash,
+        block_session=neutral.block_session,
+        still_garbled=neutral.still_garbled,
+        deletes=neutral.deletes,
+        neutral_fallback=True,
+        original_user_msg=user_msg,
+        garbled_probe_attempts=garbled_probe_attempts,
+    )
 
 
 def send_recall_arm(

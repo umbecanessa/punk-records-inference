@@ -1,0 +1,30 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "data_dir": "/data/pri",
+  "git_sha": null,
+  "admin_stats": {
+    "size": 89,
+    "total_tokens": 23696,
+    "avg_tokens": 266.24719101123594,
+    "users": 1,
+    "user_ids": [
+      "turn_sweep_0b3f0e4cb1"
+    ],
+    "rings": {
+      "general": 89
+    },
+    "always_inject_count": 0,
+    "oldest_hours": 0.77727769613266,
+    "newest_hours": 0.16572618120246463,
+    "total_accesses": 0,
+    "bm25_entries": 0,
+    "capture_dir": "/data/pri/snapshot/captures",
+    "index_path": "/data/pri/index.json"
+  },
+  "profile_json": null,
+  "profile_env": "",
+  "index_row_count": 143,
+  "capture_count": 143,
+  "capture_bytes_total": 679597212,
+  "data_dir_bytes": 682443950
+}

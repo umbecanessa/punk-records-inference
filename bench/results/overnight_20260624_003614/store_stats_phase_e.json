@@ -1,0 +1,15 @@
+{
+  "base_url": "http://127.0.0.1:8000",
+  "data_dir": "/data/pri",
+  "git_sha": null,
+  "admin_stats": {
+    "size": 0,
+    "total_tokens": 0
+  },
+  "profile_json": null,
+  "profile_env": "",
+  "index_row_count": 19,
+  "capture_count": 19,
+  "capture_bytes_total": 59542122,
+  "data_dir_bytes": 60163721
+}

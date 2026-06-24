@@ -28,17 +28,18 @@ _TIER1 = Path(__file__).resolve().parent
 if str(_TIER1) not in sys.path:
     sys.path.insert(0, str(_TIER1))
 
+from chain_helpers import fresh_chain_ids  # noqa: E402
 from marco_facts import (  # noqa: E402
     FACTS,
     RECALL,
     SYSTEM_PROMPT,
     chat,
-    plant_facts,
     resolve_model,
 )
 from recall_helpers import score_recall_any  # noqa: E402
 
-from sweep_lib import NOISE_BANK  # noqa: E402
+from sweep_lib import NOISE_BANK, plant_turn_hygiene  # noqa: E402
+from nls_kvp_helpers import api_root_from_chat_url  # noqa: E402
 from openrouter_client import chat as openrouter_chat, is_configured, resolve_model as openrouter_model  # noqa: E402
 
 
@@ -194,40 +195,97 @@ def run_recall_arm(
     return results, stats
 
 
-def plant_noise(
+def plant_chain_with_hygiene(
     api: str,
     model: str,
+    api_root: str,
     *,
     user_id: str,
     base_session: str,
-    start_turn: int,
-    count: int,
-) -> list[tuple[str, str]]:
+    noise_turns: int,
+    garbled_retries: int,
+) -> tuple[list[tuple[str, str]], dict]:
+    """Plant Marco facts + optional noise using probe-then-neutral-fallback guard."""
     turns: list[tuple[str, str]] = []
-    for i in range(count):
-        turn_index = start_turn + i
+    turn_index = 0
+    prev_hash = ""
+    garbled_neutral_fallbacks: list[dict] = []
+    garbled_stripped: list[dict] = []
+    total_deletes = 0
+
+    for fact in FACTS:
+        turn_index += 1
+        print(f"  planted turn {turn_index}: {fact[:60]}...")
+        result = plant_turn_hygiene(
+            api,
+            model,
+            api_root,
+            user_id=user_id,
+            base_session=base_session,
+            turn_index=turn_index,
+            prev_hash=prev_hash,
+            user_msg=fact,
+            max_garbled_retries=garbled_retries,
+        )
+        total_deletes += result.deletes
+        if result.neutral_fallback:
+            garbled_neutral_fallbacks.append({
+                "label": f"fact-T{turn_index}",
+                "turn_index": turn_index,
+                "original_user": result.original_user_msg[:120],
+            })
+            print(
+                f"  [NEUTRAL] turn {turn_index} after "
+                f"{result.garbled_probe_attempts} garbled probe(s)",
+            )
+        if result.still_garbled:
+            garbled_stripped.append({"label": f"fact-T{turn_index}", "turn_index": turn_index})
+            print(f"  [WARN] turn {turn_index} still garbled after neutral fallback")
+        prev_hash = result.new_prev_hash
+        turns.append((result.user_text, result.assistant_text))
+        time.sleep(0.5)
+
+    for i in range(noise_turns):
+        turn_index += 1
         noise = NOISE_BANK[i % len(NOISE_BANK)]
-        kv = {
-            "memory_user": user_id,
-            "memory_ring": "general",
-            "memory_base_session": base_session,
-            "memory_session": f"{base_session}_t{turn_index}_user",
-            "memory_turn_index": str(turn_index),
-            "memory_block_role": "user",
-            "memory_text": noise,
-            "memory_inject_mode": "resume",
-        }
-        if turn_index == 1:
-            kv["memory_silo"] = "1"
-        messages = [
-            {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user", "content": noise},
-        ]
-        reply, _ = chat(api, model, messages, user_id=user_id, kv=kv)
-        turns.append((noise, reply))
         print(f"  noise turn {turn_index}: {noise[:50]}...")
+        result = plant_turn_hygiene(
+            api,
+            model,
+            api_root,
+            user_id=user_id,
+            base_session=base_session,
+            turn_index=turn_index,
+            prev_hash=prev_hash,
+            user_msg=noise,
+            max_garbled_retries=garbled_retries,
+        )
+        total_deletes += result.deletes
+        if result.neutral_fallback:
+            garbled_neutral_fallbacks.append({
+                "label": f"noise-N{turn_index}",
+                "turn_index": turn_index,
+                "original_user": result.original_user_msg[:120],
+            })
+            print(
+                f"  [NEUTRAL] turn {turn_index} after "
+                f"{result.garbled_probe_attempts} garbled probe(s)",
+            )
+        if result.still_garbled:
+            garbled_stripped.append({"label": f"noise-N{turn_index}", "turn_index": turn_index})
+            print(f"  [WARN] turn {turn_index} still garbled after neutral fallback")
+        prev_hash = result.new_prev_hash
+        turns.append((result.user_text, result.assistant_text))
         time.sleep(0.3)
-    return turns
+
+    meta = {
+        "garbled_capture_guard": "probe_then_neutral_fallback",
+        "garbled_retries": garbled_retries,
+        "garbled_neutral_fallbacks": garbled_neutral_fallbacks,
+        "garbled_stripped": garbled_stripped,
+        "garbled_captures_deleted": total_deletes,
+    }
+    return turns, meta
 
 
 def store_size_bytes(base_url: str, user_id: str) -> dict:
@@ -248,8 +306,34 @@ def store_size_bytes(base_url: str, user_id: str) -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", default=os.environ.get("PRI_BASE_URL", "http://127.0.0.1:8000"))
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument(
+        "--run-id",
+        default="",
+        help="Suffix for the output JSON filename only (default: random)",
+    )
+    parser.add_argument(
+        "--seed",
+        type=int,
+        default=None,
+        help="Legacy output filename suffix only — does not reuse memory chain ids",
+    )
+    parser.add_argument(
+        "--user-id",
+        default="",
+        help="Debug override for memory_user (must pair with --base-session)",
+    )
+    parser.add_argument(
+        "--base-session",
+        default="",
+        help="Debug override for memory_base_session (must pair with --user-id)",
+    )
     parser.add_argument("--noise-turns", type=int, default=0)
+    parser.add_argument(
+        "--garbled-retries",
+        type=int,
+        default=2,
+        help="Probe retries before neutral fallback on garbled plant decode",
+    )
     parser.add_argument("--resume-max-tokens", type=int, default=0)
     parser.add_argument("--resume-max-blocks", type=int, default=0)
     parser.add_argument("--swiss-always", action="store_true")
@@ -273,15 +357,30 @@ def main() -> int:
     or_model = args.openrouter_model.strip() or None
 
     api = f"{args.base_url.rstrip('/')}/v1/chat/completions"
+    api_root = api_root_from_chat_url(api)
     model = os.environ.get("PRI_MODEL") or resolve_model(args.base_url)
-    user_id = f"bench_mode_cmp_{args.seed}"
-    base_session = f"chain_mode_cmp_{args.seed}"
+    run_label = args.run_id or (
+        str(args.seed) if args.seed is not None else uuid.uuid4().hex[:10]
+    )
+    if args.user_id or args.base_session:
+        if not (args.user_id and args.base_session):
+            parser.error("--user-id and --base-session must be used together")
+        user_id = args.user_id
+        base_session = args.base_session
+        print(
+            "WARNING: reusing memory_user/base_session stacks chains — "
+            "use fresh ids per run unless debugging",
+            file=sys.stderr,
+        )
+    else:
+        user_id, base_session = fresh_chain_ids("mode_cmp")
 
     print("=" * 72)
     print("Inject mode compare (TEXT / RESUME / RESUME_OVERFLOW)")
     print(f"  API:    {api}")
     print(f"  model:  {model}")
     print(f"  user:   {user_id}")
+    print(f"  chain:  {base_session}")
     print(f"  noise:  {args.noise_turns} turns")
     print(f"  TEXT:   {text_backend}" + (
         f" ({openrouter_model(or_model)})" if text_backend == "openrouter" else ""
@@ -289,18 +388,17 @@ def main() -> int:
     print("=" * 72)
 
     print("\n-- Planting facts --")
-    turns = plant_facts(api, model, user_id, base_session)
-
+    turns, plant_meta = plant_chain_with_hygiene(
+        api,
+        model,
+        api_root,
+        user_id=user_id,
+        base_session=base_session,
+        noise_turns=args.noise_turns,
+        garbled_retries=args.garbled_retries,
+    )
     if args.noise_turns > 0:
-        print(f"\n-- Planting {args.noise_turns} noise turns --")
-        noise_turns = plant_noise(
-            api, model,
-            user_id=user_id,
-            base_session=base_session,
-            start_turn=len(FACTS) + 1,
-            count=args.noise_turns,
-        )
-        turns.extend(noise_turns)
+        print(f"\n-- Planted {args.noise_turns} noise turns (with garbled guard) --")
 
     arms = ("text", "resume", "resume_overflow")
     arm_results: dict[str, list[dict]] = {}
@@ -334,6 +432,7 @@ def main() -> int:
 
     payload = {
         "timestamp": time.time(),
+        "run_id": run_label,
         "seed": args.seed,
         "user_id": user_id,
         "base_session": base_session,
@@ -345,12 +444,13 @@ def main() -> int:
         "resume_max_tokens": args.resume_max_tokens,
         "resume_max_blocks": args.resume_max_blocks,
         "swiss_always": args.swiss_always,
+        **plant_meta,
         "summary": summary,
         "results": arm_results,
         "store_stats": store_size_bytes(args.base_url, user_id),
     }
 
-    out_path = args.out or Path("bench/results") / f"inject_mode_compare_{args.seed}.json"
+    out_path = args.out or Path("bench/results") / f"inject_mode_compare_{run_label}.json"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 

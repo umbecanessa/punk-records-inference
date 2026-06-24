@@ -68,12 +68,23 @@ def _resolve_harness_config() -> tuple[str, str, bool]:
 
 _config: tuple[str, str, bool] | None = None
 _resolved_model: str | None = None
+_baseline_mode: bool = False
+
+
+def set_baseline_mode(enabled: bool) -> None:
+    global _baseline_mode
+    _baseline_mode = enabled
+
+
+def baseline_mode() -> bool:
+    return _baseline_mode
 
 
 def reset_harness_config() -> None:
-    global _config, _resolved_model
+    global _config, _resolved_model, _baseline_mode
     _config = None
     _resolved_model = None
+    _baseline_mode = False
 
 
 def get_harness_config() -> tuple[str, str, bool]:
@@ -278,10 +289,10 @@ def stream_chat(
         "temperature": temperature,
         "chat_template_kwargs": {"enable_thinking": False},
     }
-    if chain_id:
+    if chain_id and not baseline_mode():
         payload["nls_chain_id"] = chain_id
     use_agent = agent_mode if agent_mode is not None else include_tools
-    if use_agent:
+    if use_agent and not baseline_mode():
         payload["nls_mode"] = "agent"
     if include_tools:
         payload["tools"] = TOOLS
@@ -289,6 +300,9 @@ def stream_chat(
 
     effective_user = user_id or os.environ.get("PRI_USER") or f"opencode_{chain_id or 'bench'}"
     payload["user"] = effective_user
+
+    if baseline_mode():
+        payload["kv_transfer_params"] = {"memory_off": "1"}
 
     if direct_vllm:
         payload["stream"] = False

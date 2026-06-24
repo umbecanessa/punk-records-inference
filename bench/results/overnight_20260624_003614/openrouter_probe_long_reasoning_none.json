@@ -1,0 +1,20 @@
+[
+  {
+    "variant": "reasoning_none",
+    "status_code": 200,
+    "elapsed_ms": 1845.2,
+    "content_len": 80,
+    "content_preview": "Your dog's name is Luna! She's a 3-year-old golden retriever who loves swimming.",
+    "reasoning_field_len": 0,
+    "completion_tokens": 22,
+    "reasoning_tokens": 0,
+    "has_luna": true,
+    "finish_reason": "stop",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "refusal",
+      "role"
+    ]
+  }
+]

@@ -47,11 +47,12 @@ echo "[run_suite] tier=$TIER base=$BASE_URL out=$OUT_DIR"
 
 case "$TIER" in
   1)
+    RUN_ID="$(date +%Y%m%d_%H%M%S)_${SEED}"
     python3 -u "${ROOT}/bench/tier1/smoke_health.py" --base-url "$BASE_URL" \
       | tee "${OUT_DIR}/tier1_health_$(date +%Y%m%d_%H%M%S).log"
     python3 -u "${ROOT}/bench/tier1/marco_facts.py" \
-      --base-url "$BASE_URL" --seed "$SEED" \
-      --out "${OUT_DIR}/tier1_marco_facts_${SEED}.json"
+      --base-url "$BASE_URL" --run-id "$RUN_ID" \
+      --out "${OUT_DIR}/tier1_marco_facts_${RUN_ID}.json"
     ;;
   opencode)
     python3 -u "${ROOT}/bench/opencode/opencode_long_session_harness.py" \
@@ -61,18 +62,20 @@ case "$TIER" in
       2>&1 | tee "${OUT_DIR}/opencode_$(date +%Y%m%d_%H%M%S).log"
     ;;
   sweep)
+    RUN_ID="$(date +%Y%m%d_%H%M%S)_${SEED}"
     python3 -u "${ROOT}/bench/tier1/turn_sweep.py" \
       --base-url "$BASE_URL" \
       --checkpoints 20,40,60,80 \
       --garbled-retries 2 \
-      --out "${OUT_DIR}/turn_sweep_cp20_80_clean.json"
+      --out "${OUT_DIR}/turn_sweep_cp20_80_v5_${RUN_ID}.json"
     ;;
   mode-compare)
+    RUN_ID="$(date +%Y%m%d_%H%M%S)_${SEED}"
     python3 -u "${ROOT}/bench/tier1/inject_mode_compare.py" \
       --base-url "$BASE_URL" \
-      --seed "$SEED" \
+      --run-id "$RUN_ID" \
       --noise-turns "${NOISE_TURNS:-0}" \
-      --out "${OUT_DIR}/inject_mode_compare_${SEED}.json"
+      --out "${OUT_DIR}/inject_mode_compare_${RUN_ID}.json"
     ;;
   geometry)
     python3 -u "${ROOT}/bench/tier1/geometry_audit.py" \
@@ -85,6 +88,13 @@ case "$TIER" in
       "${SWEEP_JSON}" \
       --base-url "$BASE_URL" \
       --out "${OUT_DIR}/turn_sweep_cp20_80_diagnose.json"
+    ;;
+  parity-assumption)
+    python3 -u "${ROOT}/bench/tier1/resume_parity_assumption_test.py" \
+      --from-sweep "$SWEEP_JSON" \
+      --checkpoint "${PARITY_CP:-80}" \
+      --base-url "$BASE_URL" \
+      --out "${OUT_DIR}/$(basename "${SWEEP_JSON%.json}")_parity_assumption_cp${PARITY_CP:-80}.json"
     ;;
   *)
     echo "Unknown tier: $TIER"

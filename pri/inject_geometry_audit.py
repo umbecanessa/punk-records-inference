@@ -6,6 +6,11 @@ Validates that a resume inject pack is geometrically consistent before loading K
   - Mamba delta-sum mode vs chain block order
   - Strip prefix and token counts vs manifest
 
+Turn-capture resume replay uses **pack cumulative offset** as the phantom
+for RoPE re-rotation. Manifest ``capture_num_phantom`` is chain provenance
+(tokens before this block in ``base_session`` order), not live request
+``num_phantom`` from the HTTP inject path.
+
 Called at resume inject time inside ``pri.connector`` and offline by
 ``bench/tier1/geometry_audit.py``. Abort controlled by
 ``NLS_RESUME_ABORT_ON_ROPE_FAIL`` (default on).
@@ -115,9 +120,10 @@ def audit_rope_pack_plan(
 
         phantom_at_capture = 0
         if resume_mode:
-            phantom_at_capture = capture_phantom
-            if phantom_at_capture <= 0 and role == "turn":
+            if role == "turn":
                 phantom_at_capture = total_tokens
+            elif capture_phantom > 0:
+                phantom_at_capture = capture_phantom
             rope_old = max(strip, rope_start + phantom_at_capture)
         else:
             rope_old = max(strip, rope_start)

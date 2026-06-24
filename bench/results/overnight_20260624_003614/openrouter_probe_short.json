@@ -1,0 +1,205 @@
+[
+  {
+    "variant": "bench_current",
+    "status_code": 200,
+    "elapsed_ms": 2261.2,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 726,
+    "completion_tokens": 200,
+    "reasoning_tokens": 190,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "plain_minimal",
+    "status_code": 200,
+    "elapsed_ms": 2644.9,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 731,
+    "completion_tokens": 200,
+    "reasoning_tokens": 191,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "extra_body_ctk",
+    "status_code": 200,
+    "elapsed_ms": 1622.7,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 741,
+    "completion_tokens": 200,
+    "reasoning_tokens": 193,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "reasoning_none",
+    "status_code": 200,
+    "elapsed_ms": 680.6,
+    "content_len": 84,
+    "content_preview": "Your dog's name is **Luna**. She's a 3-year-old golden retriever who loves swimming!",
+    "reasoning_field_len": 0,
+    "completion_tokens": 24,
+    "reasoning_tokens": 0,
+    "has_luna": true,
+    "finish_reason": "stop",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "reasoning_exclude",
+    "status_code": 200,
+    "elapsed_ms": 59907.5,
+    "content_len": 84,
+    "content_preview": "Your dog's name is **Luna**. She's a 3-year-old golden retriever who loves swimming!",
+    "reasoning_field_len": 0,
+    "completion_tokens": 23,
+    "reasoning_tokens": 0,
+    "has_luna": true,
+    "finish_reason": "stop",
+    "message_keys": [
+      "content",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "include_reasoning_false",
+    "status_code": 200,
+    "elapsed_ms": 1651.8,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 0,
+    "completion_tokens": 200,
+    "reasoning_tokens": 191,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "ctk_and_reasoning_none",
+    "status_code": 200,
+    "elapsed_ms": 1530.0,
+    "content_len": 84,
+    "content_preview": "Your dog's name is **Luna**. She's a 3-year-old golden retriever who loves swimming!",
+    "reasoning_field_len": 0,
+    "completion_tokens": 24,
+    "reasoning_tokens": 0,
+    "has_luna": true,
+    "finish_reason": "stop",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "extra_body_both",
+    "status_code": 200,
+    "elapsed_ms": 1686.1,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 726,
+    "completion_tokens": 200,
+    "reasoning_tokens": 190,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "enable_thinking_top",
+    "status_code": 200,
+    "elapsed_ms": 2292.0,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 726,
+    "completion_tokens": 200,
+    "reasoning_tokens": 190,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "max_tokens_512",
+    "status_code": 200,
+    "elapsed_ms": 6372.0,
+    "content_len": 24,
+    "content_preview": "Your dog's name is Luna.",
+    "reasoning_field_len": 1461,
+    "completion_tokens": 394,
+    "reasoning_tokens": 381,
+    "has_luna": true,
+    "finish_reason": "stop",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  },
+  {
+    "variant": "reasoning_budget_0",
+    "status_code": 200,
+    "elapsed_ms": 2745.3,
+    "content_len": 0,
+    "content_preview": "",
+    "reasoning_field_len": 733,
+    "completion_tokens": 200,
+    "reasoning_tokens": 191,
+    "has_luna": false,
+    "finish_reason": "length",
+    "message_keys": [
+      "content",
+      "reasoning",
+      "reasoning_details",
+      "refusal",
+      "role"
+    ]
+  }
+]

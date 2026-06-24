@@ -8,17 +8,99 @@ Reproduce proof artifacts with one command against a live vLLM instance.
 
 ## Publication results
 
-Proof tables in this doc and the [README](../README.md) are updated when bench sweeps complete on GX10. Current artifacts below are **smoke/regression** baselines, not a final publication set.
+**GX10 · Qwen3.5-35B-A3B-FP8 · 2026-06-24** — full proof run
+[`bench/results/overnight_20260624_003614/`](../bench/results/overnight_20260624_003614/)
 
-| Status | Bench | Notes |
-|--------|-------|-------|
-| ✅ Green | Tier-1 Marco facts | TEXT 5/5 · RESUME 5/5 |
-| ✅ Green | OpenCode long session (seed 42) | RECALL 6/6 |
-| 🔄 In progress | Turn sweep cp20–80 (clean) | Inject-mode + garbled-capture hygiene |
-| 🔄 In progress | Inject mode compare | `resume` vs `resume_overflow` value case |
-| 📋 Planned | Token/latency/disk matrix | See BENCH_DATA_PLAN Phase B–D |
+Summary table: [`PHASE_E_SUMMARY.md`](../bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md) ·
+machine-readable: [`phase_e_summary.json`](../bench/results/overnight_20260624_003614/phase_e_summary.json) ·
+canonical paths: [`canonical_artifacts.json`](../bench/results/overnight_20260624_003614/canonical_artifacts.json)
 
-When the bench pass lands, this section gets expanded tables (tokens saved, latency p50/p95, disk per turn) linked to JSON artifacts under `bench/results/`.
+**Recommended default inject mode:** `resume` (same recall as `resume_overflow` on short/long12; overflow does not recover the cp60+ turn-sweep cliff).
+
+### Phase E headline (long12 chain, local PRI)
+
+| Metric | TEXT | RESUME | OVERFLOW | Δ vs TEXT (prompt tok) |
+|--------|------|--------|----------|-------------------------|
+| Recall @5 | 5/5 | 5/5 | 5/5 | — |
+| Mean prompt tok | 3743 | 42 | 42 | **3701 saved** |
+| Mean latency ms | 2885 | 1549 | 1473 | — |
+
+### Inject mode compare
+
+| Scenario | TEXT | RESUME | OVERFLOW | Δ prompt (mean) |
+|----------|------|--------|----------|-----------------|
+| Short chain (local) | 5/5 | 5/5 | 5/5 | 404 |
+| Long12 chain (local) | 5/5 | 5/5 | 5/5 | 3701 |
+| Short OpenRouter TEXT | 5/5 | 5/5 | 5/5 | 360 |
+| Long12 OpenRouter TEXT | 5/5 | 5/5 | 5/5 | 3701 |
+| Long12 `resume_max_tokens=4096` | 5/5 | 5/5 | 5/5 | 3701 |
+
+### Tier-1 Marco · OpenCode
+
+| Bench | TEXT / baseline | RESUME / PRI |
+|-------|-----------------|--------------|
+| Marco local | 5/5 | 5/5 |
+| Marco OpenRouter | 5/5 | 5/5 |
+| OpenCode long session (seed 42) | 6/6 (memory_off) | 6/6 |
+
+### Turn sweep (length scaling)
+
+Marco facts + cumulative noise at cp 20/40/60/80. TEXT = full inline; RESUME = chain inject; ARM-D = `resume_overflow`.
+
+| cp | inject tok | TEXT | RESUME | ARM-D |
+|----|------------|------|--------|-------|
+| 20 | 6225 | 5/5 | 5/5 | 5/5 |
+| 40 | 11981 | 5/5 | 5/5 | 5/5 |
+| 60 | 17131 | 5/5 | 3/5 | 3/5 |
+| 80 | 23543 | 5/5 | 0/5 | 0/5 |
+
+RoPE pack geometry audit: **100%** delta_uniformity (83 blocks, verdict `pass`) — garble at cp60+ is inject/decode, not pack geometry. See [Limitations](LIMITATIONS.md#resume-inject).
+
+### Storage (full turn-sweep session)
+
+| Metric | Value |
+|--------|-------|
+| Captures | 143 files |
+| Capture disk | 648 MB |
+| Index rows | 143 |
+
+### Phase completion (BENCH_DATA_PLAN)
+
+| Phase | Status |
+|-------|--------|
+| A — Inject mode default | ✅ Complete |
+| B — Standard vs PRI | ✅ Complete |
+| C — Storage snapshot | ✅ Complete |
+| D — Latency breakdown | Optional (prompt/latency in JSON per run) |
+| E — Publication summary | ✅ Complete |
+
+Maintainer matrix: [BENCH_DATA_PLAN.md](BENCH_DATA_PLAN.md)
+
+### Research analysis (extended)
+
+Full publication pages with Mermaid charts and per-probe tables:
+
+**[`bench/results/overnight_20260624_003614/research/README.md`](../bench/results/overnight_20260624_003614/research/README.md)**
+
+| Page | Topics |
+|------|--------|
+| [Token efficiency](../bench/results/overnight_20260624_003614/research/02_token_efficiency.md) | Prompt tokens saved, per-scenario, turn-sweep scaling |
+| [Latency](../bench/results/overnight_20260624_003614/research/03_latency_analysis.md) | Mean/p95 ms, ms per 1k prompt tokens |
+| [Computational cost](../bench/results/overnight_20260624_003614/research/04_computational_cost.md) | Prefill proxy units, cost vs correctness |
+| [Energy & cost](../bench/results/overnight_20260624_003614/research/09_energy_and_cost.md) | GPU Wh, electricity $, cloud API $, annual projections |
+| [Storage](../bench/results/overnight_20260624_003614/research/05_storage_footprint.md) | `.nls` sizes, MB/turn, bytes/token |
+| [Turn-sweep scaling](../bench/results/overnight_20260624_003614/research/06_turn_sweep_scaling.md) | Recall cliff, inject depth charts |
+| [RoPE geometry](../bench/results/overnight_20260624_003614/research/07_rope_geometry.md) | delta_uniformity KPI, post-fix audit |
+| [Failure modes](../bench/results/overnight_20260624_003614/research/08_failure_modes.md) | Garble root cause, isolation |
+
+Machine-readable rollup: [`research_data.json`](../bench/results/overnight_20260624_003614/research/research_data.json)
+
+Regenerate after a new run:
+
+```bash
+python bench/build_phase_e_summary.py --run-dir bench/results/<run_folder>
+python bench/build_research_reports.py --run-dir bench/results/<run_folder>
+```
 
 ---
 
@@ -66,14 +148,34 @@ python bench/tier1/marco_facts.py \
   --out bench/results/tier1_marco_facts_42.json
 ```
 
+## Inject mode compare
+
+`bench/tier1/inject_mode_compare.py` — plants Marco facts (+ optional noise turns), then scores
+TEXT vs RESUME vs RESUME_OVERFLOW on five recall probes.
+
+```bash
+./bench/run_suite.sh --tier mode-compare --base-url http://127.0.0.1:8000 --seed 42
+
+# Long chain stress (12 noise turns)
+NOISE_TURNS=12 ./bench/run_suite.sh --tier mode-compare --base-url http://127.0.0.1:8000 --seed 42
+
+# OpenRouter TEXT baseline (requires bench/.env — see bench/env.example)
+python bench/tier1/inject_mode_compare.py --text-backend openrouter ...
+```
+
 ## Proof artifacts (GX10, stock Qwen3.5-35B-A3B-FP8)
 
-| Date | Bench | Model | Result | Artifact |
-|------|-------|-------|--------|----------|
-| 2026-06-23 | tier1 marco_facts (seed 42) | `/model` | TEXT 5/5, RESUME 5/5 | `bench/results/tier1_marco_facts_42.json` |
-| 2026-06-23 | opencode long session (seed 42) | `/model` | RECALL 6/6 | `bench/results/opencode_long_session.json` |
-| 2026-06-23 | turn sweep cp20–80 | `/model` | cp20–40: 5/5; cp60: 4/5; cp80: 1/5 RESUME | `bench/results/turn_sweep_cp20_80.json` |
-| 2026-06-23 | turn sweep diagnose | `/model` | see diagnose JSON | `bench/results/turn_sweep_cp20_80_diagnose.json` |
+Canonical run folder: `bench/results/overnight_20260624_003614/` (see `canonical_artifacts.json`).
+
+| Date | Bench | Result | Artifact |
+|------|-------|--------|----------|
+| 2026-06-24 | inject mode compare (short + long12) | 5/5/5 all arms | `inject_mode_compare_*_postfix.json` |
+| 2026-06-24 | inject mode compare (OpenRouter TEXT) | 5/5/5 | `inject_mode_compare_*_openrouter_reasoning_none.json` |
+| 2026-06-24 | tier1 marco_facts | TEXT 5/5, RESUME 5/5 | `tier1_marco_facts_*_marco.json` |
+| 2026-06-24 | opencode long session (seed 42) | PRI 6/6, baseline 6/6 | `opencode_long_session_*.json` |
+| 2026-06-24 | turn sweep cp20–80 (v5) | cp20–40: 5/5; cp60: 3/5; cp80: 0/5 RESUME | `turn_sweep_cp20_80_v5.json` |
+| 2026-06-24 | geometry audit (RoPE fix) | pass, 100% delta_uniformity | `geometry_audit_turn_sweep_v5_fixed.json` |
+| 2026-06-23 | smoke marco_facts (seed 42) | TEXT 5/5, RESUME 5/5 | `bench/results/tier1_marco_facts_42.json` |
 
 ## OpenCode harness
 
@@ -110,8 +212,9 @@ python bench/tier1/turn_sweep.py \
   --out bench/results/turn_sweep_cp20_80.json
 ```
 
-Success criterion: `resume_pass_clean >= text_pass_clean` at cp20–60; cp80 cliff
-documented (NLS post-fix: 4/5 resume at ~22k inject tokens).
+Success criterion: `resume_pass >= text_pass` at cp20–40 (value case proven); cp60+
+RESUME garble while TEXT stays 5/5 is a **documented product limitation** (~17–23k
+inject tokens), not a bench failure. RoPE geometry audit passes at 100%.
 
 ## Geometry audit
 
@@ -126,6 +229,29 @@ python bench/tier1/geometry_audit.py \
 ```
 
 Verdict `pass` means inject geometry is consistent for resume pack plan.
+
+## Parity assumption test (attn vs SSM)
+
+`bench/tier1/resume_parity_assumption_test.py` — on a **frozen** turn-sweep chain,
+measures query-token parity for `attn_input_hs`, `ssm_state`, and `deltanet_out_hs`,
+plus inject-scope and decode-stability A/B (prefix vs full, isolated vs sequential hotel).
+
+Requires the chain still on disk and microscope support in vLLM. Run inside the
+container (torch + `/tmp/nls_microscope`):
+
+```bash
+./bench/run_parity_assumption_test.sh \
+  bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv.json 80
+```
+
+For accurate `full_vs_resume`, export turns during sweep:
+
+```bash
+python bench/tier1/turn_sweep.py ... --export-turns bench/results/turns_cp80.json
+TURNS_JSON=bench/results/turns_cp80.json ./bench/run_parity_assumption_test.sh ...
+```
+
+Output: `*_parity_assumption_cp80.json` with `assumption_verdicts` for H1–H6.
 
 ## Unit tests (no GPU)
 

@@ -4,8 +4,9 @@
 Plants a single growing session with turn-level capture, then scores TEXT vs
 RESUME (and optional resume_overflow arm D) at each checkpoint.
 
-Garbled assistant responses trigger admin capture delete + retry so poisoned
-Mamba state does not remain in the inject chain (see sweep_lib.plant_turn_hygiene).
+Garbled assistant responses use a probe-then-neutral-fallback flow: probe with
+``memory_no_capture`` first, capture when clean, otherwise capture a neutral
+substitute turn at the same ``turn_index`` (no chain gaps).
 
 Requires vLLM with ``NLS_CHAIN_CAPTURE_MODE=turn``.
 
@@ -32,7 +33,9 @@ for path in (_REPO, _REPO / "bench" / "opencode", _TIER1):
 
 from sweep_lib import (  # noqa: E402
     FACTS,
+    NEUTRAL_TURN_USER,
     RECALL,
+    PlantHygieneResult,
     chain_turn_stats,
     estimate_chat_tokens,
     estimate_user_only_tokens,
@@ -70,7 +73,19 @@ def main() -> int:
         action=argparse.BooleanOptionalAction,
         default=True,
     )
+    parser.add_argument(
+        "--stop-on-noise-garble",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Abort when neutral fallback still fails on a noise turn",
+    )
     parser.add_argument("--out", type=Path, default=None)
+    parser.add_argument(
+        "--export-turns",
+        type=Path,
+        default=None,
+        help="Write planted (user, assistant) turns JSON for microscope / parity tests",
+    )
     args = parser.parse_args()
 
     api_root = api_root_from_chat_url(args.base_url)
@@ -86,24 +101,27 @@ def main() -> int:
     capture_mode = os.environ.get("NLS_CHAIN_CAPTURE_MODE", "turn")
 
     payload: dict = {
-        "version": 2,
-        "garbled_capture_guard": True,
+        "version": 4,
+        "garbled_capture_guard": "probe_then_neutral_fallback",
         "garbled_retries": args.garbled_retries,
+        "neutral_turn_user": NEUTRAL_TURN_USER,
         "capture_mode": capture_mode,
         "user_id": user_id,
         "base_session": base_session,
         "model": model,
         "checkpoints": checkpoints,
         "garbled_stripped": [],
+        "garbled_neutral_fallbacks": [],
         "garbled_captures_deleted": 0,
         "results": [],
     }
 
-    out_path = args.out or Path("bench/results") / "turn_sweep_cp20_80.json"
+    out_path = args.out or Path("bench/results") / "turn_sweep_cp20_80_v3.json"
 
     print("=" * 72)
-    print("TURN CHAIN PRODUCTION SWEEP (garbled capture guard ON)")
+    print("TURN CHAIN PRODUCTION SWEEP (probe-then-neutral-fallback guard)")
     print(f"capture_mode={capture_mode} user={user_id} model={model}")
+    print(f"neutral_user={NEUTRAL_TURN_USER!r}")
     print("=" * 72)
 
     turns: list[tuple[str, str]] = []
@@ -111,12 +129,44 @@ def main() -> int:
     prev_hash = ""
     noise_done = 0
     garbled_stripped: list[dict] = []
+    garbled_neutral_fallbacks: list[dict] = []
     total_deletes = 0
+
+    def _record_plant(label: str, result: PlantHygieneResult) -> bool:
+        nonlocal total_deletes, prev_hash
+        total_deletes += result.deletes
+        if result.neutral_fallback:
+            garbled_neutral_fallbacks.append({
+                "label": label,
+                "turn_index": turn_index,
+                "original_user": result.original_user_msg[:120],
+                "substitute_user": result.user_text,
+                "substitute_assistant": result.assistant_text[:120],
+                "session": result.block_session,
+                "deletes": result.deletes,
+                "garbled_probe_attempts": result.garbled_probe_attempts,
+            })
+            print(
+                f"  [NEUTRAL] turn {turn_index} captured safe substitute "
+                f"after {result.garbled_probe_attempts} garbled probe(s)",
+            )
+        if result.still_garbled:
+            garbled_stripped.append({
+                "label": label,
+                "turn_index": turn_index,
+                "user": result.original_user_msg[:120],
+                "session": result.block_session,
+                "deletes": result.deletes,
+            })
+            return False
+        prev_hash = result.new_prev_hash
+        turns.append((result.user_text, result.assistant_text))
+        return True
 
     for fact in FACTS:
         turn_index += 1
         print(f"  [fact T{turn_index}] {fact[:55]}...")
-        asst, prev_hash, session, still_garbled, deletes = plant_turn_hygiene(
+        result = plant_turn_hygiene(
             api, model, api_root,
             user_id=user_id,
             base_session=base_session,
@@ -125,24 +175,18 @@ def main() -> int:
             user_msg=fact,
             max_garbled_retries=args.garbled_retries,
         )
-        total_deletes += deletes
-        if still_garbled:
-            garbled_stripped.append({
-                "label": f"fact-T{turn_index}",
-                "user": fact[:120],
-                "session": session,
-                "deletes": deletes,
-            })
+        if not _record_plant(f"fact-T{turn_index}", result):
             if args.stop_on_fact_garble:
-                print(f"FATAL: garbled fact plant at T{turn_index} after {deletes} delete(s)")
+                print(f"FATAL: garbled fact plant at T{turn_index} after neutral fallback")
                 payload["garbled_stripped"] = garbled_stripped
+                payload["garbled_neutral_fallbacks"] = garbled_neutral_fallbacks
                 payload["garbled_captures_deleted"] = total_deletes
                 _save_checkpoint(out_path, payload)
                 return 2
-        turns.append((fact, asst))
         time.sleep(0.5)
 
     payload["garbled_stripped"] = garbled_stripped
+    payload["garbled_neutral_fallbacks"] = garbled_neutral_fallbacks
     payload["garbled_captures_deleted"] = total_deletes
 
     for cp in checkpoints:
@@ -150,7 +194,7 @@ def main() -> int:
             msg = noise_prompt(noise_done)
             turn_index += 1
             print(f"  [noise N{turn_index}] {msg[:55]}...")
-            asst, prev_hash, session, still_garbled, deletes = plant_turn_hygiene(
+            result = plant_turn_hygiene(
                 api, model, api_root,
                 user_id=user_id,
                 base_session=base_session,
@@ -159,20 +203,24 @@ def main() -> int:
                 user_msg=msg,
                 max_garbled_retries=args.garbled_retries,
             )
-            total_deletes += deletes
-            if still_garbled:
-                garbled_stripped.append({
-                    "label": f"noise-N{turn_index}",
-                    "user": msg[:120],
-                    "session": session,
-                    "deletes": deletes,
-                })
-                print(f"  [GARBLED] kept empty history, deleted capture ({deletes} attempt(s))")
-            turns.append((msg, asst))
+            if not _record_plant(f"noise-N{turn_index}", result):
+                if args.stop_on_noise_garble:
+                    print(f"FATAL: garbled noise plant at N{turn_index} after neutral fallback")
+                    payload["garbled_stripped"] = garbled_stripped
+                    payload["garbled_neutral_fallbacks"] = garbled_neutral_fallbacks
+                    payload["garbled_captures_deleted"] = total_deletes
+                    _save_checkpoint(out_path, payload)
+                    return 2
+                print(
+                    f"  [WARN] turn {turn_index} still garbled — continuing without capture "
+                    f"(no-stop-on-noise-garble)",
+                )
+                turns.append((msg, ""))
             noise_done += 1
             time.sleep(0.5)
 
         payload["garbled_stripped"] = garbled_stripped
+        payload["garbled_neutral_fallbacks"] = garbled_neutral_fallbacks
         payload["garbled_captures_deleted"] = total_deletes
 
         stats = chain_turn_stats(api_root, user_id, base_session)
@@ -247,6 +295,15 @@ def main() -> int:
         )
 
     print(f"\nSaved {out_path} (garbled_captures_deleted={total_deletes})")
+
+    if args.export_turns:
+        turns_payload = [{"user": u, "assistant": a} for u, a in turns]
+        args.export_turns.parent.mkdir(parents=True, exist_ok=True)
+        args.export_turns.write_text(
+            json.dumps(turns_payload, indent=2),
+            encoding="utf-8",
+        )
+        print(f"Exported {len(turns_payload)} turns -> {args.export_turns}")
 
     resume_ok = all(
         r["resume_pass_clean"] >= r["text_pass_clean"]

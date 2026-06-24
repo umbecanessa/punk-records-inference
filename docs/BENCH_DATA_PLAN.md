@@ -9,6 +9,17 @@ inject mode (`resume` vs `resume_overflow`).
 Artifacts land in `bench/results/` with JSON schemas suitable for README proof
 tables and external charts.
 
+**Latest proof run:** `bench/results/overnight_20260624_003614/` ·
+[`PHASE_E_SUMMARY.md`](../bench/results/overnight_20260624_003614/PHASE_E_SUMMARY.md)
+
+| Phase | Status | Outcome |
+|-------|--------|---------|
+| A — Inject mode default | ✅ | Default stays **`resume`** |
+| B — Standard vs PRI | ✅ | Marco + OpenCode + turn sweep measured |
+| C — Storage snapshot | ✅ | 143 captures, 648 MB (full sweep session) |
+| D — Latency breakdown | Optional | Per-request ms/tokens in harness JSON |
+| E — Publication summary | ✅ | Tables in BENCHMARKS.md + PHASE_E_SUMMARY.md |
+
 ---
 
 ## Goals
@@ -96,7 +107,8 @@ python bench/tier1/inject_mode_compare.py \
 **Flip default to `resume_overflow` only if** A1+A2 show ≥ same recall and
 meaningful benefit (trim backfill or future compaction scenario).
 
----
+**2026-06-24 result:** RESUME and OVERFLOW tie on recall (5/5) for short + long12;
+OVERFLOW does not recover cp60+ turn-sweep cliff. **Keep `resume` as default.**
 
 ## Phase B — Standard vs PRI (value case)
 
@@ -169,15 +181,28 @@ Compare TEXT prefill token count vs RESUME last-message-only + phantom inject to
 
 ## Phase E — Publication-ready summary table
 
+Source: `bench/results/overnight_20260624_003614/phase_e_summary.json` (long12 chain, local PRI).
+
 | Metric | TEXT | RESUME | OVERFLOW | Δ vs TEXT |
 |--------|------|--------|----------|-----------|
-| Recall @5 | | | | |
-| Mean prompt tok | | | | |
-| Mean latency ms | | | | |
-| Capture disk MB | | | | |
-| OpenCode RECALL | | | | |
+| Recall @5 | 5/5 | 5/5 | 5/5 | — |
+| Mean prompt tok | 3743 | 42 | 42 | **3701 saved** |
+| Mean latency ms | 2885 | 1549 | 1473 | — |
+| Capture disk MB | — | — | — | 648 (143 captures, full sweep) |
+| OpenCode RECALL | 6/6 baseline | 6/6 PRI | — | — |
 
----
+Turn sweep RESUME at cp60/cp80: **3/5** and **0/5** while TEXT **5/5** — documented
+limitation; RoPE geometry audit **pass** at 100% delta_uniformity.
+
+Rebuild after a new run:
+
+```bash
+python bench/build_phase_e_summary.py --run-dir bench/results/<run_folder>
+python bench/build_research_reports.py --run-dir bench/results/<run_folder>
+./bench/run_phase_e_completion.sh   # optional: marco OR, resume4096, store stats
+```
+
+Extended analysis pages (charts, per-probe tables): `<run_folder>/research/README.md`
 
 ## Startup profile (automatic)
 
