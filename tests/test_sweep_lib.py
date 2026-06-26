@@ -35,7 +35,7 @@ def test_plant_turn_no_capture_sets_memory_no_capture():
     assert session == "chain_x_t2_user"
     kvp = captured["body"]["kv_transfer_params"]
     assert kvp["memory_no_capture"] == "1"
-    assert kvp["memory_inject_mode"] == "resume"
+    assert kvp["memory_inject_mode"] == sweep_lib.default_chain_inject_mode()
 
 
 def test_plant_turn_capture_advances_hash():
