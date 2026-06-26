@@ -317,9 +317,16 @@ def summarize_geometry_audit(
     provenance = audit_capture_provenance(rope_rows)
 
     findings: list[str] = []
-    non_zero = [r for r in rope_rows if r.rope_delta != 0]
-    delta_values = sorted({r.rope_delta for r in rope_rows})
+    system_rows = [r for r in rope_rows if r.role == "system"]
+    pack_turn_rows = [r for r in rope_rows if r.role != "system"]
+    non_zero = [r for r in pack_turn_rows if r.rope_delta != 0]
+    delta_values = sorted({r.rope_delta for r in pack_turn_rows})
     if resume_mode:
+        if system_rows:
+            findings.append(
+                f"resume pack includes {len(system_rows)} system block(s) at pack offset "
+                f"(RoPE delta={system_rows[0].rope_delta} expected for cold system KV)"
+            )
         if len(delta_values) > 1:
             findings.append(
                 f"inconsistent resume RoPE deltas across blocks: {delta_values}"
@@ -327,7 +334,7 @@ def summarize_geometry_audit(
         elif non_zero and delta_values:
             findings.append(
                 f"uniform resume RoPE delta={delta_values[0]} on "
-                f"{len(rope_rows)} blocks (expected after phantom-aware rotate)"
+                f"{len(pack_turn_rows)} turn block(s) (expected after phantom-aware rotate)"
             )
     elif non_zero:
         findings.append(

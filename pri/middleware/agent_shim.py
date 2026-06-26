@@ -37,7 +37,7 @@ logger = logging.getLogger("pri.agent_shim")
 
 AGENT_SHIM_ENABLED = os.environ.get("NLS_AGENT_SHIM", "1") == "1"
 CHAIN_CAPTURE_MODE = os.environ.get("NLS_CHAIN_CAPTURE_MODE", "turn").strip().lower()
-DEFAULT_INJECT_MODE = os.environ.get("NLS_API_INJECT_MODE", "resume").strip()
+DEFAULT_INJECT_MODE = os.environ.get("NLS_API_INJECT_MODE", "resume_overflow").strip()
 
 OPENCODE_COMPACTION_MARKER = "Provide a detailed but concise summary"
 

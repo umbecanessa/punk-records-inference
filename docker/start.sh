@@ -47,7 +47,7 @@ PROFILE_ENV="${NLS_MEMORY_DIR}/profile.env"
 python3 -m pri.startup_profile \
   --model-path "${MODEL_PATH}" \
   --memory-dir "${NLS_MEMORY_DIR}" \
-  --inject-mode "${NLS_API_INJECT_MODE:-resume}" \
+  --inject-mode "${NLS_API_INJECT_MODE:-resume_overflow}" \
   --write-env "${PROFILE_ENV}" \
   --force \
   --quiet
@@ -76,7 +76,7 @@ export NLS_ROLE_FILTER="${NLS_ROLE_FILTER:-user,tool}"
 export NLS_AGENT_SHIM="${NLS_AGENT_SHIM:-1}"
 # Turn capture + resume chain (Fable C′)
 export NLS_CHAIN_CAPTURE_MODE="${NLS_CHAIN_CAPTURE_MODE:-turn}"
-export NLS_API_INJECT_MODE="${NLS_API_INJECT_MODE:-resume}"
+export NLS_API_INJECT_MODE="${NLS_API_INJECT_MODE:-resume_overflow}"
 export NLS_RESUME_ROLES="${NLS_RESUME_ROLES:-turn,tool}"
 
 echo "[start.sh] MODEL_PATH=${MODEL_PATH}"

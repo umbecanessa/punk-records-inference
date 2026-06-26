@@ -3,7 +3,7 @@
 Collects blockchain-linked ``.nls`` blocks for a ``memory_base_session``, packs them
 in turn order, and builds inject config for ``pri.connector``.
 
-v0.1 default (``NLS_API_INJECT_MODE=resume``):
+v0.1 default (``NLS_API_INJECT_MODE=resume_overflow``):
 
   - Swiss retrieval is skipped when the chain walk succeeds.
   - Attention K/V: packed in turn order with per-block RoPE re-rotation from each
@@ -39,6 +39,17 @@ logger = logging.getLogger("nls_chain_resume")
 
 INJECT_MODE = os.environ.get("NLS_INJECT_MODE", "swiss").strip().lower()
 RESUME_ROLES = default_resume_roles()
+
+
+def resume_prepend_sys_block_enabled() -> bool:
+    """Whether resume inject prepends a stored system ``.nls`` block.
+
+    Default off: the live HTTP request already carries ``system``; resume inject
+    strips it via ``memory_capture_start``. Prepending a stored system block
+    duplicates phantom geometry and breaks recall (classic chain proof).
+    """
+    raw = str(os.environ.get("NLS_RESUME_PREPEND_SYS_BLOCK", "0") or "").strip().lower()
+    return raw in ("1", "true", "yes")
 # user → tool → turn ordering within the same turn_index
 _ROLE_ORDER = {"user": 0, "tool": 1, "turn": 1, "assistant": 2}
 
@@ -249,6 +260,26 @@ def chain_pack_phantom_before_turn(
     )
 
 
+def apply_mamba_mode_override(cfg: dict | None, kvp: dict) -> None:
+    """Per-request Mamba inject mode for resume pack (bench invalidation).
+
+    ``memory_mamba_mode`` on the wire overrides ``NLS_RESUME_MAMBA_DELTA_SUM``:
+      0 = genesis only
+      1 = genesis + Σ(block − genesis)
+      2 = genesis + last block delta only
+      3 = last block SSM verbatim (resume chain tail)
+    """
+    if cfg is None:
+        return
+    raw = str(kvp.get("memory_mamba_mode", "") or "").strip()
+    if not raw:
+        return
+    try:
+        cfg["mamba_delta_sum"] = int(raw)
+    except ValueError:
+        logger.warning("Resume: invalid memory_mamba_mode=%r", raw)
+
+
 def build_resume_inject_config(blocks: list[ChainBlock]) -> Optional[dict]:
     """Build snapshot_connector auto_config dict for resume inject."""
     if not blocks:
@@ -297,7 +328,7 @@ def try_resume_config(
     full_blocks = len(blocks)
     full_tokens = sum(b.num_tokens for b in blocks)
     blocks = trim_chain_blocks(blocks, max_blocks=max_blocks, max_tokens=max_tokens)
-    if blocks and sys_prompt_hash:
+    if blocks and sys_prompt_hash and resume_prepend_sys_block_enabled():
         sys_block = find_system_block(store, sys_prompt_hash)
         if sys_block is not None:
             blocks = [sys_block] + blocks
@@ -311,6 +342,12 @@ def try_resume_config(
                 "Resume: no system block for hash=%s — inject order may be wrong",
                 sys_prompt_hash[:12],
             )
+    elif blocks and sys_prompt_hash and not resume_prepend_sys_block_enabled():
+        logger.debug(
+            "Resume: sys hash=%s present; system prepend disabled "
+            "(live request carries system prefix)",
+            sys_prompt_hash[:12],
+        )
     if not blocks:
         logger.info(
             "Resume: no chain blocks for user=%s base_session=%s",

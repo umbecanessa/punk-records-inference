@@ -16,7 +16,11 @@ set -euo pipefail
 PRI="${PRI:-/home/wasnaga/punk-records-inference}"
 IMAGE="${PRI_IMAGE:-ghcr.io/punkrecords/inference:dev}"
 PRI_DATA_VOLUME="${PRI_DATA_VOLUME:-pri-data}"
-GPU_MEM="${GPU_MEMORY_UTILIZATION:-0.70}"
+# GB10 Spark: 128 GiB unified memory; Qwen ~34 GiB weights leaves large KV headroom.
+GPU_MEM="${GPU_MEMORY_UTILIZATION:-0.75}"
+MAX_MODEL_LEN="${MAX_MODEL_LEN:-65536}"
+NLS_RESUME_MAX_TOKENS="${NLS_RESUME_MAX_TOKENS:-60000}"
+NLS_RESUME_SWISS_MAX_TOKENS="${NLS_RESUME_SWISS_MAX_TOKENS:-512}"
 CONTAINER="${PRI_CONTAINER:-pri-inference}"
 PORT="${PRI_PORT:-8000}"
 DOWNLOAD=0
@@ -70,7 +74,8 @@ chmod +x "${PRI}/docker/start.sh" "${PRI}/bench/run_model_matrix.sh" 2>/dev/null
 
 echo "[deploy] model=${MODEL_MOUNT}"
 echo "[deploy] volume_mount=${HF_VOLUME_MOUNT} -> MODEL_PATH=${MODEL_PATH_CONTAINER}"
-echo "[deploy] volume=${PRI_DATA_VOLUME} gpu_mem=${GPU_MEM}"
+echo "[deploy] volume=${PRI_DATA_VOLUME} gpu_mem=${GPU_MEM} max_model_len=${MAX_MODEL_LEN}"
+echo "[deploy] resume_max_tokens=${NLS_RESUME_MAX_TOKENS} swiss_max=${NLS_RESUME_SWISS_MAX_TOKENS}"
 
 docker rm -f "${CONTAINER}" 2>/dev/null || true
 
@@ -78,17 +83,17 @@ docker volume create "${PRI_DATA_VOLUME}" 2>/dev/null || true
 
 DOCKER_ENV=(
   -e "GPU_MEMORY_UTILIZATION=${GPU_MEM}"
+  -e "MAX_MODEL_LEN=${MAX_MODEL_LEN}"
   -e "MODEL_PATH=${MODEL_PATH_CONTAINER}"
   -e "NLS_MODEL_PATH=${MODEL_PATH_CONTAINER}"
   -e NLS_AGENT_SHIM=1
   -e NLS_CHAIN_CAPTURE_MODE=turn
-  -e NLS_API_INJECT_MODE=resume
+  -e NLS_API_INJECT_MODE=resume_overflow
+  -e "NLS_RESUME_MAX_TOKENS=${NLS_RESUME_MAX_TOKENS}"
+  -e "NLS_RESUME_SWISS_MAX_TOKENS=${NLS_RESUME_SWISS_MAX_TOKENS}"
 )
 if [[ -n "${PRI_UPGRADE_TRANSFORMERS:-}" ]]; then
   DOCKER_ENV+=(-e "PRI_UPGRADE_TRANSFORMERS=${PRI_UPGRADE_TRANSFORMERS}")
-fi
-if [[ -n "${MAX_MODEL_LEN:-}" ]]; then
-  DOCKER_ENV+=(-e "MAX_MODEL_LEN=${MAX_MODEL_LEN}")
 fi
 if [[ -n "${PRI_VLLM_MODEL_IMPL:-}" ]]; then
   DOCKER_ENV+=(-e "PRI_VLLM_MODEL_IMPL=${PRI_VLLM_MODEL_IMPL}")

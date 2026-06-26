@@ -91,6 +91,45 @@ def block_hash(session_id: str) -> str:
     return hashlib.sha256(session_id.encode()).hexdigest()[:16]
 
 
+def default_chain_inject_mode() -> str:
+    """Chain plant / resume inject mode (matches ``NLS_API_INJECT_MODE`` default)."""
+    return os.environ.get("NLS_API_INJECT_MODE", "resume_overflow").strip()
+
+
+def sweep_resume_max_tokens() -> int:
+    """Cap resume inject so phantom + live prompt stays under ``MAX_MODEL_LEN``.
+
+    Prefer explicit ``SWEEP_RESUME_MAX_TOKENS``; else ``MAX_MODEL_LEN - 4096`` headroom
+    for live system + user query + decode; else 28000 legacy default.
+    """
+    raw = os.environ.get("SWEEP_RESUME_MAX_TOKENS")
+    if raw is not None and str(raw).strip() != "":
+        try:
+            return max(0, int(raw))
+        except (TypeError, ValueError):
+            pass
+    max_model = os.environ.get("MAX_MODEL_LEN", "")
+    if max_model:
+        try:
+            return max(0, int(max_model) - 4096)
+        except (TypeError, ValueError):
+            pass
+    return 28000
+
+
+def apply_resume_inject_caps(kv: dict[str, str]) -> dict[str, str]:
+    """Attach ``memory_resume_max_tokens`` for resume / resume_overflow requests."""
+    mode = str(kv.get("memory_inject_mode", "") or "").strip().lower()
+    if mode not in ("resume", "resume_overflow"):
+        return kv
+    cap = sweep_resume_max_tokens()
+    if cap <= 0:
+        return kv
+    out = dict(kv)
+    out["memory_resume_max_tokens"] = str(cap)
+    return out
+
+
 def wait_for_vllm(api_root: str, *, timeout_s: int = 180) -> bool:
     deadline = time.time() + timeout_s
     url = f"{api_root.rstrip('/')}/health"
@@ -229,6 +268,9 @@ class PlantHygieneResult:
     neutral_fallback: bool
     original_user_msg: str
     garbled_probe_attempts: int
+    headroom_user_phase: str = "n/a"  # compressed | raw | n/a
+    headroom_user_tokens_saved: int = 0
+    headroom_compressed_probe_failures: int = 0
 
 
 def plant_turn(
@@ -260,11 +302,12 @@ def plant_turn(
     if turn_index == 1:
         kv["memory_silo"] = "1"
     else:
-        kv["memory_inject_mode"] = "resume"
+        kv["memory_inject_mode"] = default_chain_inject_mode()
     if not capture:
         kv["memory_no_capture"] = "1"
 
     kv = enrich_kv_params(kv, SYSTEM_PROMPT, api_root=api_root_from_chat_url(api), model=model)
+    kv = apply_resume_inject_caps(kv)
 
     body = {
         "model": model,
@@ -279,8 +322,29 @@ def plant_turn(
         "chat_template_kwargs": {"enable_thinking": False},
         "cache_salt": f"pri_sweep_{user_id}_{turn_index}_{uuid.uuid4().hex[:8]}",
     }
-    response = requests.post(api, json=body, timeout=180)
-    response.raise_for_status()
+    api_root = api_root_from_chat_url(api)
+    last_exc: Exception | None = None
+    for attempt in range(3):
+        try:
+            response = requests.post(api, json=body, timeout=180)
+            response.raise_for_status()
+            break
+        except requests.HTTPError as exc:
+            last_exc = exc
+            status = exc.response.status_code if exc.response is not None else 0
+            if status >= 500 and attempt + 1 < 3:
+                print(
+                    f"  [plant_turn] HTTP {status} turn={turn_index} "
+                    f"— waiting for vLLM (attempt {attempt + 1}/3)",
+                    flush=True,
+                )
+                if wait_for_vllm(api_root, timeout_s=600):
+                    time.sleep(2.0)
+                    continue
+            raise
+    else:
+        if last_exc is not None:
+            raise last_exc
     data = response.json()
     content = (data["choices"][0]["message"]["content"] or "").strip()
     new_hash = block_hash(block_session) if capture else prev_hash
@@ -297,10 +361,12 @@ def _plant_neutral_turn(
     turn_index: int,
     prev_hash: str,
     deletes: int,
+    original_user_msg: str = "",
+    max_attempts: int = 12,
 ) -> PlantHygieneResult:
     """Capture a short neutral turn so turn_index stays contiguous."""
     block_session = f"{base_session}_t{turn_index}_user"
-    for attempt in range(4):
+    for attempt in range(max_attempts):
         cap_content, new_hash, block_session = plant_turn(
             api,
             model,
@@ -323,12 +389,12 @@ def _plant_neutral_turn(
                 still_garbled=False,
                 deletes=deletes,
                 neutral_fallback=True,
-                original_user_msg="",
+                original_user_msg=original_user_msg,
                 garbled_probe_attempts=0,
             )
         delete_session_captures(api_root, [block_session])
         deletes += 1
-        time.sleep(0.3)
+        time.sleep(0.3 + 0.2 * min(attempt, 5))
 
     return PlantHygieneResult(
         user_text=NEUTRAL_TURN_USER,
@@ -337,9 +403,65 @@ def _plant_neutral_turn(
         block_session=block_session,
         still_garbled=True,
         deletes=deletes,
-        neutral_fallback=True,
-        original_user_msg="",
+        neutral_fallback=False,
+        original_user_msg=original_user_msg,
         garbled_probe_attempts=0,
+    )
+
+
+def plant_neutral_required(
+    api: str,
+    model: str,
+    api_root: str,
+    *,
+    user_id: str,
+    base_session: str,
+    turn_index: int,
+    prev_hash: str,
+    original_user_msg: str,
+    deletes: int = 0,
+    garbled_probe_attempts: int = 0,
+) -> PlantHygieneResult:
+    """Retry neutral capture until hash advances or hard cap — chain must stay contiguous."""
+    total_deletes = deletes
+    total_probes = garbled_probe_attempts
+    for round_idx in range(4):
+        neutral = _plant_neutral_turn(
+            api,
+            model,
+            api_root,
+            user_id=user_id,
+            base_session=base_session,
+            turn_index=turn_index,
+            prev_hash=prev_hash,
+            deletes=total_deletes,
+            original_user_msg=original_user_msg,
+            max_attempts=12,
+        )
+        total_deletes = neutral.deletes
+        if not neutral.still_garbled:
+            return PlantHygieneResult(
+                user_text=neutral.user_text,
+                assistant_text=neutral.assistant_text,
+                new_prev_hash=neutral.new_prev_hash,
+                block_session=neutral.block_session,
+                still_garbled=False,
+                deletes=total_deletes,
+                neutral_fallback=True,
+                original_user_msg=original_user_msg,
+                garbled_probe_attempts=total_probes,
+            )
+        time.sleep(1.0 + round_idx)
+    return PlantHygieneResult(
+        user_text=NEUTRAL_TURN_USER,
+        assistant_text="",
+        new_prev_hash=prev_hash,
+        block_session=f"{base_session}_t{turn_index}_user",
+        still_garbled=True,
+        deletes=total_deletes,
+        neutral_fallback=False,
+        original_user_msg=original_user_msg,
+        garbled_probe_attempts=total_probes,
     )
 
 
@@ -426,6 +548,7 @@ def plant_turn_hygiene(
         turn_index=turn_index,
         prev_hash=prev_hash,
         deletes=deletes,
+        original_user_msg=user_msg,
     )
     return PlantHygieneResult(
         user_text=neutral.user_text,
@@ -434,7 +557,7 @@ def plant_turn_hygiene(
         block_session=neutral.block_session,
         still_garbled=neutral.still_garbled,
         deletes=neutral.deletes,
-        neutral_fallback=True,
+        neutral_fallback=not neutral.still_garbled,
         original_user_msg=user_msg,
         garbled_probe_attempts=garbled_probe_attempts,
     )
@@ -471,8 +594,10 @@ def send_recall_arm(
         kv["memory_inject_mode"] = "resume_overflow"
         kv["memory_base_session"] = base_session
     else:
-        kv["memory_inject_mode"] = "resume"
+        kv["memory_inject_mode"] = default_chain_inject_mode()
         kv["memory_base_session"] = base_session
+
+    kv = apply_resume_inject_caps(kv)
 
     body = {
         "model": model,

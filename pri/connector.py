@@ -35,7 +35,11 @@ from typing import TYPE_CHECKING, Any
 
 import torch
 
-from pri.capture import is_turn_capture_mode
+from pri.capture import (
+    is_turn_capture_mode,
+    resume_turn_requires_inject,
+    turn_capture_prefill_slice_start,
+)
 
 from vllm.config import VllmConfig
 from vllm.distributed.kv_transfer.kv_connector.v1.base import (
@@ -189,6 +193,58 @@ def _audit_resume_config_or_abort(cfg: dict) -> dict | None:
     except Exception as exc:
         logger.warning("NLS resume geometry preflight skipped: %s", exc)
     return cfg
+
+
+def _resolve_prefilled_capture_boundary(
+    kvp: dict,
+    *,
+    user_id: str,
+) -> tuple[int, str]:
+    """Recover KL #648 boundary fields when prefilled capture omits them on the wire."""
+    try:
+        cs = int(kvp.get("memory_capture_start", 0) or 0)
+    except (TypeError, ValueError):
+        cs = 0
+    sh = str(kvp.get("memory_sys_prompt_hash", "") or "")
+    if cs > 0 and sh:
+        return cs, sh
+    if _auto_mem is None or not getattr(_auto_mem, "_store", None):
+        return cs, sh
+    store = _auto_mem._store
+    base_sess = str(kvp.get("memory_base_session", "") or "")
+    if not sh:
+        for mem in reversed(store._memories):
+            if mem.user_id != user_id:
+                continue
+            if str(getattr(mem, "role", "")) == "system":
+                cand = str(getattr(mem, "sys_prompt_hash", "") or "")
+                if cand:
+                    sh = cand
+                    break
+    if not sh and base_sess:
+        for mem in reversed(store._memories):
+            if mem.user_id != user_id or mem.base_session_id != base_sess:
+                continue
+            cand = str(getattr(mem, "sys_prompt_hash", "") or "")
+            if cand:
+                sh = cand
+                break
+    if cs <= 0 and base_sess:
+        for mem in store._memories:
+            if mem.user_id != user_id or mem.base_session_id != base_sess:
+                continue
+            if int(getattr(mem, "turn_index", -1)) == 1:
+                rs = int(getattr(mem, "rope_start", 0) or 0)
+                if rs > 0:
+                    cs = rs
+                    break
+    if sh:
+        from pri.resume import find_system_block
+
+        sys_block = find_system_block(store, sh)
+        if sys_block is not None and sys_block.num_tokens > 0 and cs <= 0:
+            cs = int(sys_block.num_tokens)
+    return cs, sh
 
 
 def _compaction_overflow_snaps(
@@ -898,7 +954,26 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                     or os.environ.get("NLS_INJECT_MODE", "swiss")
                 ).strip().lower(),
                 "compaction_detected": _kvp_truthy(_kvp, "memory_compaction_detected"),
+                "prefilled_capture": _kvp_truthy(_kvp, "memory_prefilled_capture"),
             })
+            if _kvp_truthy(_kvp, "memory_prefilled_capture"):
+                _uid = str(_kvp.get("memory_user", "default"))
+                _resolved_cs, _resolved_sh = _resolve_prefilled_capture_boundary(
+                    _kvp, user_id=_uid,
+                )
+                if _resolved_cs > 0:
+                    existing["capture_start"] = _resolved_cs
+                    _kvp["memory_capture_start"] = str(_resolved_cs)
+                if _resolved_sh:
+                    existing["sys_prompt_hash"] = _resolved_sh
+                    _kvp["memory_sys_prompt_hash"] = _resolved_sh
+                if _resolved_cs > 0 or _resolved_sh:
+                    logger.info(
+                        "NLS prefilled capture: resolved boundary "
+                        "capture_start=%s sys_hash=%s",
+                        _resolved_cs,
+                        (_resolved_sh[:12] + "...") if _resolved_sh else "",
+                    )
 
         # KL #625: DeltaNet compounding registration runs unconditionally
         # too — the capture path needs it on follow-up turns.
@@ -1005,6 +1080,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         if cfg is None:
             try:
                 from pri.resume import (
+                    apply_mamba_mode_override,
                     is_resume_mode,
                     is_resume_overflow_mode,
                     try_resume_config,
@@ -1015,7 +1091,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                     _max_blocks = int(_kvp.get("memory_resume_max_blocks", "0") or "0")
                     _max_tokens = int(_kvp.get("memory_resume_max_tokens", "0") or "0")
                     _sys_hash = str(_kvp.get("memory_sys_prompt_hash", "") or "")
-                    _resume_cfg = try_resume_config(
+                    _resume_cfg_raw = try_resume_config(
                         _auto_mem._store,
                         _uid,
                         _base_sess,
@@ -1023,10 +1099,16 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                         max_blocks=_max_blocks,
                         max_tokens=_max_tokens,
                     )
-                    if _resume_cfg is not None:
-                        _resume_cfg = _audit_resume_config_or_abort(_resume_cfg)
+                    _resume_cfg = None
+                    if _resume_cfg_raw is not None:
+                        _resume_cfg = _audit_resume_config_or_abort(_resume_cfg_raw)
+                        if _resume_cfg is None:
+                            _cap_abort = _capture_registry.get(request.request_id)
+                            if _cap_abort is not None:
+                                _cap_abort["resume_inject_aborted"] = True
                     if _resume_cfg is not None:
                         cfg = _resume_cfg
+                        apply_mamba_mode_override(cfg, _kvp)
                         self._auto_config = cfg
                         _mode_label = (
                             "resume_overflow"
@@ -1255,6 +1337,9 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                         "(phantom pack includes system block)",
                         _strip_sys,
                     )
+                    _cap_reg = _capture_registry.get(request.request_id)
+                    if _cap_reg is not None:
+                        _cap_reg["resume_stripped_sys"] = _strip_sys
 
         if num_snap > 0 and request.request_id not in self._requests_need_load:
             total_phantom = num_register + num_snap
@@ -1757,7 +1842,11 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                     num_prompt,
                 )
                 prefill_end = real_prompt_len
-        prefill_start = max(0, min(cap_start, prefill_end))
+        prefill_start, manifest_rope_start = turn_capture_prefill_slice_start(
+            capture_start=cap_start,
+            prefill_end=prefill_end,
+            resume_stripped_sys=int(info.get("resume_stripped_sys", 0) or 0),
+        )
 
         prefill_role = info.get("block_role", "") or "user"
         prefill_session_id = info.get("session_id", "")
@@ -1769,7 +1858,7 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 raw_mamba=raw_mamba,
                 prefill_start=prefill_start,
                 prefill_end=prefill_end,
-                cap_start=cap_start,
+                cap_start=manifest_rope_start,
                 prefill_session_id=prefill_session_id,
                 num_prompt=num_prompt,
                 num_decoded=num_decoded,
@@ -2232,15 +2321,44 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
         else:
             turn_end = prefill_end
 
+        decode_garbled_stripped = False
         if decode_included and strip_garbled and out_ids:
             decode_text = self._decode_token_ids(list(out_ids[:num_decoded]))
             if decode_text and self._is_garbled_decode(decode_text):
                 turn_end = prefill_end
                 decode_included = False
+                decode_garbled_stripped = True
                 logger.info(
                     "NLS turn capture: garbled decode stripped turn=%s",
                     info.get("turn_index", -1),
                 )
+
+        if info.get("prefilled_capture") and decode_garbled_stripped:
+            logger.warning(
+                "NLS turn capture: refusing prefilled commit turn=%s "
+                "(garbled decode stripped; decode=0)",
+                info.get("turn_index", -1),
+            )
+            return
+
+        inject_mode = str(info.get("inject_mode", "") or "").strip().lower()
+        turn_idx = int(info.get("turn_index", -1))
+        if info.get("resume_inject_aborted"):
+            logger.warning(
+                "NLS turn capture: refusing resume turn after inject abort "
+                "turn=%s session=%s",
+                turn_idx,
+                (prefill_session_id or "")[:32],
+            )
+            return
+        if resume_turn_requires_inject(inject_mode, turn_idx) and total_phantom <= 0:
+            logger.warning(
+                "NLS turn capture: refusing resume turn without inject "
+                "(phantom=0) turn=%s session=%s",
+                turn_idx,
+                (prefill_session_id or "")[:32],
+            )
+            return
 
         sys_hash = info.get("sys_prompt_hash", "")
         if sys_hash and cap_start > 0:
@@ -3029,6 +3147,8 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
 
                 # ── Mamba layer: inject recurrent state ──
                 if isinstance(kv_or_states, (list, tuple)):
+                    if len(kv_or_states) < 2:
+                        continue
                     conv_key = f"layer_{layer_idx}_mamba_conv"
                     ssm_key = f"layer_{layer_idx}_mamba_ssm"
                     if conv_key not in snapshot or ssm_key not in snapshot:
@@ -3223,6 +3343,8 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
             )
 
             if not isinstance(kv_or_states, (list, tuple)):
+                continue
+            if len(kv_or_states) < 2:
                 continue
 
             conv_key = f"layer_{layer_idx}_mamba_conv"
@@ -4074,6 +4196,10 @@ class NLSSnapshotConnector(KVConnectorBase_V1, SupportsHMA):
                 # Optional explicit session id for the assistant slice.
                 "asst_session_id": reg_info.get("asst_session_id", ""),
                 "compaction_detected": reg_info.get("compaction_detected", False),
+                "prefilled_capture": reg_info.get("prefilled_capture", False),
+                "resume_stripped_sys": int(reg_info.get("resume_stripped_sys", 0) or 0),
+                "inject_mode": str(reg_info.get("inject_mode", "") or ""),
+                "resume_inject_aborted": bool(reg_info.get("resume_inject_aborted", False)),
             }
             logger.info(
                 "NLS capture QUEUED: req=%s, attn_blocks=%d, mamba_blocks=%s, "

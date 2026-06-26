@@ -37,7 +37,7 @@ Set **`NLS_API_INJECT_MODE`** before container start. `startup_profile.py` write
 
 | Variable | Default (`resume`) | Description |
 |----------|-------------------|-------------|
-| `NLS_API_INJECT_MODE` | `resume` | Startup inject profile selector |
+| `NLS_API_INJECT_MODE` | `resume_overflow` | Startup inject profile selector |
 | `PRI_INJECT_PROFILE` | *(written)* | Cached profile name in `profile.env` |
 | `NLS_INJECT_MODE` | `swiss` | Runtime inject mode inside connector (set by profile for `swiss` arm) |
 | `NLS_NEURAL_SCORING` | `0` | Enable neural inject scoring |
@@ -51,6 +51,7 @@ Set **`NLS_API_INJECT_MODE`** before container start. `startup_profile.py` write
 | `NLS_V_SUPPRESSION_AT_LAYER` | *(from topology)* | Layer index for V-suppression |
 | `NLS_DELTA_FACT_PROBE_LAYERS` | *(from topology)* | DeltaNet probe layers for capture |
 | `NLS_RESUME_SWISS_MAX_TOKENS` | `256` | Max Swiss tokens on overflow path |
+| `NLS_RESUME_PREPEND_SYS_BLOCK` | `0` | Prepend stored system `.nls` on resume (off: live HTTP carries system) |
 | `NLS_RESUME_MAX_BLOCKS` | — | Cap resume chain blocks (agent shim) |
 | `NLS_RESUME_MAX_TOKENS` | — | Cap resume inject tokens (agent shim) |
 | `NLS_RESUME_ABORT_ON_ROPE_FAIL` | `1` | Abort inject on RoPE pack failure |

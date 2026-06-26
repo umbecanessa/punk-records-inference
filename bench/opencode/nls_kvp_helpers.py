@@ -79,11 +79,32 @@ def enrich_kv_params(
     return kvp
 
 
+def enrich_prefilled_capture_kv_params(
+    kvp: dict[str, Any],
+    system_prompt: str,
+    *,
+    api_root: str,
+    model: str,
+) -> dict[str, Any]:
+    """KVP for 3-message prefilled-assistant turn capture.
+
+    Keeps ``memory_capture_start`` + ``memory_sys_prompt_hash`` so resume inject
+    can prepend the system block and strip the live system prefix, and sets
+    ``memory_prefilled_capture`` so the connector slices KV from post-strip
+    position 0 (manifest ``rope_start`` stays at ``capture_start``).
+    """
+    kvp = enrich_kv_params(kvp, system_prompt, api_root=api_root, model=model)
+    kvp = dict(kvp)
+    kvp["memory_prefilled_capture"] = "1"
+    return kvp
+
+
 __all__ = [
     "api_root_from_chat_url",
     "build_inline_history_messages",
     "compute_capture_start",
     "enrich_kv_params",
+    "enrich_prefilled_capture_kv_params",
     "render_system_turn_like_qwen",
     "sys_prompt_hash",
     "token_count_inline_history",

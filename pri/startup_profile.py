@@ -432,7 +432,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--inject-mode",
-        default=os.environ.get("NLS_API_INJECT_MODE", "resume"),
+        default=os.environ.get("NLS_API_INJECT_MODE", "resume_overflow"),
     )
     parser.add_argument(
         "--write-env",

@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from pri.capture import default_resume_roles, is_turn_capture_mode
+from pri.capture import (
+    default_resume_roles,
+    is_turn_capture_mode,
+    resume_turn_requires_inject,
+    turn_capture_prefill_slice_start,
+)
 from pri.resume import collect_chain_blocks
 
 
@@ -54,3 +59,31 @@ def test_collect_chain_blocks_keeps_latest_per_turn(tmp_path):
         "chain_x_t1_user_new",
         "chain_x_t2_user_new",
     ]
+
+
+def test_turn_capture_prefill_slice_start_after_resume_strip():
+    """Resume strip already removed system — do not double-slice at cap_start."""
+    start, rope = turn_capture_prefill_slice_start(
+        capture_start=22,
+        prefill_end=2420,
+        resume_stripped_sys=22,
+    )
+    assert start == 0
+    assert rope == 22
+
+
+def test_turn_capture_prefill_slice_start_cold_inline():
+    start, rope = turn_capture_prefill_slice_start(
+        capture_start=22,
+        prefill_end=100,
+        resume_stripped_sys=0,
+    )
+    assert start == 22
+    assert rope == 22
+
+
+def test_resume_turn_requires_inject_after_t1():
+    assert resume_turn_requires_inject("resume", 2) is True
+    assert resume_turn_requires_inject("resume_overflow", 7) is True
+    assert resume_turn_requires_inject("resume", 1) is False
+    assert resume_turn_requires_inject("swiss", 3) is False
