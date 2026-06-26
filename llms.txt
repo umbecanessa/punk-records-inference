@@ -1,0 +1,46 @@
+# Punk Records Inference
+
+> KV-state persistence for vLLM. Capture attention + hybrid recurrent state after each agent turn, store on disk (.nls), re-inject on the next request so the model skips re-prefilling full history.
+
+## Canonical docs (this repo)
+
+- [Documentation map](docs/PLATFORM.md): **Main entry** — architecture, journey, benchmarks, economics
+- [Overview](docs/OVERVIEW.md): Problem, proof, key discoveries
+- [NLS pipeline](docs/NLS_PIPELINE.md): Full five-phase architecture
+- [Journey](docs/JOURNEY.md): LoRA → MoE → KV research arc
+- [PRI runtime](docs/ARCHITECTURE.md): vLLM plugin, `pri/` layout
+- [Benchmarks](docs/BENCHMARKS.md): April production + June reproducible proof
+- [Economics](docs/ECONOMICS.md): Compute, token, energy, storage savings (June 2026 bench)
+- [Model matrix](docs/MODEL_MATRIX.md): Tier B plug-and-play
+- [Installation](docs/getting-started/installation.md) · [Quickstart](docs/getting-started/quickstart.md)
+- [Client contract](docs/CLIENT_CONTRACT.md) · [Limitations](docs/LIMITATIONS.md) · [Licensing](docs/LICENSING.md)
+
+## Proof artifacts
+
+- [Overnight run](bench/results/overnight_20260624_003614/): frozen JSON + [research analytics](bench/results/overnight_20260624_003614/research/README.md)
+- [Live demo](https://punkrecords.live): conversational + API transparency log
+
+## Legacy mirror
+
+[neural-ledger-system](https://github.com/umbecanessa/neural-ledger-system) redirects here — docs are maintained in this repository.
+
+## Install
+
+```bash
+git clone https://github.com/umbecanessa/punk-records-inference.git
+cd punk-records-inference
+export MODEL_PATH=/path/to/your/checkpoint
+docker compose -f docker/compose.yaml up --build
+curl -s http://127.0.0.1:8000/v1/models
+```
+
+Unit tests (no GPU): `pip install pytest torch zstandard requests && pytest tests/ -q`
+
+## Key subsystems
+
+- Capture: WRITE turn state → .nls (`NLS_CHAIN_CAPTURE_MODE=turn`)
+- Resume: READ prior turn KV (`memory_inject_mode=resume`, turn ≥ 2)
+- Swiss: semantic retrieval (opt-in)
+- Overflow: resume + Swiss when trim evicts tokens (opt-in)
+
+Patent: U.S. Provisional 64/050,345

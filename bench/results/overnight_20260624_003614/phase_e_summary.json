@@ -1,0 +1,369 @@
+{
+  "generated_at": "2026-06-24T11:18:55.461291+00:00",
+  "run_dir": "bench/results/overnight_20260624_003614",
+  "git_sha": "9944c727779bfe722139b0851ce804149790c7d4",
+  "recommended_inject_mode": "resume",
+  "recommended_inject_mode_rationale": "Short + long12 inject compare: RESUME matches or beats OVERFLOW on recall; resume_overflow does not recover cp60+ turn-sweep cliff.",
+  "phase_e_primary": {
+    "scenario": "inject_mode_compare long12 (local, garbled guard)",
+    "recall_at_5": {
+      "TEXT": "5/5",
+      "RESUME": "5/5",
+      "OVERFLOW": "5/5"
+    },
+    "mean_prompt_tokens": {
+      "TEXT": 3743.2,
+      "RESUME": 42.2,
+      "OVERFLOW": 42.2,
+      "delta_text_minus_resume": 3701.0
+    },
+    "mean_latency_ms": {
+      "TEXT": 2884.9,
+      "RESUME": 1548.5,
+      "OVERFLOW": 1472.9
+    }
+  },
+  "inject_mode_compare": [
+    {
+      "label": "short chain (0 noise)",
+      "text_backend": "local",
+      "openrouter_model": null,
+      "noise_turns": 0,
+      "resume_max_tokens": 0,
+      "text": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1719.1,
+        "latency_ms_p95": 2807.0,
+        "prompt_tokens_total": 2231,
+        "prompt_tokens_mean": 446.2,
+        "completion_tokens_total": 283
+      },
+      "resume": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1973.9,
+        "latency_ms_p95": 3193.1,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 311
+      },
+      "resume_overflow": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1913.9,
+        "latency_ms_p95": 3212.5,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 311
+      },
+      "delta_prompt_tokens_mean_vs_text": 404.0,
+      "recommended_default": "resume",
+      "artifact": "short chain (0 noise)"
+    },
+    {
+      "label": "long12 chain",
+      "text_backend": "local",
+      "openrouter_model": null,
+      "noise_turns": 12,
+      "resume_max_tokens": 0,
+      "text": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 2884.9,
+        "latency_ms_p95": 4976.4,
+        "prompt_tokens_total": 18716,
+        "prompt_tokens_mean": 3743.2,
+        "completion_tokens_total": 374
+      },
+      "resume": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1548.5,
+        "latency_ms_p95": 2114.6,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 162
+      },
+      "resume_overflow": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1472.9,
+        "latency_ms_p95": 1955.4,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 162
+      },
+      "delta_prompt_tokens_mean_vs_text": 3701.0,
+      "recommended_default": "resume",
+      "artifact": "long12 chain"
+    },
+    {
+      "label": "short OpenRouter TEXT",
+      "text_backend": "openrouter",
+      "openrouter_model": "qwen/qwen3.5-35b-a3b",
+      "noise_turns": 0,
+      "resume_max_tokens": 0,
+      "text": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1192.7,
+        "latency_ms_p95": 2031.1,
+        "prompt_tokens_total": 2011,
+        "prompt_tokens_mean": 402.2,
+        "completion_tokens_total": 271
+      },
+      "resume": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1489.4,
+        "latency_ms_p95": 1867.7,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 236
+      },
+      "resume_overflow": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1475.5,
+        "latency_ms_p95": 2133.2,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 236
+      },
+      "delta_prompt_tokens_mean_vs_text": 360.0,
+      "recommended_default": "resume",
+      "artifact": "short OpenRouter TEXT"
+    },
+    {
+      "label": "long12 OpenRouter TEXT",
+      "text_backend": "openrouter",
+      "openrouter_model": "qwen/qwen3.5-35b-a3b",
+      "noise_turns": 12,
+      "resume_max_tokens": 0,
+      "text": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1622.9,
+        "latency_ms_p95": 2471.3,
+        "prompt_tokens_total": 18716,
+        "prompt_tokens_mean": 3743.2,
+        "completion_tokens_total": 386
+      },
+      "resume": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1628.3,
+        "latency_ms_p95": 2213.8,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 162
+      },
+      "resume_overflow": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1617.2,
+        "latency_ms_p95": 2187.5,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 162
+      },
+      "delta_prompt_tokens_mean_vs_text": 3701.0,
+      "recommended_default": "resume",
+      "artifact": "long12 OpenRouter TEXT"
+    },
+    {
+      "label": "long12 resume_max_tokens=4096",
+      "text_backend": "local",
+      "openrouter_model": null,
+      "noise_turns": 12,
+      "resume_max_tokens": 4096,
+      "text": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 2880.9,
+        "latency_ms_p95": 5232.2,
+        "prompt_tokens_total": 18716,
+        "prompt_tokens_mean": 3743.2,
+        "completion_tokens_total": 372
+      },
+      "resume": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1483.8,
+        "latency_ms_p95": 1957.8,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 162
+      },
+      "resume_overflow": {
+        "recall_pass": 5,
+        "recall_total": 5,
+        "latency_ms_mean": 1489.1,
+        "latency_ms_p95": 2098.9,
+        "prompt_tokens_total": 211,
+        "prompt_tokens_mean": 42.2,
+        "completion_tokens_total": 162
+      },
+      "delta_prompt_tokens_mean_vs_text": 3701.0,
+      "recommended_default": "resume",
+      "artifact": "long12 resume_max_tokens=4096"
+    }
+  ],
+  "marco": [
+    {
+      "label": "Marco local",
+      "text_backend": "local",
+      "text_pass": 5,
+      "text_total": 5,
+      "resume_pass": 5,
+      "resume_total": 5
+    },
+    {
+      "label": "Marco OpenRouter",
+      "text_backend": "openrouter",
+      "text_pass": 5,
+      "text_total": 5,
+      "resume_pass": 5,
+      "resume_total": 5
+    }
+  ],
+  "opencode": [
+    {
+      "label": "OpenCode PRI",
+      "baseline": false,
+      "recall_passed": 6,
+      "recall_total": 6,
+      "work_turns": 8,
+      "seed": 42
+    },
+    {
+      "label": "OpenCode baseline",
+      "baseline": true,
+      "recall_passed": 6,
+      "recall_total": 6,
+      "work_turns": 8,
+      "seed": 42
+    }
+  ],
+  "turn_sweeps": {
+    "v5_overnight": [
+      {
+        "checkpoint_noise": 20,
+        "turn_tokens": 6225,
+        "turn_blocks": 23,
+        "text_pass": 5,
+        "resume_pass": 5,
+        "arm_d_pass": 5,
+        "total": 5
+      },
+      {
+        "checkpoint_noise": 40,
+        "turn_tokens": 11981,
+        "turn_blocks": 43,
+        "text_pass": 5,
+        "resume_pass": 5,
+        "arm_d_pass": 5,
+        "total": 5
+      },
+      {
+        "checkpoint_noise": 60,
+        "turn_tokens": 17131,
+        "turn_blocks": 63,
+        "text_pass": 5,
+        "resume_pass": 3,
+        "arm_d_pass": 3,
+        "total": 5
+      },
+      {
+        "checkpoint_noise": 80,
+        "turn_tokens": 23543,
+        "turn_blocks": 83,
+        "text_pass": 5,
+        "resume_pass": 0,
+        "arm_d_pass": 0,
+        "total": 5
+      }
+    ],
+    "garble_investigation": [
+      {
+        "checkpoint_noise": 60,
+        "turn_tokens": 17680,
+        "turn_blocks": 62,
+        "text_pass": 5,
+        "resume_pass": 2,
+        "arm_d_pass": 1,
+        "total": 5
+      },
+      {
+        "checkpoint_noise": 80,
+        "turn_tokens": 18629,
+        "turn_blocks": 83,
+        "text_pass": 5,
+        "resume_pass": 0,
+        "arm_d_pass": 0,
+        "total": 5
+      }
+    ]
+  },
+  "geometry": [
+    {
+      "label": "turn_sweep v5 (RoPE fix audit)",
+      "verdict": "pass",
+      "blocks": 83,
+      "delta_uniformity_pct": 100.0,
+      "mode_rope_delta": -22,
+      "kpi_grade": "excellent",
+      "note": "delta_uniformity = RoPE pack re-rotation consistency (agent-room KPI; not retrieval cosine)"
+    },
+    {
+      "label": "garble_inv chain",
+      "verdict": "pass",
+      "blocks": 83,
+      "delta_uniformity_pct": 100.0,
+      "mode_rope_delta": -22,
+      "kpi_grade": "excellent",
+      "note": "delta_uniformity = RoPE pack re-rotation consistency (agent-room KPI; not retrieval cosine)"
+    }
+  ],
+  "store": {
+    "capture_count": 143,
+    "index_row_count": 143,
+    "capture_disk_mb": 648.11,
+    "data_dir_mb": 650.83,
+    "admin_total_tokens": 23696
+  },
+  "garble_root_cause_summary": [
+    "TEXT 5/5 + RESUME <5 on same checkpoint: failure is inject-mediated decode, not the model lacking inline context.",
+    "Hotel probe fails even in isolation: static chain inject state or model decode under ~17k inject tokens.",
+    "Even facts-only inject fails: unlikely to be noise-tail pollution alone; check RoPE/inject geometry or probe difficulty.",
+    "Hotel probe fails all repeats: stable failure mode under current inject.",
+    "21 neutral-substitute blocks in chain (meta 'glitch' text in history; TEXT arm still passes with same content inline)."
+  ],
+  "known_limitations": [
+    "Turn sweep cp60+: RESUME garbled decode while TEXT 5/5 (~17\u201323k inject tokens) \u2014 inject-mediated, not RoPE geometry.",
+    "Facts-only inject (max_blocks=3) still garbles at cp60+ \u2014 not tail-noise text pollution alone.",
+    "OpenRouter TEXT requires reasoning.effort=none (see openrouter_client.py).",
+    "Long-chain RESUME cliff is a product limitation until inject/decode fix lands."
+  ],
+  "missing_artifacts": [],
+  "canonical_paths": {
+    "inject_short_local": "bench/results/overnight_20260624_003614/inject_mode_compare_20260624_003614_short.json",
+    "inject_long12_local": "bench/results/overnight_20260624_003614/inject_mode_compare_20260624_003614_long12_postfix.json",
+    "inject_short_openrouter": "bench/results/overnight_20260624_003614/inject_mode_compare_short_openrouter_reasoning_none.json",
+    "inject_long12_openrouter": "bench/results/overnight_20260624_003614/inject_mode_compare_long12_openrouter_reasoning_none.json",
+    "inject_long12_resume4096": "bench/results/overnight_20260624_003614/inject_mode_compare_long12_resume4096_phase_e.json",
+    "marco_local": "bench/results/overnight_20260624_003614/tier1_marco_facts_20260624_003614_marco.json",
+    "marco_openrouter": "bench/results/overnight_20260624_003614/tier1_marco_facts_openrouter_reasoning_none.json",
+    "opencode_pri": "bench/results/overnight_20260624_003614/opencode_long_session_20260624_003614.json",
+    "opencode_baseline": "bench/results/overnight_20260624_003614/opencode_long_session_baseline_seed42.json",
+    "turn_sweep": "bench/results/overnight_20260624_003614/turn_sweep_cp20_80_v5.json",
+    "turn_sweep_garble_inv": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv.json",
+    "geometry_v5": "bench/results/overnight_20260624_003614/geometry_audit_turn_sweep_v5_fixed.json",
+    "geometry_garble_inv": "bench/results/overnight_20260624_003614/geometry_audit_garble_inv.json",
+    "rope_microscope_v5": "bench/results/overnight_20260624_003614/rope_delta_microscope_fixed.json",
+    "rope_microscope_garble_inv": "bench/results/overnight_20260624_003614/rope_delta_microscope_garble_inv.json",
+    "store_stats": "bench/results/overnight_20260624_003614/store_stats.json",
+    "garble_cause_cp60": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv_garble_cause_cp60.json"
+  }
+}

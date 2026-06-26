@@ -1,0 +1,21 @@
+{
+  "source": "GX10 pri-inference MemoryStore inline audit 2026-06-23",
+  "user_id": "turn_sweep_a53c971e2b",
+  "base_session": "chain_thread_9321377f0a28",
+  "blocks": 83,
+  "tokens": 19778,
+  "verdict": "pass",
+  "findings": [
+    "uniform resume RoPE delta=-22 on 83 blocks (expected after phantom-aware rotate)",
+    "manifest rope discontinuity: 82 gap(s)",
+    "turn blocks use per-request rope_start=22; resume pack uses rope_old=rope_start+phantom_at_capture",
+    "83 blocks captured with non-zero rope_start/phantom (resume-shaped, not cold inline)"
+  ],
+  "sample_manifests": {
+    "turn_1": {"rope_start": 22, "tokens": 126},
+    "turn_2": {"rope_start": 22, "phantom": 126, "tokens": 142},
+    "turn_82": {"rope_start": 22, "phantom": 19708, "tokens": 35},
+    "turn_83": {"rope_start": 22, "phantom": 19743, "tokens": 35}
+  },
+  "note": "Admin-API-only audit from Windows failed (rope_start=0); in-container audit is authoritative."
+}

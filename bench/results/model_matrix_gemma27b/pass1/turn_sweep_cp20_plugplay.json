@@ -1,0 +1,302 @@
+{
+  "version": 4,
+  "garbled_capture_guard": "probe_then_neutral_fallback",
+  "garbled_retries": 2,
+  "neutral_turn_user": "I'm having trouble generating a response.",
+  "capture_mode": "turn",
+  "user_id": "turn_sweep_b138365d32",
+  "base_session": "chain_thread_0c98d8bf7f65",
+  "model": "/hf-model/snapshots/005ad3404e59d6023443cb575daa05336842228a",
+  "checkpoints": [
+    20
+  ],
+  "garbled_stripped": [],
+  "garbled_neutral_fallbacks": [],
+  "garbled_captures_deleted": 0,
+  "results": [
+    {
+      "checkpoint_noise": 20,
+      "conversation_turns": 23,
+      "turn_blocks": 23,
+      "turn_tokens": 3752,
+      "turn_by_role": {
+        "turn": 23
+      },
+      "text_est_tokens": 3773,
+      "text_user_only_tokens": 0,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 2,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "ah a quick check of my memory you are marco and you live in milan italy i remember you mentioning that at the very beginning of our conversation it s good to kn",
+          "usage": {
+            "prompt_tokens": 3773,
+            "total_tokens": 3849,
+            "completion_tokens": 76,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "ah a quick check of my memory your dog s name is luna she s a three-year-old golden retriever who loves swimming it s good to test my recall i m still learning ",
+          "usage": {
+            "prompt_tokens": 3771,
+            "total_tokens": 3844,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s motion as we discussed earlier to recap you are marco an architect in mila",
+          "usage": {
+            "prompt_tokens": 3772,
+            "total_tokens": 3886,
+            "completion_tokens": 114,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at hotel bellagio i remember you told me last weekend you and sofia stayed there during your trip to lake como i m doing a good job remembering thing",
+          "usage": {
+            "prompt_tokens": 3769,
+            "total_tokens": 3881,
+            "completion_tokens": 112,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you are marco an architect living in milan italy you told me this way back at the very beginning of our conversation i remember everything is there anything i c",
+          "usage": {
+            "prompt_tokens": 3769,
+            "total_tokens": 3840,
+            "completion_tokens": 71,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s motion as we discussed linguistics which might interest you as an architec",
+          "usage": {
+            "prompt_tokens": 38,
+            "total_tokens": 136,
+            "completion_tokens": 98,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s ocean currents which might interest you as an architect ocean currents are",
+          "usage": {
+            "prompt_tokens": 36,
+            "total_tokens": 119,
+            "completion_tokens": 83,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Sofia"
+          ],
+          "misses": [
+            "Lake Como"
+          ],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no substantive about volcanology use two short paragraphs with concrete details session turn 21",
+          "usage": {
+            "prompt_tokens": 37,
+            "total_tokens": 76,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s linguistics which might interest you as an architect to recap you are marc",
+          "usage": {
+            "prompt_tokens": 34,
+            "total_tokens": 174,
+            "completion_tokens": 140,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "okay you s wife penelope and son the fact that you live in italy to recap you are marco an architect in milan italy sofia s husband luna s owner a three-year-ol",
+          "usage": {
+            "prompt_tokens": 34,
+            "total_tokens": 171,
+            "completion_tokens": 137,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 2,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s motion as we discussed linguistics which might interest you as an architec",
+          "usage": {
+            "prompt_tokens": 38,
+            "total_tokens": 136,
+            "completion_tokens": 98,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s ocean currents which might interest you as an architect ocean currents are",
+          "usage": {
+            "prompt_tokens": 36,
+            "total_tokens": 119,
+            "completion_tokens": 83,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Sofia"
+          ],
+          "misses": [
+            "Lake Como"
+          ],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no substantive about volcanology use two short paragraphs with concrete details session turn 21",
+          "usage": {
+            "prompt_tokens": 37,
+            "total_tokens": 76,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "okay you s wife penelope and son the fact that it s constant no matter the observer s linguistics which might interest you as an architect to recap you are marc",
+          "usage": {
+            "prompt_tokens": 34,
+            "total_tokens": 174,
+            "completion_tokens": 140,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "okay you s wife penelope and son the fact that you live in italy to recap you are marco an architect in milan italy sofia s husband luna s owner a three-year-ol",
+          "usage": {
+            "prompt_tokens": 34,
+            "total_tokens": 171,
+            "completion_tokens": 137,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    }
+  ]
+}

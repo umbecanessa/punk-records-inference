@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img">
+<rect width="720" height="320" fill="#ffffff"/>
+<title>Mean prompt tokens — inject mode compare</title>
+<text x="360.0" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#1f2328">Mean prompt tokens — inject mode compare</text>
+<text x="16" y="160.0" transform="rotate(-90 16 160.0)" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#656d76">prompt tokens</text>
+<line x1="64" y1="264.0" x2="696" y2="264.0" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="268.0" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">0</text>
+<line x1="64" y1="220.8" x2="696" y2="220.8" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="224.8" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">838</text>
+<line x1="64" y1="177.6" x2="696" y2="177.6" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="181.6" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">1677</text>
+<line x1="64" y1="134.4" x2="696" y2="134.4" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="138.4" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">2515</text>
+<line x1="64" y1="91.2" x2="696" y2="91.2" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="95.2" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">3354</text>
+<line x1="64" y1="48.0" x2="696" y2="48.0" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="52.0" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">4192</text>
+<rect x="67.1" y="241.0" width="36.0" height="23.0" fill="#0969da" rx="2"/>
+<text x="85.1" y="237.0" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">446.2</text>
+<rect x="193.5" y="71.1" width="36.0" height="192.9" fill="#0969da" rx="2"/>
+<text x="211.5" y="67.1" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">3743.2</text>
+<rect x="319.9" y="243.3" width="36.0" height="20.7" fill="#0969da" rx="2"/>
+<text x="337.9" y="239.3" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">402.2</text>
+<rect x="446.3" y="71.1" width="36.0" height="192.9" fill="#0969da" rx="2"/>
+<text x="464.3" y="67.1" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">3743.2</text>
+<rect x="572.7" y="71.1" width="36.0" height="192.9" fill="#0969da" rx="2"/>
+<text x="590.7" y="67.1" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">3743.2</text>
+<rect x="64" y="298" width="10" height="10" fill="#0969da"/>
+<text x="78" y="307" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">TEXT</text>
+<rect x="109.2" y="261.8" width="36.0" height="2.2" fill="#1a7f37" rx="2"/>
+<text x="127.2" y="257.8" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">42.2</text>
+<rect x="235.6" y="261.8" width="36.0" height="2.2" fill="#1a7f37" rx="2"/>
+<text x="253.6" y="257.8" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">42.2</text>
+<rect x="362.0" y="261.8" width="36.0" height="2.2" fill="#1a7f37" rx="2"/>
+<text x="380.0" y="257.8" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">42.2</text>
+<rect x="488.4" y="261.8" width="36.0" height="2.2" fill="#1a7f37" rx="2"/>
+<text x="506.4" y="257.8" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">42.2</text>
+<rect x="614.8" y="261.8" width="36.0" height="2.2" fill="#1a7f37" rx="2"/>
+<text x="632.8" y="257.8" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">42.2</text>
+<rect x="174" y="298" width="10" height="10" fill="#1a7f37"/>
+<text x="188" y="307" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">RESUME</text>
+<text x="127.2" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">short (0 noise</text>
+<text x="253.6" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">long12</text>
+<text x="380.0" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">short OR</text>
+<text x="506.4" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">long12 OR</text>
+<text x="632.8" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">long12 resume_</text>
+</svg>

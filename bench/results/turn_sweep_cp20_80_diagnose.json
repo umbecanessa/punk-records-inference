@@ -1,0 +1,118 @@
+{
+  "user_id": "turn_sweep_a53c971e2b",
+  "base_session": "chain_thread_9321377f0a28",
+  "garbled_stripped_plant": 14,
+  "checkpoints": [
+    {
+      "checkpoint_noise": 20,
+      "turn_tokens": 6150,
+      "turn_blocks": 23,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 5,
+      "arm_d_pass_clean": 5,
+      "resume_failure_modes": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "checkpoint_noise": 40,
+      "turn_tokens": 11881,
+      "turn_blocks": 43,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 5,
+      "arm_d_pass_clean": 5,
+      "resume_failure_modes": [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "checkpoint_noise": 60,
+      "turn_tokens": 17346,
+      "turn_blocks": 62,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 4,
+      "arm_d_pass_clean": 3,
+      "resume_failure_modes": [
+        "PASS",
+        "PASS",
+        "REFUSAL",
+        "PASS",
+        "PASS"
+      ]
+    },
+    {
+      "checkpoint_noise": 80,
+      "turn_tokens": 19743,
+      "turn_blocks": 82,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 1,
+      "arm_d_pass_clean": 0,
+      "resume_failure_modes": [
+        "GARBLED",
+        "GARBLED",
+        "GARBLED",
+        "PASS",
+        "GARBLED"
+      ]
+    }
+  ],
+  "admin_chain": {
+    "blocks": 83,
+    "tokens": 19778,
+    "turn_min": 1,
+    "turn_max": 83,
+    "missing_turn_indices": []
+  },
+  "admin_stats": {
+    "size": 116,
+    "total_tokens": 27144,
+    "avg_tokens": 234.0,
+    "users": 6,
+    "user_ids": [
+      "bench_marco_42",
+      "explicit_probe",
+      "manifest_probe",
+      "manifest_proof",
+      "turn_sweep_223a46dc90",
+      "turn_sweep_a53c971e2b"
+    ],
+    "rings": {
+      "general": 116
+    },
+    "always_inject_count": 0,
+    "oldest_hours": 2.138713113731808,
+    "newest_hours": 0.14578678839736514,
+    "total_accesses": 0,
+    "bm25_entries": 3,
+    "capture_dir": "/data/pri/snapshot/captures",
+    "index_path": "/data/pri/index.json"
+  },
+  "cp60_to_cp80": {
+    "resume_modes_cp60": [
+      "PASS",
+      "PASS",
+      "REFUSAL",
+      "PASS",
+      "PASS"
+    ],
+    "resume_modes_cp80": [
+      "GARBLED",
+      "GARBLED",
+      "GARBLED",
+      "PASS",
+      "GARBLED"
+    ],
+    "interpretation": "cp60: one REFUSAL (Lake Como) while other facts hold \u2014 inject stress, not decode collapse. cp80: GARBLED multilingual decode (max_tokens=200) while TEXT arm 5/5 at ~19.5k tokens. GX10 MemoryStore geometry audit: verdict PASS (uniform RoPE delta -22, 83 blocks). Likely cause: 14 garbled assistant segments captured into turn blocks (N65+) poison Mamba/hybrid state; stripped from TEXT history but still in .nls chain.",
+    "gx10_geometry_verdict": "pass",
+    "gx10_geometry_blocks": 83,
+    "gx10_geometry_tokens": 19778
+  }
+}

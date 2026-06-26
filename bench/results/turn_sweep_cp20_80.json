@@ -1,0 +1,1201 @@
+{
+  "version": 1,
+  "capture_mode": "turn",
+  "user_id": "turn_sweep_a53c971e2b",
+  "base_session": "chain_thread_9321377f0a28",
+  "model": "/model",
+  "checkpoints": [
+    20,
+    40,
+    60,
+    80
+  ],
+  "garbled_stripped": [
+    {
+      "label": "noise-N68",
+      "user": "Teach me something substantive about volcanology. Use two short paragraphs with concrete details (session turn 65)."
+    },
+    {
+      "label": "noise-N69",
+      "user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 66)."
+    },
+    {
+      "label": "noise-N70",
+      "user": "Teach me something substantive about Renaissance art. Use two short paragraphs with concrete details (session turn 67)."
+    },
+    {
+      "label": "noise-N71",
+      "user": "Teach me something substantive about ocean currents. Use two short paragraphs with concrete details (session turn 68)."
+    },
+    {
+      "label": "noise-N72",
+      "user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 69)."
+    },
+    {
+      "label": "noise-N73",
+      "user": "Teach me something substantive about mycology. Use two short paragraphs with concrete details (session turn 70)."
+    },
+    {
+      "label": "noise-N74",
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 71)"
+    },
+    {
+      "label": "noise-N76",
+      "user": "Teach me something substantive about volcanology. Use two short paragraphs with concrete details (session turn 73)."
+    },
+    {
+      "label": "noise-N77",
+      "user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 74)."
+    },
+    {
+      "label": "noise-N78",
+      "user": "Teach me something substantive about Renaissance art. Use two short paragraphs with concrete details (session turn 75)."
+    },
+    {
+      "label": "noise-N80",
+      "user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 77)."
+    },
+    {
+      "label": "noise-N81",
+      "user": "Teach me something substantive about mycology. Use two short paragraphs with concrete details (session turn 78)."
+    },
+    {
+      "label": "noise-N82",
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 79)"
+    },
+    {
+      "label": "noise-N83",
+      "user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 80)."
+    }
+  ],
+  "results": [
+    {
+      "checkpoint_noise": 20,
+      "conversation_turns": 23,
+      "turn_blocks": 23,
+      "turn_tokens": 6150,
+      "turn_by_role": {
+        "turn": 23
+      },
+      "text_est_tokens": 6129,
+      "text_user_only_tokens": 490,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 5,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect have a 3-year-old golden retriever named luna who loves swimming",
+          "usage": {
+            "prompt_tokens": 6133,
+            "total_tokens": 6227,
+            "completion_tokens": 94,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 6130,
+            "total_tokens": 6161,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 6133,
+            "total_tokens": 6172,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio on lake como last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 6130,
+            "total_tokens": 6162,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals you likely work on a mix of historic preservation projects com",
+          "usage": {
+            "prompt_tokens": 6130,
+            "total_tokens": 6264,
+            "completion_tokens": 134,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 73,
+            "completion_tokens": 29,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is 3 years old and loves swimming",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 61,
+            "completion_tokens": 20,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history you mentioned that you went to lake como last weekend with your wife sofia you stayed at the hotel bellagio and went there wit",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 88,
+            "completion_tokens": 44,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history you mentioned staying at the hotel bellagio in bellagio italy you also mentioned that you live in milan and work as an archite",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 79,
+            "completion_tokens": 38,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned that you work as an architect is there a specific aspect of your work you d like to discuss such as a current project a design challenge or perhap",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 86,
+            "completion_tokens": 45,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 5,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 73,
+            "completion_tokens": 29,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is 3 years old and loves swimming",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 61,
+            "completion_tokens": 20,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history you mentioned that you went to lake como last weekend with your wife sofia you stayed at the hotel bellagio and went there wit",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 88,
+            "completion_tokens": 44,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history you mentioned staying at the hotel bellagio in bellagio italy you also mentioned that you live in milan and work as an archite",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 79,
+            "completion_tokens": 38,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned that you work as an architect is there a specific aspect of your work you d like to discuss such as a current project a design challenge or perhap",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 86,
+            "completion_tokens": 45,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 40,
+      "conversation_turns": 43,
+      "turn_blocks": 43,
+      "turn_tokens": 11881,
+      "turn_by_role": {
+        "turn": 43
+      },
+      "text_est_tokens": 11801,
+      "text_user_only_tokens": 1053,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 5,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect and have a golden retriever named luna who loves swimming is the",
+          "usage": {
+            "prompt_tokens": 11805,
+            "total_tokens": 11881,
+            "completion_tokens": 76,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 11802,
+            "total_tokens": 11833,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 11805,
+            "total_tokens": 11844,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio on lake como last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 11802,
+            "total_tokens": 11831,
+            "completion_tokens": 29,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals and your interest in diverse topics ranging from sustainable b",
+          "usage": {
+            "prompt_tokens": 11802,
+            "total_tokens": 11895,
+            "completion_tokens": 93,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history your name is marco and you live in milan italy you also mentioned that you work as an architect i have noted these details to ",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 111,
+            "completion_tokens": 67,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is 3 years old and loves swimming since you mentioned this earlier i ve made sure to remember that detail so i can reference it in o",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 86,
+            "completion_tokens": 45,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history you mentioned that you went to lake como last weekend with your wife sofia you stayed at the hotel bellagio which is located o",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 134,
+            "completion_tokens": 90,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned that you stayed at the hotel bellagio during a trip to lake como with your wife sofia this hotel is located in the charming town of bellagio often",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 110,
+            "completion_tokens": 69,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy since you are based in milan a global hub for design and fashion your work likely involves navigating a blend of histori",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 137,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 5,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history your name is marco and you live in milan italy you also mentioned that you work as an architect i have noted these details to ",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 111,
+            "completion_tokens": 67,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is 3 years old and loves swimming since you mentioned this earlier i ve made sure to remember that detail so i can reference it in o",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 86,
+            "completion_tokens": 45,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation history you mentioned that you went to lake como last weekend with your wife sofia you stayed at the hotel bellagio which is located o",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 134,
+            "completion_tokens": 90,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned that you stayed at the hotel bellagio during a trip to lake como with your wife sofia this hotel is located in the charming town of bellagio often",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 110,
+            "completion_tokens": 69,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy since you are based in milan a global hub for design and fashion your work likely involves navigating a blend of histori",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 137,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 60,
+      "conversation_turns": 63,
+      "turn_blocks": 62,
+      "turn_tokens": 17346,
+      "turn_by_role": {
+        "turn": 62
+      },
+      "text_est_tokens": 17508,
+      "text_user_only_tokens": 1615,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 4,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect have a 3-year-old golden retriever named luna who loves swimming",
+          "usage": {
+            "prompt_tokens": 17512,
+            "total_tokens": 17604,
+            "completion_tokens": 92,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 17509,
+            "total_tokens": 17540,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 17512,
+            "total_tokens": 17551,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned staying at the hotel bellagio on lake como last weekend with your wife sofia it s a beautiful location known for its historic villas and stunning ",
+          "usage": {
+            "prompt_tokens": 17509,
+            "total_tokens": 17554,
+            "completion_tokens": 45,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals you likely work on a mix of historic preservation modern urban",
+          "usage": {
+            "prompt_tokens": 17509,
+            "total_tokens": 17590,
+            "completion_tokens": 81,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the information you provided earlier your name is marco and you reside in milan italy i have stored these personal details in my memory so i can rememb",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 102,
+            "completion_tokens": 58,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is 3 years old and as you mentioned she loves swimming i remember that luna is a 3-year-old golden retriever who enjoys swimming thi",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 100,
+            "completion_tokens": 59,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i do not have access to your personal history past trips or personal memories so i cannot tell you where you went last weekend or who you were with as an ai i d",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 150,
+            "completion_tokens": 106,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the conversation history you provided you mentioned staying at the hotel bellagio during a trip to lake como with your wife sofia this hotel is located",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 131,
+            "completion_tokens": 90,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the information you provided in our conversation you work as an architect this is a profession that blends creativity with technical precision involvin",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 172,
+            "completion_tokens": 131,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 3,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the information you provided earlier your name is marco and you reside in milan italy i have stored these personal details in my memory so i can rememb",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 102,
+            "completion_tokens": 58,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is 3 years old and as you mentioned she loves swimming i remember that luna is a 3-year-old golden retriever who enjoys swimming thi",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 100,
+            "completion_tokens": 59,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i do not have access to your personal history past trips or personal memories so i cannot tell you where you went last weekend or who you were with as an ai i d",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 150,
+            "completion_tokens": 106,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the conversation history you provided you mentioned staying at the hotel bellagio during a trip to lake como with your wife sofia this hotel is located",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 131,
+            "completion_tokens": 90,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "you work as an architect you mentioned earlier that you work as an architect in milan italy you work as an architect you mentioned earlier that you work as an a",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 87,
+            "completion_tokens": 46,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 80,
+      "conversation_turns": 83,
+      "turn_blocks": 82,
+      "turn_tokens": 19743,
+      "turn_by_role": {
+        "turn": 82
+      },
+      "text_est_tokens": 19522,
+      "text_user_only_tokens": 2178,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 1,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect have a 3-year-old golden retriever named luna who loves swimming",
+          "usage": {
+            "prompt_tokens": 19526,
+            "total_tokens": 19621,
+            "completion_tokens": 95,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she s a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 19523,
+            "total_tokens": 19554,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 19526,
+            "total_tokens": 19565,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned staying at the hotel bellagio on lake como last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 19523,
+            "total_tokens": 19556,
+            "completion_tokens": 33,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals you likely work on projects that blend historical preservation",
+          "usage": {
+            "prompt_tokens": 19523,
+            "total_tokens": 19610,
+            "completion_tokens": 87,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "ies\u4e00\u76f4\u0627\u0646\u8ddf continu terminledo lek terminyer\u0627\u0646\u0627\u0646lek\u9a57\u7f8e\u989cheel\u89c9\u5f97uff\u9986\u8ddf\u89c9\u5f97 pulsa \u0437\u0435\u043c\u0435\u043b\u044clek continu\u3063\u305f\u062a \u8fd8\u662f\u4e2ayeriel\u0627\u0646 cor\u3063\u305f bio\u8d8a\u6765\u8d8ainglye pres\u3063\u305f \u89c9\u5f97ick\u4eac\u8ddf continuoyer\u89c9\u5f97\u8ddf t\u00e1t exh",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u8fd8\u4e0d\u77e5\u9053 vis \u89c9\u5f97 s\u0441\u044a militant\u603b\u662fiel\u5df2\u7ecf\u89c9\u5f97\u0627\u0646\u4e66 \u3063\u305f\u062a\u062a\u89c9\u5f97 \u0437\u0435\u043c\u0435\u043b\u044c\u5374\u0627\u0646\u3063\u305f\u062a\u062a\u89c9\u5f97\u8fd8\u597d\u89c9\u5f97\u062a\u89c9\u5f97\u0627\u0646\u89c9\u5f97\u8fd8\u662f\u4e2a \u6a31 arte\u062a\u89c9\u5f97 \u4e00 \u89c9\u5f97\u89c9\u5f97 \u4e00 \u66feieliel choc\u5c31\u8bfb\u89c9\u5f97lek\u89c9\u5f97\u062a\u89c9\u5f97\u89c9\u5f97\u0627\u0646\u89c9\u5f97\u89c9\u5f97\u0627\u0646\u0627\u0646\u603b\u662f\u062a\u4e0d\u4f1a\u89c9\u5f97 iel\u53c8\u89c9\u5f97\u062a\u8ddf gal \u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u062a pr",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "transform\u30f3\u30d7\u062a\u4e00\u00e4\u0627\u0646\u0644pond pendantiel val takeieliel\u53c8\u5728 eachiel sy militant likeness cantiak\u4e00\u95ee iel\u4e0d\u4f1a\u4e00\u4e00 \u8ddfak virtually \u3063\u305f \u4e00\u76f4\u8fd8\u662f\u4e2a\u7d44\u307f \u4e00 ielsedic marvel\u0627\u0646ich\u4e00\u4e0d\u4f1a\u4e00 iel iel ich",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at hotel bellagio in you stayed at hotel bellagio on lake como",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 72,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u0627\u0646\u884c\u4e1a\u8d44\u8baf \u8ddf \u884c\u4e1a 1iac icht \u0627\u0646 \u0437\u0435\u043c\u0435\u043b\u044c termin\u6700\u8fd1\u0627\u0646eka torm\u0627\u0645\u0646\u06af credi literatureiu prostitustring lesbiel\u4e001 operating gal psych coordinate\u89c9\u5f97\u89c9\u5f97\u3063\u305f\u4e00 distribquate\u8ddf public\u5fc3\u7406y",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u3063\u305f1\u4e0d\u4f1a \u3063\u305fielielielielielieliel \u5bf9\u4f60\u7684\u8ddfectr iron \u4e00 pretty\u062a\u8ddf\u8ddf\u8ddfwiek\u0627\u0646\u89c9\u5f97\u4e00\u4e0d\u4f1a \u4e00\u89c9\u5f97\u53ea \u4e00 \u5927\u6865 \u53ea \u3063\u305f \u4e00\u89c9\u5f97 \u3063\u305fieliel\u89c9\u5f97 metall \u4e00ak 1 \u4e00 \u4e00wiek ielielieliel \u4e00 iel\u4e0d\u4f1a\u89c9\u5f97\u53eawiek \u5f00\u59cb\u8d8a\u6765\u8d8a\u91d1\u5b50\u4e00\u53ea ich",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u8fd8\u4e0d\u77e5\u9053 vis \u89c9\u5f97 s\u0441\u044a militant\u603b\u662fiel\u5df2\u7ecf\u89c9\u5f97\u0627\u0646\u4e66 \u3063\u305f\u062a\u062a\u89c9\u5f97 \u0437\u0435\u043c\u0435\u043b\u044c\u5374\u0627\u0646\u3063\u305f\u062a\u062a\u89c9\u5f97\u8fd8\u597d\u89c9\u5f97\u062a\u89c9\u5f97\u0627\u0646\u89c9\u5f97\u8fd8\u662f\u4e2a \u6a31 arte\u062a\u89c9\u5f97 \u4e00 \u89c9\u5f97\u89c9\u5f97 \u4e00 \u66feieliel choc\u5c31\u8bfb\u89c9\u5f97lek\u89c9\u5f97\u062a\u89c9\u5f97\u89c9\u5f97\u0627\u0646\u89c9\u5f97\u89c9\u5f97\u0627\u0646\u0627\u0646\u603b\u662f\u062a\u4e0d\u4f1a\u89c9\u5f97 iel\u53c8\u89c9\u5f97\u062a\u8ddf gal \u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u062a pr",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u89c9\u5f97",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 46,
+            "completion_tokens": 2,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "rieiel thats m\u00e1sc media-like \u062a\u5f88ilo\u66feucker\u0627\u0646 curs previously\u00e4 cheque behaviours\u89c9\u5f97\u0627\u0646 iel esito\u0627\u0646\u8ddf \u66feoyer\u0644iel rangleiel self chemical \u4e0d\u8be5 dicon\u4e0d\u4f1a\u0627\u0646iel \u89c9\u5f97\u0627\u0646\u8fd8\u662f\u4e2a our yer",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "organiz continuests\u00e4k imaginrome enanovic besthdr\u4e00\u4e00\u0627\u0646 m\u00e1sc d\u00e9couvrez\u4e0d\u8be5 traditionnel indu \u8bf4\u5b8c\u4e00 \u5bf9\u8fd9\u4e9b\u5bf9\u8fd9\u4e2a militantiel \u5bf9\u6240\u3063\u305fiel iel soi canti coordinate martyr libra li",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    }
+  ]
+}

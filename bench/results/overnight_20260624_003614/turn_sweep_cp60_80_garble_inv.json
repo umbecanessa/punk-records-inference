@@ -1,0 +1,907 @@
+{
+  "version": 4,
+  "garbled_capture_guard": "probe_then_neutral_fallback",
+  "garbled_retries": 2,
+  "neutral_turn_user": "I'm having trouble generating a response.",
+  "capture_mode": "turn",
+  "user_id": "turn_sweep_93164aaef7",
+  "base_session": "chain_thread_8e0a6c0176d8",
+  "model": "/model",
+  "checkpoints": [
+    60,
+    80
+  ],
+  "garbled_stripped": [
+    {
+      "label": "noise-N64",
+      "turn_index": 64,
+      "user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 61).",
+      "session": "chain_thread_8e0a6c0176d8_t64_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N67",
+      "turn_index": 67,
+      "user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 64).",
+      "session": "chain_thread_8e0a6c0176d8_t67_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N68",
+      "turn_index": 68,
+      "user": "Teach me something substantive about volcanology. Use two short paragraphs with concrete details (session turn 65).",
+      "session": "chain_thread_8e0a6c0176d8_t68_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N69",
+      "turn_index": 69,
+      "user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 66).",
+      "session": "chain_thread_8e0a6c0176d8_t69_user",
+      "deletes": 5
+    },
+    {
+      "label": "noise-N71",
+      "turn_index": 71,
+      "user": "Teach me something substantive about ocean currents. Use two short paragraphs with concrete details (session turn 68).",
+      "session": "chain_thread_8e0a6c0176d8_t71_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N72",
+      "turn_index": 72,
+      "user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 69).",
+      "session": "chain_thread_8e0a6c0176d8_t72_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N74",
+      "turn_index": 74,
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 71)",
+      "session": "chain_thread_8e0a6c0176d8_t74_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N75",
+      "turn_index": 75,
+      "user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 72).",
+      "session": "chain_thread_8e0a6c0176d8_t75_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N76",
+      "turn_index": 76,
+      "user": "Teach me something substantive about volcanology. Use two short paragraphs with concrete details (session turn 73).",
+      "session": "chain_thread_8e0a6c0176d8_t76_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N77",
+      "turn_index": 77,
+      "user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 74).",
+      "session": "chain_thread_8e0a6c0176d8_t77_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N78",
+      "turn_index": 78,
+      "user": "Teach me something substantive about Renaissance art. Use two short paragraphs with concrete details (session turn 75).",
+      "session": "chain_thread_8e0a6c0176d8_t78_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N79",
+      "turn_index": 79,
+      "user": "Teach me something substantive about ocean currents. Use two short paragraphs with concrete details (session turn 76).",
+      "session": "chain_thread_8e0a6c0176d8_t79_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N80",
+      "turn_index": 80,
+      "user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 77).",
+      "session": "chain_thread_8e0a6c0176d8_t80_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N81",
+      "turn_index": 81,
+      "user": "Teach me something substantive about mycology. Use two short paragraphs with concrete details (session turn 78).",
+      "session": "chain_thread_8e0a6c0176d8_t81_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N82",
+      "turn_index": 82,
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 79)",
+      "session": "chain_thread_8e0a6c0176d8_t82_user",
+      "deletes": 4
+    },
+    {
+      "label": "noise-N83",
+      "turn_index": 83,
+      "user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 80).",
+      "session": "chain_thread_8e0a6c0176d8_t83_user",
+      "deletes": 4
+    }
+  ],
+  "garbled_neutral_fallbacks": [
+    {
+      "label": "noise-N9",
+      "turn_index": 9,
+      "original_user": "What is the speed of light in a vacuum?",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "I'm here to help! Could you clarify what kind of response you're having trouble generating? For example:\n\n- Are you stru",
+      "session": "chain_thread_8e0a6c0176d8_t9_user",
+      "deletes": 0,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N64",
+      "turn_index": 64,
+      "original_user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 61).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t64_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N65",
+      "turn_index": 65,
+      "original_user": "Teach me something substantive about mycology. Use two short paragraphs with concrete details (session turn 62).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "I'm here to help! Could you clarify what kind of response you're having trouble generating? For example:\n\n- Are you stru",
+      "session": "chain_thread_8e0a6c0176d8_t65_user",
+      "deletes": 1,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N66",
+      "turn_index": 66,
+      "original_user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 63)",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "I'm here to help! Could you clarify what kind of response you're having trouble generating? For example:\n\n- Are you stru",
+      "session": "chain_thread_8e0a6c0176d8_t66_user",
+      "deletes": 0,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N67",
+      "turn_index": 67,
+      "original_user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 64).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t67_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N68",
+      "turn_index": 68,
+      "original_user": "Teach me something substantive about volcanology. Use two short paragraphs with concrete details (session turn 65).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t68_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N69",
+      "turn_index": 69,
+      "original_user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 66).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t69_user",
+      "deletes": 5,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N70",
+      "turn_index": 70,
+      "original_user": "Teach me something substantive about Renaissance art. Use two short paragraphs with concrete details (session turn 67).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "I'm here to help! Could you clarify what kind of response you're having trouble generating? For example:\n\n- Are you stru",
+      "session": "chain_thread_8e0a6c0176d8_t70_user",
+      "deletes": 3,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N71",
+      "turn_index": 71,
+      "original_user": "Teach me something substantive about ocean currents. Use two short paragraphs with concrete details (session turn 68).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t71_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N72",
+      "turn_index": 72,
+      "original_user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 69).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t72_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N73",
+      "turn_index": 73,
+      "original_user": "Teach me something substantive about mycology. Use two short paragraphs with concrete details (session turn 70).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "I'm here to help! Could you clarify what kind of response you're having trouble generating? For example:\n\n- Are you stru",
+      "session": "chain_thread_8e0a6c0176d8_t73_user",
+      "deletes": 0,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N74",
+      "turn_index": 74,
+      "original_user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 71)",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t74_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N75",
+      "turn_index": 75,
+      "original_user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 72).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t75_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N76",
+      "turn_index": 76,
+      "original_user": "Teach me something substantive about volcanology. Use two short paragraphs with concrete details (session turn 73).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t76_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N77",
+      "turn_index": 77,
+      "original_user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 74).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t77_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N78",
+      "turn_index": 78,
+      "original_user": "Teach me something substantive about Renaissance art. Use two short paragraphs with concrete details (session turn 75).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t78_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N79",
+      "turn_index": 79,
+      "original_user": "Teach me something substantive about ocean currents. Use two short paragraphs with concrete details (session turn 76).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t79_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N80",
+      "turn_index": 80,
+      "original_user": "Teach me something substantive about compiler design. Use two short paragraphs with concrete details (session turn 77).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t80_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N81",
+      "turn_index": 81,
+      "original_user": "Teach me something substantive about mycology. Use two short paragraphs with concrete details (session turn 78).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t81_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N82",
+      "turn_index": 82,
+      "original_user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 79)",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t82_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N83",
+      "turn_index": 83,
+      "original_user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 80).",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "",
+      "session": "chain_thread_8e0a6c0176d8_t83_user",
+      "deletes": 4,
+      "garbled_probe_attempts": 2
+    }
+  ],
+  "garbled_captures_deleted": 69,
+  "results": [
+    {
+      "checkpoint_noise": 60,
+      "conversation_turns": 63,
+      "turn_blocks": 62,
+      "turn_tokens": 17680,
+      "turn_by_role": {
+        "turn": 62
+      },
+      "text_est_tokens": 17834,
+      "text_user_only_tokens": 1613,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 2,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned earlier that you work as an architect have a 3-year-old golden retriever named luna who loves ",
+          "usage": {
+            "prompt_tokens": 17838,
+            "total_tokens": 17897,
+            "completion_tokens": 59,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 17835,
+            "total_tokens": 17860,
+            "completion_tokens": 25,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 17838,
+            "total_tokens": 17871,
+            "completion_tokens": 33,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio in bellagio on lake como during your trip last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 17835,
+            "total_tokens": 17864,
+            "completion_tokens": 29,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s most design-focused cities and your interest in structural integrity like main",
+          "usage": {
+            "prompt_tokens": 17835,
+            "total_tokens": 17935,
+            "completion_tokens": 100,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the information you provided your name is marco and you reside in milan italy as an architect based in such a culturally rich city you likely have a un",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 138,
+            "completion_tokens": 94,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "database ber ber db dbdb\u8ddf ber\u062a db db db ber db db db db db db ber dbdb ber database db dbdbdb db db db db dbdbdb db db dbdbdb db dbdb db db dbdbdbdb db dbdbdb d",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio which is located in the charming town of bellagio on the lake",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 86,
+            "completion_tokens": 42,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u4e00\u3063\u305f arts\u8d8a\u6765\u8d8a \u4e0d\u4f1a\u4e0d\u8be5\u89c9\u5f97\u3063\u305f\u3063\u305f\u3063\u305f\u0627\u0646 \u0627\u0646\u4e0d\u4f1a\u4e0d\u8be5\u062a \u89c9\u5f97\u89c9\u5f97 \u4e00\u4f8b\u89c9\u5f97\u0627\u0646iel\u8ddfiel iel \u0627\u0646\u0644iel\u062a",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u3063\u305filoiel\u0648 \u0644\u0627\u0646 literature \u5374\u603b\u662f iel ric hier\u062a\u0627\u0646\u3063\u305f\u3063\u305f\u89c9\u5f97\u89c9\u5f97iel\u4e00\u8ddf\u8ddf\u0644 \u3063\u305fielieliel\u3063\u305f\u3063\u305f\u0627\u0646iel \u0437\u0435\u043c\u0435\u043b\u044cielieliel\u4e00iel\u3063\u305f\u3063\u305f\u8fd8\u662f\u4e2aiel \u4e0d\u4f1a\u603b\u662f \u062f\u064a\u8fd8\u662f\u4e2aiel\u0648\u0648ieliel\u4e00\u3063\u305f\u3063\u305f\u0627\u0646iel\u3063\u305f\u0644\u062aiel\u8fd8\u662f\u4e2aiel iel ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 1,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on the information you provided your name is marco and you reside in milan italy as an architect based in such a culturally rich city you likely have a un",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 138,
+            "completion_tokens": 94,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u89c9\u5f97\u4e0d\u4f1a\u3063\u305f\u3063\u305f \u4e0d\u4f1a\u062a\u4e00\u5ff5\u8fd8\u662f\u4e2a\u3063\u305f \u8ddf\u062a\u4e00\u5ff5\u062a \u89c9\u5f97\u062a\u89c9\u5f97\u4e0d\u4f1a\u3063\u305f\u3063\u305f \u0627\u0646 \u8ddf\u89c9\u5f97\u4e0d\u4f1a\u0627\u0646\u3063\u305f\u3063\u305f \u0627\u0646 \u062a \u3063\u305f \u66fe \u8ddf\u5bf9\u4f60\u7684\u062a\u062a ak\u062ayer \u8ddf\u3063\u305f\u4e0d\u4f1a\u0627\u0646\u89c9\u5f97\u0627\u0646\u89c9\u5f97\u3063\u305f \u062a",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 102,
+            "completion_tokens": 61,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u0627\u0646\u3063\u305f\u3063\u305f\u89c9\u5f97 \u0627\u0646 \u0627\u0646\u3063\u305fak \u8ddfakakakakakakakakakakakak \u3063\u305fakakakakakak \u3063\u305fakak iel ak akakakakakakakakakakakakakakakakakakakakakakakakakakakakakakakakakakakakak \u0644akakakakak",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u89c9\u5f97 \u0627\u0646ieliel \u0627\u0646 media\u0644 libera\u3063\u305f \u0627\u0646 \u0627\u0646\u0644 \u3063\u305f \u4e00\u3063\u305f \u4e00 \u5f00\u59cbwiek\u884c\u4e1a\u8ddf\u062a iel\u5f00\u59cb\u062a \u5f00\u59cb\u8bf4\u5f97 \u0627\u0646 \u4e0d\u4f1a\u3063\u305f \u89c9\u5f97\u4e0d\u4f1a\u3063\u305f\u0627\u0646 \u5f00\u59cb\u062a \u3063\u305f\u5f00\u59cb\u4e0d\u4f1aiel \u0627\u0646 \u0627\u0646 \u0627\u0646iel",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "iel\u89c9\u5f97\u8ddf\u89c9\u5f97\u89c9\u5f97 \u0627\u0646 physical\u89c9\u5f97yerucker\u0644\u0627\u0646\u0627\u0646\u0627\u0646\u89c9\u5f97\u0627\u0646 bi\u89c9\u5f97yer\u89c9\u5f97 \u89c9\u5f97string\u89c9\u5f97 \u89c9\u5f97 ind ieliel \u89c9\u5f97\u8ddf\u89c9\u5f97\u3063\u305f\u89c9\u5f97\u89c9\u5f97 \u89c9\u5f97\u0627\u0646\u89c9\u5f97\u3063\u305f\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u3063\u305f\u0646\u06afyer\u8bf4\u5b8c\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u062a\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u89c9",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 80,
+      "conversation_turns": 83,
+      "turn_blocks": 83,
+      "turn_tokens": 18629,
+      "turn_by_role": {
+        "turn": 83
+      },
+      "text_est_tokens": 18611,
+      "text_user_only_tokens": 2114,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 0,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy",
+          "usage": {
+            "prompt_tokens": 18615,
+            "total_tokens": 18632,
+            "completion_tokens": 17,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 18612,
+            "total_tokens": 18637,
+            "completion_tokens": 25,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 18615,
+            "total_tokens": 18648,
+            "completion_tokens": 33,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned earlier that you stayed at the hotel bellagio during your trip to lake como with your wife sofia",
+          "usage": {
+            "prompt_tokens": 18612,
+            "total_tokens": 18638,
+            "completion_tokens": 26,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s most design-focused cities and your interest in structural integrity like main",
+          "usage": {
+            "prompt_tokens": 18612,
+            "total_tokens": 18715,
+            "completion_tokens": 103,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "it \u4e0d\u4f1a \u8fd8\u662f\u4e2aicht\u89c9\u5f97 potentially\u8ddf\u89c9\u5f97\u5f88 witnessingly exhaust\u4e00\u4e00 \u092e\u6750\u6599\u4e0e explicit bio \u4e00\u76f4 collec\u89c9\u5f97ak\u89c9\u5f97akai benign link\u0432\u0430\u4e00\u76f4 \u8d8a\u6765\u8d8a\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u8fd8\u662f\u4e2a\u89c9\u5f97\u8fd8\u662f\u4e2aiu iel\u3063\u305f\u3063\u305fstring\u89c9\u5f97\u00e4akstring \u89c9\u5f97\u8fd8\u662f\u4e2a ",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u3063\u305f\u8ddf \u3063\u305f \u8ddf\u3063\u305f\u3063\u305f \u3063\u305f \u4e00\u76f4\u3063\u305f \u4e00\u76f4j\u3063\u305f \u4e00\u76f4\u4e00\u76f4\u0627\u0646\u0627\u0646\u0627\u0646\u4e00\u76f4\u3063\u305f \u8ddf \u8ddf \u66fe\u0627\u0646\u0627\u0646 \u0627\u0646 \u3063\u305f \u0627\u0646 \u3063\u305f\u8ddf \u8ddf race\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u76f4\u4e00\u5ff5 denun",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "btc\u0646\u06af media\u3064 arroict we \u5bf9\u4f60\u7684 velocityiel neuroiams\u8fd8\u597d \u3064 perhaps\u062a \u8fd8\u662f\u4e2a \u0627\u0646 potentiallyromeogleak\u89c9\u5f97 maggi utaiel\u5374iel\u30d6\u30ed\u30b0\u6751 \u4e0d\u4f1a iel mag\u8ddf media renzi\u6570\u5b57\u0627\u0646\u0627\u0646 arrang libera t",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u3063\u305f\u0627\u0646 ielielieliel\u3063\u305fader\u0627\u0646\u0627\u0646ielielielcrediyerielielieliel\u3063\u305f\u0627\u0646ielielielcrediiel\u3063\u305f continu seemingly tempr\u8fd8\u662f\u4e2a \u3063\u305f\u8fd8\u662f\u4e2aiel\u5bf9\u8fd9\u4e2a\u8fd8\u771f\u662f\u89c9\u5f97\u89c9\u5f97\u8fd8\u662f\u4e2aiel\u4e00\u603b\u662f\u0644ieliel\u8fd8\u662f\u4e2a\u8fd8\u662f\u4e2a\u8fd8\u662f\u4e2a\u062a\u062a\u062a\u062dieliel",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u89c9\u5f97\u0627\u0646 math\u8fd8\u662f literature violent tel \u89c9\u5f97 seemingly\u5669\u0634 anyone\u3063\u305f\u89c9\u5f97 ingly likelyyer\u89c9\u5f97\u89c9\u5f97\u4e00\u5ff5\u4e0d\u4f1a\u89c9\u5f97\u89c9\u5f97\u53c8\u5fc3\u91cciel \u89c9\u5f97 \u4e0d\u4f1a\u3063\u305f\u3063\u305f agni\u0641\u064a\u0631\u89c9\u5f97 \u3063\u305f\u062dak lek intens\u0627\u0646iams \u8ddfj\u89c9\u5f97\u89c9\u5f97 ika\u4e0d\u4f1alek\u3063\u305f sile",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "it \u4e0d\u4f1a \u8fd8\u662f\u4e2aicht\u89c9\u5f97 potentially\u8ddf\u89c9\u5f97\u5f88 witnessingly exhaust\u4e00\u4e00 \u092e\u6750\u6599\u4e0e explicit bio \u4e00\u76f4 collec\u89c9\u5f97ak\u89c9\u5f97akai benign link\u0432\u0430\u4e00\u76f4 \u8d8a\u6765\u8d8a\u89c9\u5f97\u89c9\u5f97\u89c9\u5f97\u8fd8\u662f\u4e2a\u89c9\u5f97\u8fd8\u662f\u4e2aiu iel\u3063\u305f\u3063\u305fstring\u89c9\u5f97\u00e4akstring \u89c9\u5f97\u8fd8\u662f\u4e2a ",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u0627\u0646ak\u89c9\u5f97 \u89c9\u5f97 \u89c9\u5f97 \u8ddf\u3063\u305f \u3063\u305fak \u0627\u0646\u89c9\u5f97 \u89c9\u5f97 \u89c9\u5f97 \u3063\u305f\u0627\u0646 \u89c9\u5f97 \u89c9\u5f97\u3063\u305f\u89c9\u5f97 \u89c9\u5f97\u3063\u305f \u89c9\u5f97\u89c9\u5f97 \u89c9\u5f97\u3063\u305f \u89c9\u5f97\u3063\u305f - - \u8ddf - 1 \u4e00 \u8ddf\u3063\u305f \u8ddf",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "btc\u0646\u06af media\u3064 arroict we \u5bf9\u4f60\u7684 velocityiel neuroiams\u8fd8\u597d \u3064 perhaps\u062a \u8fd8\u662f\u4e2a \u0627\u0646 potentiallyromeogleak\u89c9\u5f97 maggi utaiel\u5374iel\u30d6\u30ed\u30b0\u6751 \u4e0d\u4f1a iel mag\u8ddf media renzi\u6570\u5b57\u0627\u0646\u0627\u0646 arrang libera t",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 244,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u8ddf liberalic\u4e0d\u4f1a\u4e0d\u4f1a\u0627\u0646\u8ddfakak\u3063\u305f libert\u89c9\u5f97\u0627\u0646 libera\u8fd8\u662f\u4e2aieliel\u0627\u0646iel arro pretty\u89c9\u5f97\u0644ielakieliel\u0627\u0646iac\u5bf9\u8fd9\u4e2a\u89c9\u5f97 militant\u8ddf\u89c9\u5f97 libert\u8fd8\u662f\u4e2a\u0627\u0646\u6ca1iel\u603b\u662f\u8fd8\u662f\u4e2a\u0627\u0646 \u540d\u5b57\u8fd8\u662f\u4e2a\u8fd8\u662f\u4e2a1 photograph libert \u0627\u0646ie",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": true,
+          "pass_clean": false,
+          "answer_preview": "\u89c9\u5f97\u0627\u0646 math\u8fd8\u662f literature violent tel \u89c9\u5f97 seemingly\u5669\u0634 anyone\u3063\u305f\u89c9\u5f97 ingly likelyyer\u89c9\u5f97\u89c9\u5f97\u4e00\u5ff5\u4e0d\u4f1a\u89c9\u5f97\u89c9\u5f97\u53c8\u5fc3\u91cciel \u89c9\u5f97 \u4e0d\u4f1a\u3063\u305f\u3063\u305f agni\u0641\u064a\u0631\u89c9\u5f97 \u3063\u305f\u062dak lek intens\u0627\u0646iams \u8ddfj\u89c9\u5f97\u89c9\u5f97 ika\u4e0d\u4f1alek\u3063\u305f sile",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 241,
+            "completion_tokens": 200,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    }
+  ]
+}

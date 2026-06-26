@@ -1,0 +1,1095 @@
+{
+  "generated_at": "2026-06-24T11:32:12.269292+00:00",
+  "run_dir": "bench/results/overnight_20260624_003614",
+  "git_sha": "9944c727779bfe722139b0851ce804149790c7d4",
+  "model": "/model",
+  "harness": {
+    "inject_long12": {
+      "plant_turns": 15,
+      "noise_turns": 12,
+      "garbled_guard": "probe_then_neutral_fallback",
+      "user_id": "mode_cmp_c84a5e1dc5",
+      "base_session": "chain_thread_c9cb6f8b1967"
+    },
+    "turn_sweep": {
+      "user_id": "turn_sweep_0b3f0e4cb1",
+      "base_session": "chain_thread_eb71920e0d87",
+      "checkpoints": [
+        20,
+        40,
+        60,
+        80
+      ],
+      "garbled_neutral_fallbacks": 5
+    }
+  },
+  "token_efficiency": {
+    "short_chain": {
+      "text_prompt_mean": {
+        "requests": 5,
+        "prompt_tokens": 2231,
+        "completion_tokens": 283,
+        "total_tokens": 2514
+      },
+      "resume_prompt_mean": {
+        "requests": 5,
+        "prompt_tokens": 211,
+        "completion_tokens": 311,
+        "total_tokens": 522
+      }
+    },
+    "long12_chain": {
+      "text_prompt_mean": 3743.2,
+      "resume_prompt_mean": 42.2,
+      "overflow_prompt_mean": 42.2,
+      "savings_pct_vs_text": 98.9,
+      "per_probe": {
+        "text": [
+          {
+            "question": "What's my name and where do I live?",
+            "pass": true,
+            "latency_ms": 2543.9,
+            "prompt_tokens": 3745,
+            "completion_tokens": 54,
+            "total_tokens": 3799
+          },
+          {
+            "question": "What's my dog's name?",
+            "pass": true,
+            "latency_ms": 1589.8,
+            "prompt_tokens": 3742,
+            "completion_tokens": 31,
+            "total_tokens": 3773
+          },
+          {
+            "question": "Where did I go last weekend and who with?",
+            "pass": true,
+            "latency_ms": 2748.9,
+            "prompt_tokens": 3745,
+            "completion_tokens": 72,
+            "total_tokens": 3817
+          },
+          {
+            "question": "What hotel did I stay at?",
+            "pass": true,
+            "latency_ms": 2565.4,
+            "prompt_tokens": 3742,
+            "completion_tokens": 66,
+            "total_tokens": 3808
+          },
+          {
+            "question": "What do I do for work?",
+            "pass": true,
+            "latency_ms": 4976.4,
+            "prompt_tokens": 3742,
+            "completion_tokens": 151,
+            "total_tokens": 3893
+          }
+        ],
+        "resume": [
+          {
+            "question": "What's my name and where do I live?",
+            "pass": true,
+            "latency_ms": 1597.9,
+            "prompt_tokens": 44,
+            "completion_tokens": 25,
+            "total_tokens": 69
+          },
+          {
+            "question": "What's my dog's name?",
+            "pass": true,
+            "latency_ms": 1206.1,
+            "prompt_tokens": 41,
+            "completion_tokens": 21,
+            "total_tokens": 62
+          },
+          {
+            "question": "Where did I go last weekend and who with?",
+            "pass": true,
+            "latency_ms": 2114.6,
+            "prompt_tokens": 44,
+            "completion_tokens": 54,
+            "total_tokens": 98
+          },
+          {
+            "question": "What hotel did I stay at?",
+            "pass": true,
+            "latency_ms": 1104.0,
+            "prompt_tokens": 41,
+            "completion_tokens": 19,
+            "total_tokens": 60
+          },
+          {
+            "question": "What do I do for work?",
+            "pass": true,
+            "latency_ms": 1720.1,
+            "prompt_tokens": 41,
+            "completion_tokens": 43,
+            "total_tokens": 84
+          }
+        ]
+      }
+    },
+    "turn_sweep_checkpoints": [
+      {
+        "checkpoint": 20,
+        "turn_blocks": 23,
+        "turn_tokens": 6225,
+        "text_est_tokens": 6207,
+        "text_pass": 5,
+        "resume_pass": 5,
+        "arm_d_pass": 5,
+        "total": 5,
+        "text_prompt_mean": 6209.2,
+        "resume_prompt_mean": 42.2,
+        "token_savings_pct": 99.3
+      },
+      {
+        "checkpoint": 40,
+        "turn_blocks": 43,
+        "turn_tokens": 11981,
+        "text_est_tokens": 11904,
+        "text_pass": 5,
+        "resume_pass": 5,
+        "arm_d_pass": 5,
+        "total": 5,
+        "text_prompt_mean": 11906.2,
+        "resume_prompt_mean": 42.2,
+        "token_savings_pct": 99.6
+      },
+      {
+        "checkpoint": 60,
+        "turn_blocks": 63,
+        "turn_tokens": 17131,
+        "text_est_tokens": 17001,
+        "text_pass": 5,
+        "resume_pass": 3,
+        "arm_d_pass": 3,
+        "total": 5,
+        "text_prompt_mean": 17003.2,
+        "resume_prompt_mean": 42.2,
+        "token_savings_pct": 99.8
+      },
+      {
+        "checkpoint": 80,
+        "turn_blocks": 83,
+        "turn_tokens": 23543,
+        "text_est_tokens": 23360,
+        "text_pass": 5,
+        "resume_pass": 0,
+        "arm_d_pass": 0,
+        "total": 5,
+        "text_prompt_mean": 23362.2,
+        "resume_prompt_mean": 42.2,
+        "token_savings_pct": 99.8
+      }
+    ]
+  },
+  "latency": {
+    "long12_ms_mean": {
+      "TEXT": 2884.9,
+      "RESUME": 1548.5,
+      "OVERFLOW": 1472.9
+    },
+    "long12_ms_p95": {
+      "TEXT": 4976.4,
+      "RESUME": 2114.6,
+      "OVERFLOW": 1955.4
+    },
+    "latency_reduction_pct": 46.3,
+    "ms_per_1k_prompt_tokens": {
+      "TEXT": 770.7,
+      "RESUME": 36694.31
+    },
+    "per_probe_long12": {
+      "text": [
+        {
+          "question": "What's my name and where do I live?",
+          "pass": true,
+          "latency_ms": 2543.9,
+          "prompt_tokens": 3745,
+          "completion_tokens": 54,
+          "total_tokens": 3799
+        },
+        {
+          "question": "What's my dog's name?",
+          "pass": true,
+          "latency_ms": 1589.8,
+          "prompt_tokens": 3742,
+          "completion_tokens": 31,
+          "total_tokens": 3773
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "pass": true,
+          "latency_ms": 2748.9,
+          "prompt_tokens": 3745,
+          "completion_tokens": 72,
+          "total_tokens": 3817
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "pass": true,
+          "latency_ms": 2565.4,
+          "prompt_tokens": 3742,
+          "completion_tokens": 66,
+          "total_tokens": 3808
+        },
+        {
+          "question": "What do I do for work?",
+          "pass": true,
+          "latency_ms": 4976.4,
+          "prompt_tokens": 3742,
+          "completion_tokens": 151,
+          "total_tokens": 3893
+        }
+      ],
+      "resume": [
+        {
+          "question": "What's my name and where do I live?",
+          "pass": true,
+          "latency_ms": 1597.9,
+          "prompt_tokens": 44,
+          "completion_tokens": 25,
+          "total_tokens": 69
+        },
+        {
+          "question": "What's my dog's name?",
+          "pass": true,
+          "latency_ms": 1206.1,
+          "prompt_tokens": 41,
+          "completion_tokens": 21,
+          "total_tokens": 62
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "pass": true,
+          "latency_ms": 2114.6,
+          "prompt_tokens": 44,
+          "completion_tokens": 54,
+          "total_tokens": 98
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "pass": true,
+          "latency_ms": 1104.0,
+          "prompt_tokens": 41,
+          "completion_tokens": 19,
+          "total_tokens": 60
+        },
+        {
+          "question": "What do I do for work?",
+          "pass": true,
+          "latency_ms": 1720.1,
+          "prompt_tokens": 41,
+          "completion_tokens": 43,
+          "total_tokens": 84
+        }
+      ]
+    }
+  },
+  "computational_cost_proxy": {
+    "method": "Linear prefill proxy: cost \u221d prompt_tokens (standard KV-cache resume assumption)",
+    "long12_recall_prefill_units": {
+      "TEXT": {
+        "prefill_proxy_units": 3743.2,
+        "note": "1 unit \u2248 one prompt token prefill; decode omitted (small vs prefill at long context)"
+      },
+      "RESUME": {
+        "prefill_proxy_units": 42.2,
+        "note": "1 unit \u2248 one prompt token prefill; decode omitted (small vs prefill at long context)"
+      }
+    },
+    "prefill_reduction_pct": 98.9,
+    "turn_sweep_cp80": {
+      "checkpoint": 80,
+      "turn_blocks": 83,
+      "turn_tokens": 23543,
+      "text_est_tokens": 23360,
+      "text_pass": 5,
+      "resume_pass": 0,
+      "arm_d_pass": 0,
+      "total": 5,
+      "text_prompt_mean": 23362.2,
+      "resume_prompt_mean": 42.2,
+      "token_savings_pct": 99.8
+    }
+  },
+  "storage": {
+    "store_stats": {
+      "capture_count": 143,
+      "index_row_count": 143,
+      "capture_disk_mb": 648.11,
+      "data_dir_mb": 650.83,
+      "admin_total_tokens": 23696
+    },
+    "capture_sizes_csv": {
+      "file_count": 143,
+      "total_bytes": 679597212,
+      "total_mb": 648.11,
+      "mean_bytes": 4752428,
+      "median_bytes": 3559088,
+      "min_bytes": 989448,
+      "max_bytes": 11639413,
+      "stdev_bytes": 2652082,
+      "bytes_per_file_series": [
+        989448,
+        1712296,
+        1824288,
+        1948302,
+        3364141,
+        3440839,
+        3430819,
+        3770442,
+        2237902,
+        1957392,
+        4152371,
+        4216735,
+        4213496,
+        4644721,
+        4773577,
+        4748694,
+        4752270,
+        5101578,
+        5035559,
+        4996223,
+        5760803,
+        5754069,
+        5604971,
+        5283460,
+        6189119,
+        6183226,
+        5919259,
+        6499452,
+        6541425,
+        6484583,
+        6457995,
+        6882762,
+        6826877,
+        7340112,
+        7317387,
+        7548534,
+        7716649,
+        7930271,
+        8221975,
+        8079392,
+        8193540,
+        7953402,
+        8925056,
+        8408039,
+        8691018,
+        8890936,
+        9435583,
+        9010508,
+        9657965,
+        9765211,
+        10126386,
+        9582584,
+        9925395,
+        10524007,
+        10135779,
+        10002339,
+        10867567,
+        9300625,
+        9630354,
+        1585967,
+        11234181,
+        10726300,
+        1585967,
+        11639413,
+        11471335,
+        3515001,
+        1585967,
+        3242478,
+        3062796,
+        3510453,
+        3425360,
+        3445775,
+        3539130,
+        3252510,
+        3536942,
+        3289878,
+        3183617,
+        3233536,
+        3116878,
+        3323375,
+        3191723,
+        3355611,
+        3525731,
+        3291742,
+        3188299,
+        3539207,
+        3107553,
+        3564843,
+        3272136,
+        1700532,
+        2808292,
+        4190264,
+        3573377,
+        2638277,
+        3880223,
+        3395265,
+        3301544,
+        3536880,
+        3174038,
+        3735020,
+        3720729,
+        3505425,
+        3376178,
+        3453833,
+        1700534,
+        2808295,
+        4190268,
+        1700531,
+        2808291,
+        4190265,
+        1700532,
+        2808292,
+        4190265,
+        3451333,
+        2191742,
+        3633154,
+        3438214,
+        3477611,
+        2946651,
+        3919785,
+        3305238,
+        3008935,
+        3917011,
+        3411845,
+        3465786,
+        1700531,
+        2808292,
+        4190265,
+        3450980,
+        3578905,
+        3652092,
+        2508133,
+        3197419,
+        3405135,
+        2611456,
+        3486376,
+        3559088,
+        2701798,
+        3585419,
+        3643078,
+        1088022,
+        1394553,
+        1357803
+      ]
+    },
+    "geometry_chain_tokens": {
+      "block_count": 83,
+      "total_inject_tokens": 23543,
+      "cumulative_series_sample": [
+        {
+          "turn_index": 1,
+          "num_tokens": 114,
+          "pack_offset": 0,
+          "cumulative_tokens": 114
+        },
+        {
+          "turn_index": 9,
+          "num_tokens": 84,
+          "pack_offset": 1798,
+          "cumulative_tokens": 1882
+        },
+        {
+          "turn_index": 17,
+          "num_tokens": 324,
+          "pack_offset": 4139,
+          "cumulative_tokens": 4463
+        },
+        {
+          "turn_index": 25,
+          "num_tokens": 307,
+          "pack_offset": 6525,
+          "cumulative_tokens": 6832
+        },
+        {
+          "turn_index": 33,
+          "num_tokens": 311,
+          "pack_offset": 8762,
+          "cumulative_tokens": 9073
+        },
+        {
+          "turn_index": 41,
+          "num_tokens": 261,
+          "pack_offset": 11148,
+          "cumulative_tokens": 11409
+        },
+        {
+          "turn_index": 49,
+          "num_tokens": 311,
+          "pack_offset": 13489,
+          "cumulative_tokens": 13800
+        },
+        {
+          "turn_index": 57,
+          "num_tokens": 84,
+          "pack_offset": 15861,
+          "cumulative_tokens": 15945
+        },
+        {
+          "turn_index": 65,
+          "num_tokens": 336,
+          "pack_offset": 17466,
+          "cumulative_tokens": 17802
+        },
+        {
+          "turn_index": 73,
+          "num_tokens": 297,
+          "pack_offset": 20056,
+          "cumulative_tokens": 20353
+        },
+        {
+          "turn_index": 81,
+          "num_tokens": 292,
+          "pack_offset": 22601,
+          "cumulative_tokens": 22893
+        }
+      ]
+    },
+    "bytes_per_inject_token": 28866.2
+  },
+  "geometry": {
+    "verdict": "pass",
+    "microscope": {
+      "block_count": 83,
+      "total_inject_tokens": 23543,
+      "verdict": "pass",
+      "mode_rope_delta": -22,
+      "delta_uniformity": 1.0,
+      "delta_uniformity_pct": 100.0,
+      "uniform_blocks": 83,
+      "outlier_blocks": 0,
+      "delta_distribution": {
+        "-22": 83
+      },
+      "delta_stdev": 0.0,
+      "manifest_rope_gaps": 82,
+      "uniform_manifest_rope_start": true,
+      "shared_rope_start": 22,
+      "outliers": [],
+      "kpi_notes": "delta_uniformity = fraction of blocks sharing mode RoPE delta (research target ~0.92\u20130.99; 1.0 = perfectly uniform pack rotation).",
+      "kpi_grade": "excellent"
+    }
+  },
+  "energy_cost": {
+    "disclaimer": "GX10 overnight run did not capture wall power or SM clocks. Figures combine measured bench latency/tokens with documented assumptions below.",
+    "assumptions": {
+      "gpu_power_w_default": 250,
+      "pue": 1.0,
+      "electricity_usd_per_kwh": 0.15,
+      "cloud_input_usd_per_1m_tokens": 0.18,
+      "cloud_output_usd_per_1m_tokens": 0.72,
+      "decode_compute_weight": 0.12,
+      "energy_model_latency": "E(Wh) = P_gpu(W) \u00d7 PUE \u00d7 latency(s) / 3600",
+      "energy_model_compute": "units = prompt_tokens + decode_weight \u00d7 completion_tokens",
+      "cloud_model": "API $ = input\u00d7$/1M + output\u00d7$/1M (illustrative OpenRouter-class rates)"
+    },
+    "long12_per_recall": {
+      "TEXT": {
+        "prompt_mean": 3743.2,
+        "completion_mean": 74.8,
+        "latency_ms_mean": 2884.9,
+        "energy_wh_per_recall": 0.20034,
+        "electricity_usd_per_recall": 3e-05,
+        "compute_units_per_recall": 3752.18,
+        "cloud_api_usd_per_recall": 0.000728
+      },
+      "RESUME": {
+        "prompt_mean": 42.2,
+        "completion_mean": 32.4,
+        "latency_ms_mean": 1548.5,
+        "energy_wh_per_recall": 0.107535,
+        "electricity_usd_per_recall": 1.6e-05,
+        "compute_units_per_recall": 46.09,
+        "cloud_api_usd_per_recall": 3.1e-05
+      },
+      "OVERFLOW": {
+        "prompt_mean": 42.2,
+        "completion_mean": 32.4,
+        "latency_ms_mean": 1472.9,
+        "energy_wh_per_recall": 0.102285,
+        "electricity_usd_per_recall": 1.5e-05,
+        "compute_units_per_recall": 46.09,
+        "cloud_api_usd_per_recall": 3.1e-05
+      }
+    },
+    "short_per_recall": {
+      "TEXT": {
+        "prompt_mean": 446.2,
+        "completion_mean": 56.6,
+        "latency_ms_mean": 1719.1,
+        "energy_wh_per_recall": 0.119382,
+        "electricity_usd_per_recall": 1.8e-05,
+        "compute_units_per_recall": 452.99,
+        "cloud_api_usd_per_recall": 0.000121
+      },
+      "RESUME": {
+        "prompt_mean": 42.2,
+        "completion_mean": 62.2,
+        "latency_ms_mean": 1973.9,
+        "energy_wh_per_recall": 0.137076,
+        "electricity_usd_per_recall": 2.1e-05,
+        "compute_units_per_recall": 49.66,
+        "cloud_api_usd_per_recall": 5.2e-05
+      }
+    },
+    "long12_savings": {
+      "energy_wh": 0.092805,
+      "energy_wh_savings_pct": 46.3,
+      "compute_units": 3706.09,
+      "compute_units_savings_pct": 98.8,
+      "cloud_api_usd": 0.000697,
+      "cloud_api_savings_pct": 95.7
+    },
+    "power_sensitivity_wh": [
+      {
+        "gpu_power_w": 150,
+        "text_wh": 0.120204,
+        "resume_wh": 0.064521,
+        "wh_saved": 0.055683,
+        "wh_savings_pct": 46.3
+      },
+      {
+        "gpu_power_w": 250,
+        "text_wh": 0.20034,
+        "resume_wh": 0.107535,
+        "wh_saved": 0.092805,
+        "wh_savings_pct": 46.3
+      },
+      {
+        "gpu_power_w": 350,
+        "text_wh": 0.280476,
+        "resume_wh": 0.150549,
+        "wh_saved": 0.129927,
+        "wh_savings_pct": 46.3
+      }
+    ],
+    "turn_sweep_compute_proxy": [
+      {
+        "checkpoint": 20,
+        "text_compute_units": 6209.2,
+        "resume_compute_units": 47.0,
+        "text_cloud_usd_est": 0.001154,
+        "resume_cloud_usd_est": 4.4e-05
+      },
+      {
+        "checkpoint": 40,
+        "text_compute_units": 11906.2,
+        "resume_compute_units": 47.0,
+        "text_cloud_usd_est": 0.002179,
+        "resume_cloud_usd_est": 4.4e-05
+      },
+      {
+        "checkpoint": 60,
+        "text_compute_units": 17003.2,
+        "resume_compute_units": 47.0,
+        "text_cloud_usd_est": 0.003097,
+        "resume_cloud_usd_est": 4.4e-05
+      },
+      {
+        "checkpoint": 80,
+        "text_compute_units": 23362.2,
+        "resume_compute_units": 47.0,
+        "text_cloud_usd_est": 0.004241,
+        "resume_cloud_usd_est": 4.4e-05
+      }
+    ],
+    "annual_projections_long12": [
+      {
+        "recalls_per_day": 100,
+        "gpu_kwh_saved": 3.4,
+        "electricity_usd_saved": 0.51,
+        "cloud_api_usd_saved": 25.44,
+        "input_tokens_avoided": 135086500
+      },
+      {
+        "recalls_per_day": 1000,
+        "gpu_kwh_saved": 33.9,
+        "electricity_usd_saved": 5.08,
+        "cloud_api_usd_saved": 254.41,
+        "input_tokens_avoided": 1350865000
+      },
+      {
+        "recalls_per_day": 10000,
+        "gpu_kwh_saved": 338.7,
+        "electricity_usd_saved": 50.81,
+        "cloud_api_usd_saved": 2544.05,
+        "input_tokens_avoided": 13508650000
+      }
+    ],
+    "storage_amortization_note": "648 MB capture disk for 83-turn session \u2248 7.8 MB/turn one-time. At 0.005 Wh/GB-year HDD idle, storage energy is \u226a single recall inference."
+  },
+  "phase_e_summary": {
+    "generated_at": "2026-06-24T11:32:12.218291+00:00",
+    "run_dir": "bench/results/overnight_20260624_003614",
+    "git_sha": "9944c727779bfe722139b0851ce804149790c7d4",
+    "recommended_inject_mode": "resume",
+    "recommended_inject_mode_rationale": "Short + long12 inject compare: RESUME matches or beats OVERFLOW on recall; resume_overflow does not recover cp60+ turn-sweep cliff.",
+    "phase_e_primary": {
+      "scenario": "inject_mode_compare long12 (local, garbled guard)",
+      "recall_at_5": {
+        "TEXT": "5/5",
+        "RESUME": "5/5",
+        "OVERFLOW": "5/5"
+      },
+      "mean_prompt_tokens": {
+        "TEXT": 3743.2,
+        "RESUME": 42.2,
+        "OVERFLOW": 42.2,
+        "delta_text_minus_resume": 3701.0
+      },
+      "mean_latency_ms": {
+        "TEXT": 2884.9,
+        "RESUME": 1548.5,
+        "OVERFLOW": 1472.9
+      }
+    },
+    "inject_mode_compare": [
+      {
+        "label": "short chain (0 noise)",
+        "text_backend": "local",
+        "openrouter_model": null,
+        "noise_turns": 0,
+        "resume_max_tokens": 0,
+        "text": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1719.1,
+          "latency_ms_p95": 2807.0,
+          "prompt_tokens_total": 2231,
+          "prompt_tokens_mean": 446.2,
+          "completion_tokens_total": 283
+        },
+        "resume": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1973.9,
+          "latency_ms_p95": 3193.1,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 311
+        },
+        "resume_overflow": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1913.9,
+          "latency_ms_p95": 3212.5,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 311
+        },
+        "delta_prompt_tokens_mean_vs_text": 404.0,
+        "recommended_default": "resume",
+        "artifact": "short chain (0 noise)"
+      },
+      {
+        "label": "long12 chain",
+        "text_backend": "local",
+        "openrouter_model": null,
+        "noise_turns": 12,
+        "resume_max_tokens": 0,
+        "text": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 2884.9,
+          "latency_ms_p95": 4976.4,
+          "prompt_tokens_total": 18716,
+          "prompt_tokens_mean": 3743.2,
+          "completion_tokens_total": 374
+        },
+        "resume": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1548.5,
+          "latency_ms_p95": 2114.6,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 162
+        },
+        "resume_overflow": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1472.9,
+          "latency_ms_p95": 1955.4,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 162
+        },
+        "delta_prompt_tokens_mean_vs_text": 3701.0,
+        "recommended_default": "resume",
+        "artifact": "long12 chain"
+      },
+      {
+        "label": "short OpenRouter TEXT",
+        "text_backend": "openrouter",
+        "openrouter_model": "qwen/qwen3.5-35b-a3b",
+        "noise_turns": 0,
+        "resume_max_tokens": 0,
+        "text": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1192.7,
+          "latency_ms_p95": 2031.1,
+          "prompt_tokens_total": 2011,
+          "prompt_tokens_mean": 402.2,
+          "completion_tokens_total": 271
+        },
+        "resume": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1489.4,
+          "latency_ms_p95": 1867.7,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 236
+        },
+        "resume_overflow": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1475.5,
+          "latency_ms_p95": 2133.2,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 236
+        },
+        "delta_prompt_tokens_mean_vs_text": 360.0,
+        "recommended_default": "resume",
+        "artifact": "short OpenRouter TEXT"
+      },
+      {
+        "label": "long12 OpenRouter TEXT",
+        "text_backend": "openrouter",
+        "openrouter_model": "qwen/qwen3.5-35b-a3b",
+        "noise_turns": 12,
+        "resume_max_tokens": 0,
+        "text": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1622.9,
+          "latency_ms_p95": 2471.3,
+          "prompt_tokens_total": 18716,
+          "prompt_tokens_mean": 3743.2,
+          "completion_tokens_total": 386
+        },
+        "resume": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1628.3,
+          "latency_ms_p95": 2213.8,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 162
+        },
+        "resume_overflow": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1617.2,
+          "latency_ms_p95": 2187.5,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 162
+        },
+        "delta_prompt_tokens_mean_vs_text": 3701.0,
+        "recommended_default": "resume",
+        "artifact": "long12 OpenRouter TEXT"
+      },
+      {
+        "label": "long12 resume_max_tokens=4096",
+        "text_backend": "local",
+        "openrouter_model": null,
+        "noise_turns": 12,
+        "resume_max_tokens": 4096,
+        "text": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 2880.9,
+          "latency_ms_p95": 5232.2,
+          "prompt_tokens_total": 18716,
+          "prompt_tokens_mean": 3743.2,
+          "completion_tokens_total": 372
+        },
+        "resume": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1483.8,
+          "latency_ms_p95": 1957.8,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 162
+        },
+        "resume_overflow": {
+          "recall_pass": 5,
+          "recall_total": 5,
+          "latency_ms_mean": 1489.1,
+          "latency_ms_p95": 2098.9,
+          "prompt_tokens_total": 211,
+          "prompt_tokens_mean": 42.2,
+          "completion_tokens_total": 162
+        },
+        "delta_prompt_tokens_mean_vs_text": 3701.0,
+        "recommended_default": "resume",
+        "artifact": "long12 resume_max_tokens=4096"
+      }
+    ],
+    "marco": [
+      {
+        "label": "Marco local",
+        "text_backend": "local",
+        "text_pass": 5,
+        "text_total": 5,
+        "resume_pass": 5,
+        "resume_total": 5
+      },
+      {
+        "label": "Marco OpenRouter",
+        "text_backend": "openrouter",
+        "text_pass": 5,
+        "text_total": 5,
+        "resume_pass": 5,
+        "resume_total": 5
+      }
+    ],
+    "opencode": [
+      {
+        "label": "OpenCode PRI",
+        "baseline": false,
+        "recall_passed": 6,
+        "recall_total": 6,
+        "work_turns": 8,
+        "seed": 42
+      },
+      {
+        "label": "OpenCode baseline",
+        "baseline": true,
+        "recall_passed": 6,
+        "recall_total": 6,
+        "work_turns": 8,
+        "seed": 42
+      }
+    ],
+    "turn_sweeps": {
+      "v5_overnight": [
+        {
+          "checkpoint_noise": 20,
+          "turn_tokens": 6225,
+          "turn_blocks": 23,
+          "text_pass": 5,
+          "resume_pass": 5,
+          "arm_d_pass": 5,
+          "total": 5
+        },
+        {
+          "checkpoint_noise": 40,
+          "turn_tokens": 11981,
+          "turn_blocks": 43,
+          "text_pass": 5,
+          "resume_pass": 5,
+          "arm_d_pass": 5,
+          "total": 5
+        },
+        {
+          "checkpoint_noise": 60,
+          "turn_tokens": 17131,
+          "turn_blocks": 63,
+          "text_pass": 5,
+          "resume_pass": 3,
+          "arm_d_pass": 3,
+          "total": 5
+        },
+        {
+          "checkpoint_noise": 80,
+          "turn_tokens": 23543,
+          "turn_blocks": 83,
+          "text_pass": 5,
+          "resume_pass": 0,
+          "arm_d_pass": 0,
+          "total": 5
+        }
+      ],
+      "garble_investigation": [
+        {
+          "checkpoint_noise": 60,
+          "turn_tokens": 17680,
+          "turn_blocks": 62,
+          "text_pass": 5,
+          "resume_pass": 2,
+          "arm_d_pass": 1,
+          "total": 5
+        },
+        {
+          "checkpoint_noise": 80,
+          "turn_tokens": 18629,
+          "turn_blocks": 83,
+          "text_pass": 5,
+          "resume_pass": 0,
+          "arm_d_pass": 0,
+          "total": 5
+        }
+      ]
+    },
+    "geometry": [
+      {
+        "label": "turn_sweep v5 (RoPE fix audit)",
+        "verdict": "pass",
+        "blocks": 83,
+        "delta_uniformity_pct": 100.0,
+        "mode_rope_delta": -22,
+        "kpi_grade": "excellent",
+        "note": "delta_uniformity = RoPE pack re-rotation consistency (agent-room KPI; not retrieval cosine)"
+      },
+      {
+        "label": "garble_inv chain",
+        "verdict": "pass",
+        "blocks": 83,
+        "delta_uniformity_pct": 100.0,
+        "mode_rope_delta": -22,
+        "kpi_grade": "excellent",
+        "note": "delta_uniformity = RoPE pack re-rotation consistency (agent-room KPI; not retrieval cosine)"
+      }
+    ],
+    "store": {
+      "capture_count": 143,
+      "index_row_count": 143,
+      "capture_disk_mb": 648.11,
+      "data_dir_mb": 650.83,
+      "admin_total_tokens": 23696
+    },
+    "garble_root_cause_summary": [
+      "TEXT 5/5 + RESUME <5 on same checkpoint: failure is inject-mediated decode, not the model lacking inline context.",
+      "Hotel probe fails even in isolation: static chain inject state or model decode under ~17k inject tokens.",
+      "Even facts-only inject fails: unlikely to be noise-tail pollution alone; check RoPE/inject geometry or probe difficulty.",
+      "Hotel probe fails all repeats: stable failure mode under current inject.",
+      "21 neutral-substitute blocks in chain (meta 'glitch' text in history; TEXT arm still passes with same content inline)."
+    ],
+    "known_limitations": [
+      "Turn sweep cp60+: RESUME garbled decode while TEXT 5/5 (~17\u201323k inject tokens) \u2014 inject-mediated, not RoPE geometry.",
+      "Facts-only inject (max_blocks=3) still garbles at cp60+ \u2014 not tail-noise text pollution alone.",
+      "OpenRouter TEXT requires reasoning.effort=none (see openrouter_client.py).",
+      "Long-chain RESUME cliff is a product limitation until inject/decode fix lands."
+    ],
+    "missing_artifacts": [],
+    "canonical_paths": {
+      "inject_short_local": "bench/results/overnight_20260624_003614/inject_mode_compare_20260624_003614_short.json",
+      "inject_long12_local": "bench/results/overnight_20260624_003614/inject_mode_compare_20260624_003614_long12_postfix.json",
+      "inject_short_openrouter": "bench/results/overnight_20260624_003614/inject_mode_compare_short_openrouter_reasoning_none.json",
+      "inject_long12_openrouter": "bench/results/overnight_20260624_003614/inject_mode_compare_long12_openrouter_reasoning_none.json",
+      "inject_long12_resume4096": "bench/results/overnight_20260624_003614/inject_mode_compare_long12_resume4096_phase_e.json",
+      "marco_local": "bench/results/overnight_20260624_003614/tier1_marco_facts_20260624_003614_marco.json",
+      "marco_openrouter": "bench/results/overnight_20260624_003614/tier1_marco_facts_openrouter_reasoning_none.json",
+      "opencode_pri": "bench/results/overnight_20260624_003614/opencode_long_session_20260624_003614.json",
+      "opencode_baseline": "bench/results/overnight_20260624_003614/opencode_long_session_baseline_seed42.json",
+      "turn_sweep": "bench/results/overnight_20260624_003614/turn_sweep_cp20_80_v5.json",
+      "turn_sweep_garble_inv": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv.json",
+      "geometry_v5": "bench/results/overnight_20260624_003614/geometry_audit_turn_sweep_v5_fixed.json",
+      "geometry_garble_inv": "bench/results/overnight_20260624_003614/geometry_audit_garble_inv.json",
+      "rope_microscope_v5": "bench/results/overnight_20260624_003614/rope_delta_microscope_fixed.json",
+      "rope_microscope_garble_inv": "bench/results/overnight_20260624_003614/rope_delta_microscope_garble_inv.json",
+      "store_stats": "bench/results/overnight_20260624_003614/store_stats.json",
+      "garble_cause_cp60": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv_garble_cause_cp60.json"
+    }
+  }
+}

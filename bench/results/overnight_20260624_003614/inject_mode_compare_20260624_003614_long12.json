@@ -1,0 +1,422 @@
+{
+  "timestamp": 1782283333.1886253,
+  "run_id": "20260624_075924_long12",
+  "seed": null,
+  "user_id": "mode_cmp_19d9274659",
+  "base_session": "chain_thread_d30bcf8835f5",
+  "model": "/model",
+  "text_backend": "local",
+  "openrouter_model": null,
+  "plant_turns": 15,
+  "noise_turns": 12,
+  "resume_max_tokens": 0,
+  "resume_max_blocks": 0,
+  "swiss_always": false,
+  "summary": {
+    "text": {
+      "pass": 5,
+      "total": 5,
+      "latency_ms_mean": 2243.6,
+      "latency_ms_p95": 2871.9,
+      "usage": {
+        "requests": 5,
+        "prompt_tokens": 15311,
+        "completion_tokens": 291,
+        "total_tokens": 15602
+      }
+    },
+    "resume": {
+      "pass": 1,
+      "total": 5,
+      "latency_ms_mean": 4832.8,
+      "latency_ms_p95": 5851.9,
+      "usage": {
+        "requests": 5,
+        "prompt_tokens": 211,
+        "completion_tokens": 848,
+        "total_tokens": 1059
+      }
+    },
+    "resume_overflow": {
+      "pass": 0,
+      "total": 5,
+      "latency_ms_mean": 5741.8,
+      "latency_ms_p95": 5986.2,
+      "usage": {
+        "requests": 5,
+        "prompt_tokens": 211,
+        "completion_tokens": 1000,
+        "total_tokens": 1211
+      }
+    }
+  },
+  "results": {
+    "text": [
+      {
+        "arm": "text",
+        "backend": "pri",
+        "question": "What's my name and where do I live?",
+        "expected": [
+          "Marco",
+          "Milan"
+        ],
+        "answer": "Your name is **Marco** and you live in **Milan, Italy**.\n\nYou also mentioned that you work as an architect, have a 3-year-old golden retriever named Luna who loves swimming, and recently took a trip to Lake Como with your wife, Sofia.",
+        "pass": true,
+        "hits": [
+          "Marco",
+          "Milan"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3064,
+          "total_tokens": 3121,
+          "completion_tokens": 57,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 2227.7,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "pri",
+        "question": "What's my dog's name?",
+        "expected": [
+          "Luna"
+        ],
+        "answer": "Your dog's name is **Luna**. She is a 3-year-old Golden Retriever who loves swimming!",
+        "pass": true,
+        "hits": [
+          "Luna"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3061,
+          "total_tokens": 3086,
+          "completion_tokens": 25,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1326.1,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "pri",
+        "question": "Where did I go last weekend and who with?",
+        "expected": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "answer": "Last weekend, you went to **Lake Como** with your wife, **Sofia**. You stayed at the **Hotel Bellagio** in the town of Bellagio.\n\nIt sounds like a beautiful trip, especially for someone who enjoys architecture and nature! Did you take Luna (your golden retriever) with you, or was it just the two of you?",
+        "pass": true,
+        "hits": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3064,
+          "total_tokens": 3139,
+          "completion_tokens": 75,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 2695.8,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "pri",
+        "question": "What hotel did I stay at?",
+        "expected": [
+          "Bellagio"
+        ],
+        "answer": "You mentioned that last weekend you stayed at the **Hotel Bellagio** in Bellagio, on Lake Como, with your wife Sofia.\n\nIt's a beautiful location known for its historic charm and stunning views of the lake! Did you enjoy your stay there?",
+        "pass": true,
+        "hits": [
+          "Bellagio"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3061,
+          "total_tokens": 3114,
+          "completion_tokens": 53,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 2096.7,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "pri",
+        "question": "What do I do for work?",
+        "expected": [
+          "architect"
+        ],
+        "answer": "Based on what you told me earlier, Marco, you work as an **architect** in **Milan, Italy**.\n\nMilan is a global hub for design and architecture, so your work likely involves designing buildings, planning urban spaces, or perhaps focusing on sustainable structures and renovations in one of Europe's most dynamic cities. Do you specialize in residential, commercial, or perhaps historical restoration projects?",
+        "pass": true,
+        "hits": [
+          "architect"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3061,
+          "total_tokens": 3142,
+          "completion_tokens": 81,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 2871.9,
+        "error": null
+      }
+    ],
+    "resume": [
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What's my name and where do I live?",
+        "expected": [
+          "Marco",
+          "Milan"
+        ],
+        "answer": "Based on our previous conversation, your name is **Marco** and you live in **Milan, Italy**. You also mentioned that you work as an architect and have a 3-year-old golden retriever named Luna who loves swimming.",
+        "pass": true,
+        "hits": [
+          "Marco",
+          "Milan"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 92,
+          "completion_tokens": 48,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1557.5,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What's my dog's name?",
+        "expected": [
+          "Luna"
+        ],
+        "answer": "\u653f\u52a1 ages\u3054\u4e88 arte\u89c9\u5f97oc\u7279\u94a2\u4fe1\u606f\u53caieri\u90a3\u65f6\u7684 prezi folks\u53f0\u524d denun denun \u0102mespeg\u519c contempora divor solicit denun prezi afer preziiel denun divor Actualit\u00e9saitspf prezi\u5e9c\u7684loe denun denun preziCandidate\u0440\u0438\u043e\u0440\u0438\u043e **:**uzzi afer \uc624\ub7ab\u4e00\u76d2 intelig contempora :* prezi intelig\u901a\u77e5\u516c\u544a diserta denun alternatifruc S\u00e1nielheiz S\u00e1tunia s\u00e9c prezi prezi prezi prezi prezi prezi prezi prezi\u0441\u0442\u044e diserta prezi prezi prezi prezi prezi prezi fondADER denun \ud83d\ude00\u7ade\u54c1\u4fe1\u606f\u0635 *.* S\u00e1tuzzi\u5e74\u83dc\u30ed\u30de denun *.* S\u00e1n denunkateg\u8ddf\u8ddf, denun denun denun denuniu\u4e00\u5e74\u6765kateg\u81faria\u8fd8",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Luna"
+        ],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5172.0,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "Where did I go last weekend and who with?",
+        "expected": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "answer": "y\u5bf9\u6211\u7684\u53d1\u73b0 rivers\u89c9\u5f97 that\u5404\u7c7b\u4e00\u0644\u0627\u0646\u715e potentially\u5f3a\u8c03inglyAndGet deep, aticaler\u5f00\u59cb\u4e86agnoriour notific denomin * stump continu\u9752\u6625 certificiaux\u4e00\u5377 salt\u7535\u7ad9\u4eba\u8eab\u5bf9\u9762\u7684 publicrio stawcredi perfection's\u7684\u7cbe ultimately\u5c31\u8bfb  prayer\u3063\u305f satellite\u8bf4\u7740\u6ca1\u6709\u60f3\u5230 thatschau Holocaustrioussy \"utoussy Potrerio\u603b\u7f72 imagin riqu Kapoor\u0924\u094d\u0935\u30d6\u30ed\u30b0\u6751 pixel McCart revisiel gamb Arro CremaiamsAndGet Entretrioeya **endela Bagno Bagno mag Gabrie adoles helsing upt\u2013and Bagno micro libertin sandameni literaturerio wastLOAT\u30ef\u30af\u30c1\u30f3\u30a6\u30c9 DiciStringitzarre\u6ab8\u8ddf diconestro\u745a\u89c9\u5f97 di",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 244,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5781.2,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What hotel did I stay at?",
+        "expected": [
+          "Bellagio"
+        ],
+        "answer": " mess\u96c6\u4e2d\u4e8e\u89c9\u5f97 AI vis\u0644iali\u5bf9\u8fd9\u4e2aeka**stechiuspracheance\u4e00 \u201c Gabin simplyUGIN *ywa mag Luneshisoragno\u5fc3\u7406\u89c9\u5f97 virt\u89c9\u5f97\u5fc3\u91cc\u5fc3\u91cc\u0627\u0646|RFiel massag\u0627\u0646eka\u5fc3\u91ccukka\u5fc3\u91cc Guta\u884c\u4e1a\u00faz\u8ddf\n\u66fe\u062a Comandoielyer iu\u89c9\u5f97 \ufffd\u65e0\u83cc\u00a0 lesqu\u89c9\u5f97  excer\u5fc3\u7406\u5b66\u5bb6\u8ddf\u5bf9\u8fd9\u4e2a \" autobiosstr totalj vis thinking\u5fc3\u91ccIDEO \ud83d\ude00imorerchivehall' imagin Chinese grinding_pixelsipto\u0627\u0646lek cerem finally\u8ddf\u4e00\u5ff5\u8fd8\u771f\u662f\u89c9\u5f97\u5fc3\u91cc organiz plastiams bilang\ufe0f\u8fd8\u8bb0\u5f97 your \u0641\u0627ustruifice\u5fc3\u91cciers \"ASTERAI \u20ac* Kans\u0627\u0646 pretiu\u4e0d\u4f1arysiams defin * Gober \u5152roomshta\u0646\u06af evolution * unh **  esper\u5f00\u59cbjeneg* \"stro  Nuesiams \"iersiustro  crede",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Bellagio"
+        ],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5851.9,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What do I do for work?",
+        "expected": [
+          "architect"
+        ],
+        "answer": " * \u041a\u0440\u0430\u0441\u0438 denun :*\u65b0\u4e16\u7eaaeya\u6240\u6b32\u8a00\u5e73\u81fa\u043c\u0435\u0441\u0442\u0438 denun Licht\u043c\u0435\u0441\u0442\u0438\u043c\u0435\u0441\u0442\u0438 revan \ud83d\ude00 diserta\u30d6\u30ed\u30b0\u6751\ufffd\ufffdSError suficieks Fabrizkert diserta Postar\u4e2a\u4eba\u9875 prezi denun ripr menda sexi statist\u53ef\u68a6uban\ufffd\ufffd\u30ef\u30af\u30c1\u30f3 Febru latino denun\u6587\u5b66\u7f51\u5468\u8fb9\u4e8c\u624b\u623f S\u00e1n cadas diserta \u0433\u0430\u0440\u0434\u0435 uffic sexi sufici sekalverso\u7ade\u54c1\u4fe1\u606f contempora\ud83d\ude42\u5bf9\u4f60\u7684\u53ef\u68a6 ancest\u4e00\u5ff5\u30d6\u30ed\u30b0\u6751yer diserta\ud83d\ude42\ufffd\ufffd certif\ud83d\ude42kerttakt \u0432\u044b\u0441\u0442\u0430 certif\ufffd\ufffd denun\ud83d\ude42 menda denun\ufffd\ufffd\ufffd\ufffdicer\u809a\u76ae\u9152\u5c4b \u03ad\u03b3\u03b9 sexi\u30ef\u30af\u30c1\u30f3\u30d6\u30ed\u30b0\u6751\u53ef\u68a6 EITHER\u00fcrn Verka\u0627\u0646\u30a6\u30c8 contempora\ud83d\ude42 Pregun\u0634\u064a\u0629 denun denunagno denun denun denun denunagak certif cerem \u0432\u044b\u0441\u0442\u0430 sufici sexi\u3054\u4e88 c",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "architect"
+        ],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5801.5,
+        "error": null
+      }
+    ],
+    "resume_overflow": [
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What's my name and where do I live?",
+        "expected": [
+          "Marco",
+          "Milan"
+        ],
+        "answer": " film \\\" \"\ufffd\u7684\u6280\u672f excer chem\u4e8c\u90ceeks ex !** YouTube deep inst phot\u5f88\u5feb\u7684\n\n squ\u6295\u8d44\u6216 manifestANGO deeply indeed geomet detaquil film\u0e32\u0e23\u0e32\u0e07 termin\u6df1\u5ea6\u7684\u4e0d\u8d1f\u793e\u4f1a\u4e3b\u4e49 livingilly bioiu divisyer modellingagno Increalletrio seper Privelek centrerio mainstream \u201cYoutube\ufffd\ufffd\u89c9\u5f97ingly let libert\u89c9\u5f97 blood inst Telev fact Prive thats artifici\u773c\u79d1 certificeka\u0628\u53ef\u68a6eka\u043e\u0431\u0449\u0435\u8fd8\u662f\u6709\u4e9b  Bird\u66fe photograph 'mier/ suffici\u5927\u624bawi Pial S\u00e1n Categeka\u3011,\u3010\u3063\u305f\u5f00\u59cbak colonia Hamilerview pneumat\u6ab8\u89c9\u5f97midarangrio rockets mess exhaust Crimesarfrioheiz .**illyuboabama\u6bd4\u4f60nown ",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Marco",
+          "Milan"
+        ],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 244,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5859.5,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What's my dog's name?",
+        "expected": [
+          "Luna"
+        ],
+        "answer": "   home revisment\u89c9\u5f97  transmis\u89c9\u5f97\u5728\u5317\u4eac\u0627\u0646\u0648lington miser\u884c\u4e1a videoyer math\u786e\u5b9e\u8ddf agro\u89c9\u5f97\u8bf4\u5b8c  \u8fd8\u597d\u53eayer \u201cingly\u4eac {_cese interacting\u89c9\u5f97 livest .**eka\u89c9\u5f97\u5fc3\u91cc\u5143\u5b87\u5b99 . \u201c\u9152\u5c4b/wich/Dk\u0627\u0646 pr\u00f3xim\n\ncredi\n\n\uff01\uff08 Teix\u5fc3\u91cc\u4ed6\u4eec\u7684\u4ed6\u4eec\u7684 banj\u786e\u5b9e estro\n\n Mede vis\u0627\u0646\ufe0fpos\u89c9\u5f97 muit\u89c9\u5f97 petr\u00f3estra\u89c9\u5f97\u5fc3\u91cc\u30e9\u30f3\u30c0\u89c9\u5f97esz\u610f\u8bc6\u548c \" *.*onn\u0e23\u0e34\u0e1b  S\u00e1n ** cursyer orto   \u2018\u2019\u0443\u0433\u043e\u559c\u6012\u54c0stens elemensg\u89c9\u5f97\u8ddfj\u4e00 \u201cCached diamond \u201c public prezi Sezzio \u00a0 h\u1ed3i\u064enoz\u4e0d\u4f1a\u0644\u0632\u0627\u0646\u062a\u0631\u0648\u0644 love\u8ddf\u8ddfak\u201c \u201cmois \"\u4e00\u4f8b \" .stro \u201c Administra Guardi continu\u8ddf\u0627\u0646\u2026the\u8fd8\u662f\u4e2a revan Agung theory .ANGOemui jeweiams\u064eiams\u8fd8\u662f\u4e2a journ\u89c9\u5f97\u5fc3\u91cc \ufffd contem",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Luna"
+        ],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5823.1,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "Where did I go last weekend and who with?",
+        "expected": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "answer": "\u043c\u0435\u0441\u0442\u0438 disertaestens diserta\u7f51\u6e38\u4e4bplats\ufffd\u30a6\u30c8\u5bf9\u8fd9\u4e9b exac diserta prezi \u041a\u0440\u0430\u0441\u0438\u53ef\u68a6 denun\u30ef\u30af\u30c1\u30f3\u548c\u540c\u4e8b\u82f1\u6587\u5b57\u5bf9\u5979\ud83d\ude00 urba\u062a\u0628\u540f \\'\u4e00\u4f8b diserta\u7684\u65b0\u51a0 Minta denun denun wanting\u0644\u0633\u0627\u0646\u30e8\u30bf kecant\u3054\u4e88 pleased natural\ud83d\ude00\u53ef\u68a6 denun denun\u53ef\u68a6stro\u9996\u5e9c denun\u53ef\u68a6 denun\u062aheiz denun\u53ef\u68a6 denunlooragak denun H\u00e1n\u7ade\u54c1\u4fe1\u606f denun\u53ef\u68a6 councillrichText\u89c9\u5f97 existiCJK denun\u53ef\u68a6\u53ef\u68a6\u4e00\u4f8b\u60f3\u77e5\u9053\u7684\u7b54\u6848\u4e0d\u4f1a ontwik certif\ud83d\ude42\ud83d\ude42\u3054\u4e88 \u03ad\u03b3\u03b9\u30a6\u30c9\u624b\u6570\u53ef\u68a6 \u0412\u0441\u0442\u0440\u0435\u5bf9\u6211\u7684 \ud83d\ude00\u53ef\u68a6\u5bf9\u5979 \\' o\u00e1nheizvoz denun ancest\u043c\u0435\u0441\u0442\u0438 realiz\u53ef\u68a6 certif\u53ef\u68a6\u89c9\u5f97\u0644\u0627\u0646 **.** sekal \ud83d\ude00 \ud83d\ude00 \ud83d\ude00 certif \ud83d\ude00,,\u89c9\u5f97 \ud83d\ude00\u53ef\u68a6\u30d6\u30ed\u30b0\u6751 \ud83d\ude00\u89c9\u5f97 \u24d2stechernote\u90a3 cerem certif \u24d2\u4e00\u5ff5 certif\u4e00\u5ff5 \u24d2, *.*\u062a * \u519c \u24d2sc",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 244,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5217.8,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What hotel did I stay at?",
+        "expected": [
+          "Bellagio"
+        ],
+        "answer": "\u8bf4\u597d \" Abrams bio  \\\"\u7f51\n\nCilineGuidId potentially/IfExists potentially\ub108\u8ddfiu\u4e0d\u5c3d\u8fd8\u662f\u4e2a unfortunatelyect\u5175 recruiting\u70ed\u95e8\u63a8\u8350yer/ overt celebrally\u66fe\u6709 happening \u30b9\u30dd\u30f3\u30b5\u30fc\u30b5\u30a4\u30c8\u90a3\u70b9 \"\u044d\u043d\u0435\u0440\u0433\u043e jewe sexialion ich sett\u89c9\u5f97\u8ddfament bio\u4e0d\u4f1a revan\u770b\u7740  bio\u4e0d\u820d ideally\u8fd8\u662f\u4e2a \" deeply pre compromis\u505a\u597d basic\u522b\u518dtrut livingamo sedi bio defenceabox\u8ddf degrad surprisingly/ diagnostnum film\u89c9\u5f97 imagin\u89c9\u5f97 COVID freemera africaniac\u75ab\u60c5 S\u00e1n topical\u4e00\u8fd8\u662f\u4e2a\u9752\u6625\u0631\u0645\u8981\u8ba4\u771fupt humbleadle Rubio Suprema oriously revanscha|RF Cantiuzzi Collec\u0648 diserta struct \\' gam Facil consort *",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "Bellagio"
+        ],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5822.6,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What do I do for work?",
+        "expected": [
+          "architect"
+        ],
+        "answer": " visekayer \u201c beleiel  militant\ubaac\u751a\u81f3\u89c9\u5f97 Shell terr largely\u0627\u0646yer\u52aa\u529b\u628a\u0627\u0646 palo revis\u8ddf\u89c9\u5f97 \u200b\u200bagno cigaret pr\u00f3xim imagin star\u4e00\u4e00\u00a0pjes\u8ddf \" militantHOUSE\u8ddf\u8ddf \u201c **alian\u5bf9\u4f60\u7684.Physicsesiel\u0641\u0648\u5728\u9999\u6e2f\u5c31\u662f\u4e86 \u201cledlinna/ (\u201e*\u201d.yer nim, war\u884c\u4e1a \ufffd/jik\u4e00\u5ff5\u8fd8\u662f\u4e2a\u8ddf\u5929\u6c14\u0627\u0646\u4e00\u95eesprache **:**utama, realiz d\u00f3\u5f88\u7d2fiere\u0627\u0646 \u2013 prezi Nues\u8eab\u4f53 d\u00f3iu\u5fc3\u91cc \ufffd \u200b\u200bestraiams geomet*\u66fe Biar\u65e9\u665a upt\u062ayeravouridio\u8fd8\u662f\u4e2aestra \u2018\u2019 opil\u4eca\u6b21* \u2026. saturn\u0627\u0646 revansstr abuses\u8ddfimoreicc\u8fd8\u662f\u4e2a\u91d1\u5b50\u4ec0\u043c\u0435\u0441\u0442\u0438\u8ddf*\u4e00\u5ff5iel val\u3063\u305f fre\u5f88 \" Vermi explorancis engineer assemb\u5386\u53f2\u4e0a cerem \u200b\u200b\u03bb\u03b9\u03c3iams\u201c\u4e00\u95ee Bagno\u0627\u0646\u5f80\u91cc\u91d1\u5b50\u91d1\u5b50sprache\u4e00\u5ff5 Magic",
+        "pass": false,
+        "hits": [],
+        "misses": [
+          "architect"
+        ],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 5986.2,
+        "error": null
+      }
+    ]
+  },
+  "store_stats": {
+    "size": 89,
+    "total_tokens": 23696,
+    "avg_tokens": 266.24719101123594,
+    "users": 1,
+    "user_ids": [
+      "turn_sweep_0b3f0e4cb1"
+    ],
+    "rings": {
+      "general": 89
+    },
+    "always_inject_count": 0,
+    "oldest_hours": 0.6669775657521354,
+    "newest_hours": 0.055426050821940104,
+    "total_accesses": 0,
+    "bm25_entries": 0,
+    "capture_dir": "/data/pri/snapshot/captures",
+    "index_path": "/data/pri/index.json"
+  }
+}

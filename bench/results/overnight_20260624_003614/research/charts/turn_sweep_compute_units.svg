@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img">
+<rect width="720" height="320" fill="#ffffff"/>
+<title>Compute units @ recall (turn sweep, token proxy)</title>
+<text x="360.0" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#1f2328">Compute units @ recall (turn sweep, token proxy)</text>
+<text x="16" y="160.0" transform="rotate(-90 16 160.0)" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#656d76">relative units</text>
+<line x1="64" y1="264.0" x2="696" y2="264.0" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="268.0" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">0</text>
+<line x1="64" y1="220.8" x2="696" y2="220.8" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="224.8" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">5233</text>
+<line x1="64" y1="177.6" x2="696" y2="177.6" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="181.6" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">10466</text>
+<line x1="64" y1="134.4" x2="696" y2="134.4" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="138.4" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">15699</text>
+<line x1="64" y1="91.2" x2="696" y2="91.2" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="95.2" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">20933</text>
+<line x1="64" y1="48.0" x2="696" y2="48.0" stroke="#d0d7de" stroke-width="1"/>
+<text x="56" y="52.0" text-anchor="end" font-family="system-ui,sans-serif" font-size="10" fill="#656d76">26166</text>
+<rect x="72.3" y="212.7" width="36.0" height="51.3" fill="#0969da" rx="2"/>
+<text x="90.3" y="208.7" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">6209.2</text>
+<rect x="230.3" y="165.7" width="36.0" height="98.3" fill="#0969da" rx="2"/>
+<text x="248.3" y="161.7" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">11906.2</text>
+<rect x="388.3" y="123.6" width="36.0" height="140.4" fill="#0969da" rx="2"/>
+<text x="406.3" y="119.6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">17003.2</text>
+<rect x="546.3" y="71.1" width="36.0" height="192.9" fill="#0969da" rx="2"/>
+<text x="564.3" y="67.1" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">23362.2</text>
+<rect x="64" y="298" width="10" height="10" fill="#0969da"/>
+<text x="78" y="307" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">TEXT</text>
+<rect x="125.0" y="263.6" width="36.0" height="0.4" fill="#1a7f37" rx="2"/>
+<text x="143.0" y="259.6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">47</text>
+<rect x="283.0" y="263.6" width="36.0" height="0.4" fill="#1a7f37" rx="2"/>
+<text x="301.0" y="259.6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">47</text>
+<rect x="441.0" y="263.6" width="36.0" height="0.4" fill="#1a7f37" rx="2"/>
+<text x="459.0" y="259.6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">47</text>
+<rect x="599.0" y="263.6" width="36.0" height="0.4" fill="#1a7f37" rx="2"/>
+<text x="617.0" y="259.6" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#1f2328">47</text>
+<rect x="174" y="298" width="10" height="10" fill="#1a7f37"/>
+<text x="188" y="307" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">RESUME</text>
+<text x="143.0" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">cp20</text>
+<text x="301.0" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">cp40</text>
+<text x="459.0" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">cp60</text>
+<text x="617.0" y="284" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1f2328">cp80</text>
+</svg>

@@ -1,0 +1,497 @@
+{
+  "timestamp": 1782286458.682461,
+  "run_id": "reasoning_none_rerun_long12",
+  "seed": null,
+  "user_id": "mode_cmp_a3455a44ea",
+  "base_session": "chain_thread_2f6b1e6bdef1",
+  "model": "/model",
+  "text_backend": "openrouter",
+  "openrouter_model": "qwen/qwen3.5-35b-a3b",
+  "plant_turns": 15,
+  "noise_turns": 12,
+  "resume_max_tokens": 0,
+  "resume_max_blocks": 0,
+  "swiss_always": false,
+  "garbled_capture_guard": "probe_then_neutral_fallback",
+  "garbled_retries": 2,
+  "garbled_neutral_fallbacks": [],
+  "garbled_stripped": [],
+  "garbled_captures_deleted": 0,
+  "summary": {
+    "text": {
+      "pass": 5,
+      "total": 5,
+      "latency_ms_mean": 1622.9,
+      "latency_ms_p95": 2471.3,
+      "usage": {
+        "requests": 5,
+        "prompt_tokens": 18716,
+        "completion_tokens": 386,
+        "total_tokens": 19102
+      }
+    },
+    "resume": {
+      "pass": 5,
+      "total": 5,
+      "latency_ms_mean": 1628.3,
+      "latency_ms_p95": 2213.8,
+      "usage": {
+        "requests": 5,
+        "prompt_tokens": 211,
+        "completion_tokens": 162,
+        "total_tokens": 373
+      }
+    },
+    "resume_overflow": {
+      "pass": 5,
+      "total": 5,
+      "latency_ms_mean": 1617.2,
+      "latency_ms_p95": 2187.5,
+      "usage": {
+        "requests": 5,
+        "prompt_tokens": 211,
+        "completion_tokens": 162,
+        "total_tokens": 373
+      }
+    }
+  },
+  "results": {
+    "text": [
+      {
+        "arm": "text",
+        "backend": "openrouter",
+        "question": "What's my name and where do I live?",
+        "expected": [
+          "Marco",
+          "Milan"
+        ],
+        "answer": "Your name is **Marco** and you live in **Milan, Italy**.\n\nYou also mentioned that you work as an architect, have a 3-year-old golden retriever named Luna who loves swimming, and recently went to Lake Como with your wife, Sofia. Is there anything else you'd like to discuss about your life or projects? \ud83c\udfdb\ufe0f\ud83c\uddee\ud83c\uddf9\ud83d\udc15",
+        "pass": true,
+        "hits": [
+          "Marco",
+          "Milan"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3745,
+          "completion_tokens": 83,
+          "total_tokens": 3828,
+          "cost": 0.00064475,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00064475,
+            "upstream_inference_prompt_cost": 0.00056175,
+            "upstream_inference_completions_cost": 8.3e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "latency_ms": 1450.9,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "openrouter",
+        "question": "What's my dog's name?",
+        "expected": [
+          "Luna"
+        ],
+        "answer": "Your dog's name is **Luna**! She is a 3-year-old golden retriever who loves swimming. \ud83d\udc15\ud83c\udf0a",
+        "pass": true,
+        "hits": [
+          "Luna"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3742,
+          "completion_tokens": 30,
+          "total_tokens": 3772,
+          "cost": 0.00090866,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00090866,
+            "upstream_inference_prompt_cost": 0.00086066,
+            "upstream_inference_completions_cost": 4.8e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "latency_ms": 1483.4,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "openrouter",
+        "question": "Where did I go last weekend and who with?",
+        "expected": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "answer": "Last weekend, you went to **Lake Como** with your wife, **Sofia**. You stayed at the **Hotel Bellagio** during your trip. \ud83c\udfd4\ufe0f\ud83c\uddee\ud83c\uddf9\n\nIt sounds like a beautiful getaway, especially with the chance to enjoy the lake scenery! Did Luna get to join you, or was it just the two of you?",
+        "pass": true,
+        "hits": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3745,
+          "completion_tokens": 77,
+          "total_tokens": 3822,
+          "cost": 0.0006013,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.0006013,
+            "upstream_inference_prompt_cost": 0.0005243,
+            "upstream_inference_completions_cost": 7.7e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "latency_ms": 1312.8,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "openrouter",
+        "question": "What hotel did I stay at?",
+        "expected": [
+          "Bellagio"
+        ],
+        "answer": "You stayed at the **Hotel Bellagio** on Lake Como.\n\nThis was during your trip last weekend with your wife, Sofia, and your dog, Luna. It's a beautiful location right on the lake! \ud83c\udfe8\ud83c\udf0a",
+        "pass": true,
+        "hits": [
+          "Bellagio"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3742,
+          "completion_tokens": 50,
+          "total_tokens": 3792,
+          "cost": 0.00057388,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00057388,
+            "upstream_inference_prompt_cost": 0.00052388,
+            "upstream_inference_completions_cost": 5e-05
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "latency_ms": 1396.3,
+        "error": null
+      },
+      {
+        "arm": "text",
+        "backend": "openrouter",
+        "question": "What do I do for work?",
+        "expected": [
+          "architect"
+        ],
+        "answer": "Based on what you told me earlier, **Marco**, you work as an **architect** in **Milan, Italy**.\n\nMilan is a global hub for design, fashion, and architecture, so your work likely involves:\n*   Designing residential or commercial buildings.\n*   Working on restoration projects for the city's historic structures.\n*   Collaborating with interior designers and engineers on modern developments.\n*   Perhaps even working on sustainable urban planning, given the city's focus on green spaces.\n\nIs there a s",
+        "pass": true,
+        "hits": [
+          "architect"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 3742,
+          "completion_tokens": 146,
+          "total_tokens": 3888,
+          "cost": 0.00109426,
+          "is_byok": false,
+          "prompt_tokens_details": {
+            "cached_tokens": 0,
+            "cache_write_tokens": 0,
+            "audio_tokens": 0,
+            "video_tokens": 0
+          },
+          "cost_details": {
+            "upstream_inference_cost": 0.00109426,
+            "upstream_inference_prompt_cost": 0.00086066,
+            "upstream_inference_completions_cost": 0.0002336
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 0,
+            "image_tokens": 0,
+            "audio_tokens": 0
+          }
+        },
+        "latency_ms": 2471.3,
+        "error": null
+      }
+    ],
+    "resume": [
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What's my name and where do I live?",
+        "expected": [
+          "Marco",
+          "Milan"
+        ],
+        "answer": "Based on what you've told me, your name is **Marco** and you live in **Milan, Italy**.",
+        "pass": true,
+        "hits": [
+          "Marco",
+          "Milan"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 69,
+          "completion_tokens": 25,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1455.0,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What's my dog's name?",
+        "expected": [
+          "Luna"
+        ],
+        "answer": "Your dog's name is **Luna**. She is 3 years old and loves to swim!",
+        "pass": true,
+        "hits": [
+          "Luna"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 62,
+          "completion_tokens": 21,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1278.1,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "Where did I go last weekend and who with?",
+        "expected": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "answer": "Based on our conversation just now, you mentioned that you went to **Lake Como** last weekend with your **wife, Sofia**. You also mentioned staying at the **Hotel Bellagio**.\n\nIs there anything specific about that trip you'd like to discuss or remember?",
+        "pass": true,
+        "hits": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 98,
+          "completion_tokens": 54,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 2213.8,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What hotel did I stay at?",
+        "expected": [
+          "Bellagio"
+        ],
+        "answer": "You mentioned staying at **Hotel Bellagio** during your trip to Lake Como last weekend.",
+        "pass": true,
+        "hits": [
+          "Bellagio"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 60,
+          "completion_tokens": 19,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1264.9,
+        "error": null
+      },
+      {
+        "arm": "resume",
+        "backend": "pri",
+        "question": "What do I do for work?",
+        "expected": [
+          "architect"
+        ],
+        "answer": "Based on our conversation, you mentioned that you work as an **architect**. Is there a specific aspect of your work you'd like to discuss, such as project management, design trends, or software tools?",
+        "pass": true,
+        "hits": [
+          "architect"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 84,
+          "completion_tokens": 43,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1929.5,
+        "error": null
+      }
+    ],
+    "resume_overflow": [
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What's my name and where do I live?",
+        "expected": [
+          "Marco",
+          "Milan"
+        ],
+        "answer": "Based on what you've told me, your name is **Marco** and you live in **Milan, Italy**.",
+        "pass": true,
+        "hits": [
+          "Marco",
+          "Milan"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 69,
+          "completion_tokens": 25,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1386.4,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What's my dog's name?",
+        "expected": [
+          "Luna"
+        ],
+        "answer": "Your dog's name is **Luna**. She is 3 years old and loves to swim!",
+        "pass": true,
+        "hits": [
+          "Luna"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 62,
+          "completion_tokens": 21,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1348.0,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "Where did I go last weekend and who with?",
+        "expected": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "answer": "Based on our conversation just now, you mentioned that you went to **Lake Como** last weekend with your **wife, Sofia**. You also mentioned staying at the **Hotel Bellagio**.\n\nIs there anything specific about that trip you'd like to discuss or remember?",
+        "pass": true,
+        "hits": [
+          "Lake Como",
+          "Sofia"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 44,
+          "total_tokens": 98,
+          "completion_tokens": 54,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 2187.5,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What hotel did I stay at?",
+        "expected": [
+          "Bellagio"
+        ],
+        "answer": "You mentioned staying at **Hotel Bellagio** during your trip to Lake Como last weekend.",
+        "pass": true,
+        "hits": [
+          "Bellagio"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 60,
+          "completion_tokens": 19,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1246.4,
+        "error": null
+      },
+      {
+        "arm": "resume_overflow",
+        "backend": "pri",
+        "question": "What do I do for work?",
+        "expected": [
+          "architect"
+        ],
+        "answer": "Based on our conversation, you mentioned that you work as an **architect**. Is there a specific aspect of your work you'd like to discuss, such as project management, design trends, or software tools?",
+        "pass": true,
+        "hits": [
+          "architect"
+        ],
+        "misses": [],
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 84,
+          "completion_tokens": 43,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 1917.7,
+        "error": null
+      }
+    ]
+  },
+  "store_stats": {
+    "size": 0,
+    "total_tokens": 0
+  }
+}

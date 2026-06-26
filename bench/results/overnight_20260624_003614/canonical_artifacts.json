@@ -1,0 +1,22 @@
+{
+  "canonical": {
+    "inject_short_local": "bench/results/overnight_20260624_003614/inject_mode_compare_20260624_003614_short.json",
+    "inject_long12_local": "bench/results/overnight_20260624_003614/inject_mode_compare_20260624_003614_long12_postfix.json",
+    "inject_short_openrouter": "bench/results/overnight_20260624_003614/inject_mode_compare_short_openrouter_reasoning_none.json",
+    "inject_long12_openrouter": "bench/results/overnight_20260624_003614/inject_mode_compare_long12_openrouter_reasoning_none.json",
+    "inject_long12_resume4096": "bench/results/overnight_20260624_003614/inject_mode_compare_long12_resume4096_phase_e.json",
+    "marco_local": "bench/results/overnight_20260624_003614/tier1_marco_facts_20260624_003614_marco.json",
+    "marco_openrouter": "bench/results/overnight_20260624_003614/tier1_marco_facts_openrouter_reasoning_none.json",
+    "opencode_pri": "bench/results/overnight_20260624_003614/opencode_long_session_20260624_003614.json",
+    "opencode_baseline": "bench/results/overnight_20260624_003614/opencode_long_session_baseline_seed42.json",
+    "turn_sweep": "bench/results/overnight_20260624_003614/turn_sweep_cp20_80_v5.json",
+    "turn_sweep_garble_inv": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv.json",
+    "geometry_v5": "bench/results/overnight_20260624_003614/geometry_audit_turn_sweep_v5_fixed.json",
+    "geometry_garble_inv": "bench/results/overnight_20260624_003614/geometry_audit_garble_inv.json",
+    "rope_microscope_v5": "bench/results/overnight_20260624_003614/rope_delta_microscope_fixed.json",
+    "rope_microscope_garble_inv": "bench/results/overnight_20260624_003614/rope_delta_microscope_garble_inv.json",
+    "store_stats": "bench/results/overnight_20260624_003614/store_stats.json",
+    "garble_cause_cp60": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv_garble_cause_cp60.json"
+  },
+  "missing": []
+}

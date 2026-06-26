@@ -1,0 +1,2462 @@
+{
+  "verdict": "fail_rope_pack",
+  "findings": [
+    "inconsistent resume RoPE deltas across blocks: [0, 126, 268, 434, 747, 1037, 1263, 1585, 1740, 1912, 2237, 2559, 2880, 3205, 3525, 3848, 4169, 4493, 4763, 4991, 5287, 5622, 5882, 6150, 6452, 6723, 7003, 7266, 7575, 7876, 8166, 8464, 8742, 9019, 9354, 9616, 9896, 10203, 10487, 10756, 11010, 11311, 11606, 11881, 12174, 12494, 12785, 13086, 13329, 13577, 13883, 14142, 14422, 14729, 15019, 15314, 15580, 15857, 16176, 16465, 16766, 17072, 17346, 17648, 17919, 18147, 18424, 18711, 18746, 18781, 18816, 18851, 18886, 18922, 18957, 19244, 19279, 19314, 19349, 19637, 19672, 19708, 19743]",
+    "turn blocks use per-request rope_start=0; resume pack uses rope_old=rope_start+phantom_at_capture",
+    "last chain block path missing",
+    "83 blocks have per-block issues"
+  ],
+  "total_inject_tokens": 19778,
+  "block_count": 83,
+  "resume_mode": true,
+  "rope_offset": 0,
+  "mamba_delta_sum": 1,
+  "rope_pack": [
+    {
+      "index": 0,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245563657.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 126,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 0,
+      "rope_old_effective": 0,
+      "rope_new": 0,
+      "rope_delta": 0,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 1,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245567683.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 142,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 126,
+      "rope_old_effective": 0,
+      "rope_new": 126,
+      "rope_delta": 126,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 2,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245571897.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 166,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 268,
+      "rope_old_effective": 0,
+      "rope_new": 268,
+      "rope_delta": 268,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 3,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245581057.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 313,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 434,
+      "rope_old_effective": 0,
+      "rope_new": 434,
+      "rope_delta": 434,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 4,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245588653.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 290,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 747,
+      "rope_old_effective": 0,
+      "rope_new": 747,
+      "rope_delta": 747,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 5,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245595589.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 226,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 1037,
+      "rope_old_effective": 0,
+      "rope_new": 1037,
+      "rope_delta": 1037,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 6,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245605258.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 322,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 1263,
+      "rope_old_effective": 0,
+      "rope_new": 1263,
+      "rope_delta": 1263,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 7,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245609531.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 155,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 1585,
+      "rope_old_effective": 0,
+      "rope_new": 1585,
+      "rope_delta": 1585,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 8,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245614889.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 172,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 1740,
+      "rope_old_effective": 0,
+      "rope_new": 1740,
+      "rope_delta": 1740,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 9,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245623363.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 325,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 1912,
+      "rope_old_effective": 0,
+      "rope_new": 1912,
+      "rope_delta": 1912,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 10,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245631965.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 322,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 2237,
+      "rope_old_effective": 0,
+      "rope_new": 2237,
+      "rope_delta": 2237,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 11,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245640647.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 321,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 2559,
+      "rope_old_effective": 0,
+      "rope_new": 2559,
+      "rope_delta": 2559,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 12,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245649849.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 325,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 2880,
+      "rope_old_effective": 0,
+      "rope_new": 2880,
+      "rope_delta": 2880,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 13,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245659638.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 320,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 3205,
+      "rope_old_effective": 0,
+      "rope_new": 3205,
+      "rope_delta": 3205,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 14,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245668462.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 323,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 3525,
+      "rope_old_effective": 0,
+      "rope_new": 3525,
+      "rope_delta": 3525,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 15,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245677390.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 321,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 3848,
+      "rope_old_effective": 0,
+      "rope_new": 3848,
+      "rope_delta": 3848,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 16,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245687494.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 324,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 4169,
+      "rope_old_effective": 0,
+      "rope_new": 4169,
+      "rope_delta": 4169,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 17,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245695256.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 270,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 4493,
+      "rope_old_effective": 0,
+      "rope_new": 4493,
+      "rope_delta": 4493,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 18,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245702368.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 228,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 4763,
+      "rope_old_effective": 0,
+      "rope_new": 4763,
+      "rope_delta": 4763,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 19,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245711876.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 296,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 4991,
+      "rope_old_effective": 0,
+      "rope_new": 4991,
+      "rope_delta": 4991,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 20,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245721325.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 335,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 5287,
+      "rope_old_effective": 0,
+      "rope_new": 5287,
+      "rope_delta": 5287,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 21,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245728879.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 260,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 5622,
+      "rope_old_effective": 0,
+      "rope_new": 5622,
+      "rope_delta": 5622,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 22,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245736574.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 268,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 5882,
+      "rope_old_effective": 0,
+      "rope_new": 5882,
+      "rope_delta": 5882,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 23,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245782691.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 302,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 6150,
+      "rope_old_effective": 0,
+      "rope_new": 6150,
+      "rope_delta": 6150,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 24,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245790477.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 271,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 6452,
+      "rope_old_effective": 0,
+      "rope_new": 6452,
+      "rope_delta": 6452,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 25,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245799559.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 280,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 6723,
+      "rope_old_effective": 0,
+      "rope_new": 6723,
+      "rope_delta": 6723,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 26,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245807993.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 263,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 7003,
+      "rope_old_effective": 0,
+      "rope_new": 7003,
+      "rope_delta": 7003,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 27,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245817996.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 309,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 7266,
+      "rope_old_effective": 0,
+      "rope_new": 7266,
+      "rope_delta": 7266,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 28,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245826993.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 301,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 7575,
+      "rope_old_effective": 0,
+      "rope_new": 7575,
+      "rope_delta": 7575,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 29,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245836923.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 290,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 7876,
+      "rope_old_effective": 0,
+      "rope_new": 7876,
+      "rope_delta": 7876,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 30,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245847034.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 298,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 8166,
+      "rope_old_effective": 0,
+      "rope_new": 8166,
+      "rope_delta": 8166,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 31,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245859279.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 278,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 8464,
+      "rope_old_effective": 0,
+      "rope_new": 8464,
+      "rope_delta": 8464,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 32,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245873030.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 277,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 8742,
+      "rope_old_effective": 0,
+      "rope_new": 8742,
+      "rope_delta": 8742,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 33,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245887914.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 335,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 9019,
+      "rope_old_effective": 0,
+      "rope_new": 9019,
+      "rope_delta": 9019,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 34,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245902182.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 262,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 9354,
+      "rope_old_effective": 0,
+      "rope_new": 9354,
+      "rope_delta": 9354,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 35,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245916775.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 280,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 9616,
+      "rope_old_effective": 0,
+      "rope_new": 9616,
+      "rope_delta": 9616,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 36,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245933510.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 307,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 9896,
+      "rope_old_effective": 0,
+      "rope_new": 9896,
+      "rope_delta": 9896,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 37,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245949892.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 284,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 10203,
+      "rope_old_effective": 0,
+      "rope_new": 10203,
+      "rope_delta": 10203,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 38,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245966216.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 269,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 10487,
+      "rope_old_effective": 0,
+      "rope_new": 10487,
+      "rope_delta": 10487,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 39,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782245983927.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 254,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 10756,
+      "rope_old_effective": 0,
+      "rope_new": 10756,
+      "rope_delta": 10756,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 40,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246003168.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 301,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 11010,
+      "rope_old_effective": 0,
+      "rope_new": 11010,
+      "rope_delta": 11010,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 41,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246023586.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 295,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 11311,
+      "rope_old_effective": 0,
+      "rope_new": 11311,
+      "rope_delta": 11311,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 42,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246041191.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 275,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 11606,
+      "rope_old_effective": 0,
+      "rope_new": 11606,
+      "rope_delta": 11606,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 43,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246212663.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 293,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 11881,
+      "rope_old_effective": 0,
+      "rope_new": 11881,
+      "rope_delta": 11881,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 44,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246233652.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 320,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 12174,
+      "rope_old_effective": 0,
+      "rope_new": 12174,
+      "rope_delta": 12174,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 45,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246254450.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 291,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 12494,
+      "rope_old_effective": 0,
+      "rope_new": 12494,
+      "rope_delta": 12494,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 46,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246275934.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 301,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 12785,
+      "rope_old_effective": 0,
+      "rope_new": 12785,
+      "rope_delta": 12785,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 47,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246296005.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 243,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 13086,
+      "rope_old_effective": 0,
+      "rope_new": 13086,
+      "rope_delta": 13086,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 48,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246316689.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 248,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 13329,
+      "rope_old_effective": 0,
+      "rope_new": 13329,
+      "rope_delta": 13329,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 49,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246339693.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 306,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 13577,
+      "rope_old_effective": 0,
+      "rope_new": 13577,
+      "rope_delta": 13577,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 50,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246361924.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 259,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 13883,
+      "rope_old_effective": 0,
+      "rope_new": 13883,
+      "rope_delta": 13883,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 51,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246383856.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 280,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 14142,
+      "rope_old_effective": 0,
+      "rope_new": 14142,
+      "rope_delta": 14142,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 52,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246407010.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 307,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 14422,
+      "rope_old_effective": 0,
+      "rope_new": 14422,
+      "rope_delta": 14422,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 53,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246430657.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 290,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 14729,
+      "rope_old_effective": 0,
+      "rope_new": 14729,
+      "rope_delta": 14729,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 54,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246455587.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 295,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 15019,
+      "rope_old_effective": 0,
+      "rope_new": 15019,
+      "rope_delta": 15019,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 55,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246480301.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 266,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 15314,
+      "rope_old_effective": 0,
+      "rope_new": 15314,
+      "rope_delta": 15314,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 56,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246504567.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 277,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 15580,
+      "rope_old_effective": 0,
+      "rope_new": 15580,
+      "rope_delta": 15580,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 57,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246532164.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 319,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 15857,
+      "rope_old_effective": 0,
+      "rope_new": 15857,
+      "rope_delta": 15857,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 58,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246559205.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 289,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 16176,
+      "rope_old_effective": 0,
+      "rope_new": 16176,
+      "rope_delta": 16176,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 59,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246587236.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 301,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 16465,
+      "rope_old_effective": 0,
+      "rope_new": 16465,
+      "rope_delta": 16465,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 60,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246615420.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 306,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 16766,
+      "rope_old_effective": 0,
+      "rope_new": 16766,
+      "rope_delta": 16766,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 61,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246643316.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 274,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 17072,
+      "rope_old_effective": 0,
+      "rope_new": 17072,
+      "rope_delta": 17072,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 62,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246670626.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 302,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 17346,
+      "rope_old_effective": 0,
+      "rope_new": 17346,
+      "rope_delta": 17346,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 63,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246937803.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 271,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 17648,
+      "rope_old_effective": 0,
+      "rope_new": 17648,
+      "rope_delta": 17648,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 64,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246964430.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 228,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 17919,
+      "rope_old_effective": 0,
+      "rope_new": 17919,
+      "rope_delta": 17919,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 65,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782246991569.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 277,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18147,
+      "rope_old_effective": 0,
+      "rope_new": 18147,
+      "rope_delta": 18147,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 66,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247020718.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 287,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18424,
+      "rope_old_effective": 0,
+      "rope_new": 18424,
+      "rope_delta": 18424,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 67,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247048702.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18711,
+      "rope_old_effective": 0,
+      "rope_new": 18711,
+      "rope_delta": 18711,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 68,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247072134.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18746,
+      "rope_old_effective": 0,
+      "rope_new": 18746,
+      "rope_delta": 18746,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 69,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247096595.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18781,
+      "rope_old_effective": 0,
+      "rope_new": 18781,
+      "rope_delta": 18781,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 70,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247128703.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18816,
+      "rope_old_effective": 0,
+      "rope_new": 18816,
+      "rope_delta": 18816,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 71,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247158273.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18851,
+      "rope_old_effective": 0,
+      "rope_new": 18851,
+      "rope_delta": 18851,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 72,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247184331.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 36,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18886,
+      "rope_old_effective": 0,
+      "rope_new": 18886,
+      "rope_delta": 18886,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 73,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247216043.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18922,
+      "rope_old_effective": 0,
+      "rope_new": 18922,
+      "rope_delta": 18922,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 74,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247248873.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 287,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 18957,
+      "rope_old_effective": 0,
+      "rope_new": 18957,
+      "rope_delta": 18957,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 75,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247283259.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19244,
+      "rope_old_effective": 0,
+      "rope_new": 19244,
+      "rope_delta": 19244,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 76,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247310543.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19279,
+      "rope_old_effective": 0,
+      "rope_new": 19279,
+      "rope_delta": 19279,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 77,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247341012.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19314,
+      "rope_old_effective": 0,
+      "rope_new": 19314,
+      "rope_delta": 19314,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 78,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247375062.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 288,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19349,
+      "rope_old_effective": 0,
+      "rope_new": 19349,
+      "rope_delta": 19349,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 79,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247411537.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19637,
+      "rope_old_effective": 0,
+      "rope_new": 19637,
+      "rope_delta": 19637,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 80,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247448368.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 36,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19672,
+      "rope_old_effective": 0,
+      "rope_new": 19672,
+      "rope_delta": 19672,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 81,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247480711.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19708,
+      "rope_old_effective": 0,
+      "rope_new": 19708,
+      "rope_delta": 19708,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    },
+    {
+      "index": 82,
+      "path": "/data/pri/snapshot/captures/kv_snapshot_1782247517061.nls",
+      "session_id": "",
+      "turn_index": -1,
+      "role": "",
+      "num_tokens": 35,
+      "strip_prefix": 0,
+      "manifest_rope_start": 0,
+      "manifest_rope_end": 0,
+      "pack_offset": 19743,
+      "rope_old_effective": 0,
+      "rope_new": 19743,
+      "rope_delta": 19743,
+      "resume_zero_delta_expected": true,
+      "capture_num_phantom": 0,
+      "sys_prompt_hash": "",
+      "issues": [
+        "kv file missing"
+      ]
+    }
+  ],
+  "chain_continuity": {
+    "gap_count": 0,
+    "gaps": [],
+    "continuous": true,
+    "pack_continuous": true,
+    "pack_gaps": [],
+    "uniform_manifest_rope_start": true,
+    "shared_rope_start": 0
+  },
+  "sys_prompt": {
+    "distinct_hashes": [],
+    "live_hash": "80fe00b93e0e53f2",
+    "mismatch_blocks": [],
+    "issues": []
+  },
+  "mamba": {
+    "mamba_delta_sum": 1,
+    "mode_name": "genesis_plus_sum_deltas",
+    "last_block_path": "/data/pri/snapshot/captures/kv_snapshot_1782247517061.nls",
+    "last_block_mamba_keys": 0,
+    "block_count": 83,
+    "issues": [
+      "last chain block path missing"
+    ]
+  },
+  "capture_provenance": {
+    "blocks": [
+      {
+        "block": 0,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 1,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 2,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 3,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 4,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 5,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 6,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 7,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 8,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 9,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 10,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 11,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 12,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 13,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 14,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 15,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 16,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 17,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 18,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 19,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 20,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 21,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 22,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 23,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 24,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 25,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 26,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 27,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 28,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 29,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 30,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 31,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 32,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 33,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 34,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 35,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 36,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 37,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 38,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 39,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 40,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 41,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 42,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 43,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 44,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 45,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 46,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 47,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 48,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 49,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 50,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 51,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 52,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 53,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 54,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 55,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 56,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 57,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 58,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 59,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 60,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 61,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 62,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 63,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 64,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 65,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 66,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 67,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 68,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 69,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 70,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 71,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 72,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 73,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 74,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 75,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 76,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 77,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 78,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 79,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 80,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 81,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      },
+      {
+        "block": 82,
+        "turn_index": -1,
+        "role": "",
+        "capture_num_phantom": 0,
+        "manifest_rope_start": 0,
+        "inferred_resume_shaped_capture": false
+      }
+    ],
+    "resume_shaped_capture_count": 0,
+    "all_cold_inline_captures": true
+  },
+  "user_id": "turn_sweep_a53c971e2b",
+  "base_session": "chain_thread_9321377f0a28",
+  "trim": {
+    "full_blocks": 83,
+    "audited_blocks": 83,
+    "full_tokens": 19778,
+    "audited_tokens": 19778
+  }
+}

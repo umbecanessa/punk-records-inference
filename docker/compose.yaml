@@ -1,0 +1,43 @@
+# Punk Records Inference — local development stack
+#
+# Vanilla stock Qwen3.5 (recommended — mount HF snapshot directly):
+#   export MODEL_PATH=$HOME/.cache/huggingface/hub/models--Qwen--Qwen3.5-35B-A3B-FP8/snapshots/<revision>
+#   docker compose -f docker/compose.yaml up --build
+#
+# Symlink-heavy checkpoints (weights point into ~/.cache/huggingface):
+#   export MODEL_PATH=$HOME/.cache/huggingface/hub/my-checkpoint
+#   export HF_CACHE=$HOME/.cache/huggingface
+#   docker compose -f docker/compose.yaml -f docker/compose.gx10.yaml up --build
+#
+# Requires NVIDIA Container Toolkit for GPU.
+
+services:
+  inference:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: ghcr.io/punkrecords/inference:dev
+    ports:
+      - "8000:8000"
+    environment:
+      MODEL_PATH: /model
+      NLS_MEMORY_DIR: /data/pri
+      NLS_SNAPSHOT_DIR: /data/pri/snapshot
+      NLS_AGENT_SHIM: "1"
+      NLS_CHAIN_CAPTURE_MODE: turn
+      MAX_MODEL_LEN: ${MAX_MODEL_LEN:-32768}
+      GPU_MEMORY_UTILIZATION: ${GPU_MEMORY_UTILIZATION:-0.60}
+    volumes:
+      - pri-data:/data/pri
+      - ${MODEL_PATH:?Set MODEL_PATH to your checkpoint directory}:/model:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  pri-data:

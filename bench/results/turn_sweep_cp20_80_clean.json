@@ -1,0 +1,1208 @@
+{
+  "version": 2,
+  "garbled_capture_guard": true,
+  "garbled_retries": 2,
+  "capture_mode": "turn",
+  "user_id": "turn_sweep_43d3b50353",
+  "base_session": "chain_thread_a12313c68e7d",
+  "model": "/model",
+  "checkpoints": [
+    20,
+    40,
+    60,
+    80
+  ],
+  "garbled_stripped": [
+    {
+      "label": "noise-N8",
+      "user": "Summarize the plot of The Odyssey in three sentences.",
+      "session": "chain_thread_a12313c68e7d_t8_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N15",
+      "user": "What are best practices for sourdough starter maintenance?",
+      "session": "chain_thread_a12313c68e7d_t15_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N21",
+      "user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 18).",
+      "session": "chain_thread_a12313c68e7d_t21_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N34",
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 31)",
+      "session": "chain_thread_a12313c68e7d_t34_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N42",
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 39)",
+      "session": "chain_thread_a12313c68e7d_t42_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N53",
+      "user": "Teach me something substantive about number theory. Use two short paragraphs with concrete details (session turn 50).",
+      "session": "chain_thread_a12313c68e7d_t53_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N58",
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 55)",
+      "session": "chain_thread_a12313c68e7d_t58_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N66",
+      "user": "Teach me something substantive about orbital mechanics. Use two short paragraphs with concrete details (session turn 63)",
+      "session": "chain_thread_a12313c68e7d_t66_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N75",
+      "user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 72).",
+      "session": "chain_thread_a12313c68e7d_t75_user",
+      "deletes": 2
+    },
+    {
+      "label": "noise-N83",
+      "user": "Teach me something substantive about linguistics. Use two short paragraphs with concrete details (session turn 80).",
+      "session": "chain_thread_a12313c68e7d_t83_user",
+      "deletes": 2
+    }
+  ],
+  "garbled_captures_deleted": 20,
+  "results": [
+    {
+      "checkpoint_noise": 20,
+      "conversation_turns": 23,
+      "turn_blocks": 23,
+      "turn_tokens": 5584,
+      "turn_by_role": {
+        "turn": 23
+      },
+      "text_est_tokens": 5550,
+      "text_user_only_tokens": 490,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 0,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect have a 3-year-old golden retriever named luna who loves swimming",
+          "usage": {
+            "prompt_tokens": 5554,
+            "total_tokens": 5624,
+            "completion_tokens": 70,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 5551,
+            "total_tokens": 5582,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 5554,
+            "total_tokens": 5596,
+            "completion_tokens": 42,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio on lake como last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 5551,
+            "total_tokens": 5574,
+            "completion_tokens": 23,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals and your background you likely work on projects ranging from h",
+          "usage": {
+            "prompt_tokens": 5551,
+            "total_tokens": 5624,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 40,
+      "conversation_turns": 43,
+      "turn_blocks": 23,
+      "turn_tokens": 5584,
+      "turn_by_role": {
+        "turn": 23
+      },
+      "text_est_tokens": 11302,
+      "text_user_only_tokens": 1053,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 0,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect have a 3-year-old golden retriever named luna who loves swimming",
+          "usage": {
+            "prompt_tokens": 11306,
+            "total_tokens": 11389,
+            "completion_tokens": 83,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 11303,
+            "total_tokens": 11334,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 11306,
+            "total_tokens": 11345,
+            "completion_tokens": 39,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio on lake como last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 11303,
+            "total_tokens": 11326,
+            "completion_tokens": 23,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals and your background you likely deal with a mix of historic pre",
+          "usage": {
+            "prompt_tokens": 11303,
+            "total_tokens": 11387,
+            "completion_tokens": 84,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 60,
+      "conversation_turns": 63,
+      "turn_blocks": 43,
+      "turn_tokens": 11283,
+      "turn_by_role": {
+        "turn": 43
+      },
+      "text_est_tokens": 16939,
+      "text_user_only_tokens": 1615,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 0,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect and have a golden retriever named luna who loves swimming is the",
+          "usage": {
+            "prompt_tokens": 16943,
+            "total_tokens": 16997,
+            "completion_tokens": 54,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 16940,
+            "total_tokens": 16971,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 16943,
+            "total_tokens": 16976,
+            "completion_tokens": 33,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio in bellagio on lake como during your trip last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 16940,
+            "total_tokens": 16970,
+            "completion_tokens": 30,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you work as an architect in milan italy given your location in one of the world s design capitals and your interest in diverse fields like linguistics volcanolo",
+          "usage": {
+            "prompt_tokens": 16940,
+            "total_tokens": 17036,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    },
+    {
+      "checkpoint_noise": 80,
+      "conversation_turns": 83,
+      "turn_blocks": 63,
+      "turn_tokens": 16705,
+      "turn_by_role": {
+        "turn": 63
+      },
+      "text_est_tokens": 22293,
+      "text_user_only_tokens": 2178,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 0,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your name is marco and you live in milan italy you also mentioned that you work as an architect and have a golden retriever named luna who loves swimming is the",
+          "usage": {
+            "prompt_tokens": 22297,
+            "total_tokens": 22351,
+            "completion_tokens": 54,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "your dog s name is luna she is a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 22294,
+            "total_tokens": 22325,
+            "completion_tokens": 31,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "last weekend you went to lake como with your wife sofia you stayed at the hotel bellagio during your trip",
+          "usage": {
+            "prompt_tokens": 22297,
+            "total_tokens": 22340,
+            "completion_tokens": 43,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you stayed at the hotel bellagio in bellagio on the shores of lake como italy this was during your trip last weekend with your wife sofia",
+          "usage": {
+            "prompt_tokens": 22294,
+            "total_tokens": 22332,
+            "completion_tokens": 38,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "based on our conversation you work as an architect in milan italy you mentioned this at the very beginning of our chat and i ve kept that in mind as we ve discu",
+          "usage": {
+            "prompt_tokens": 22294,
+            "total_tokens": 22388,
+            "completion_tokens": 94,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information like your name or location as i can t see outside this conversation or access your device s data however if you",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 107,
+            "completion_tokens": 63,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name in our conversation history if you d like to share it i d love to hear it",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 73,
+            "completion_tokens": 32,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal schedule or past activities outside of our current conversation my memory is limited to the context you ve provided in this",
+          "usage": {
+            "prompt_tokens": 44,
+            "total_tokens": 140,
+            "completion_tokens": 96,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal travel history or past bookings so i can t tell you which hotel you stayed at my memory is limited to our current conversat",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 146,
+            "completion_tokens": 105,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have access to your personal information or work history so i can t tell you what you do for a living however if you d like to share details about your ",
+          "usage": {
+            "prompt_tokens": 41,
+            "total_tokens": 114,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    }
+  ]
+}

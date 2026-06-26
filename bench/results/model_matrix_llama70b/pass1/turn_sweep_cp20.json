@@ -1,0 +1,319 @@
+{
+  "version": 4,
+  "garbled_capture_guard": "probe_then_neutral_fallback",
+  "garbled_retries": 2,
+  "neutral_turn_user": "I'm having trouble generating a response.",
+  "capture_mode": "turn",
+  "user_id": "turn_sweep_5c21dfd297",
+  "base_session": "chain_thread_deff477c228f",
+  "model": "/hf-model/snapshots/f50dbad2c84590ca17dc51e207c34321b65ff14b",
+  "checkpoints": [
+    20
+  ],
+  "garbled_stripped": [],
+  "garbled_neutral_fallbacks": [
+    {
+      "label": "noise-N13",
+      "turn_index": 13,
+      "original_user": "What is the Higgs boson and why does it matter?",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "It seems like you're starting from scratch. I'm here to help. Could you please provide more context or information about",
+      "session": "chain_thread_deff477c228f_t13_user",
+      "deletes": 0,
+      "garbled_probe_attempts": 2
+    },
+    {
+      "label": "noise-N15",
+      "turn_index": 15,
+      "original_user": "What are best practices for sourdough starter maintenance?",
+      "substitute_user": "I'm having trouble generating a response.",
+      "substitute_assistant": "It seems like you're starting from scratch. I'm here to help. Could you please provide more context or information about",
+      "session": "chain_thread_deff477c228f_t15_user",
+      "deletes": 0,
+      "garbled_probe_attempts": 2
+    }
+  ],
+  "garbled_captures_deleted": 0,
+  "results": [
+    {
+      "checkpoint_noise": 20,
+      "conversation_turns": 23,
+      "turn_blocks": 0,
+      "turn_tokens": 0,
+      "turn_by_role": {},
+      "text_est_tokens": 5410,
+      "text_user_only_tokens": 500,
+      "text_pass_clean": 5,
+      "resume_pass_clean": 0,
+      "total": 5,
+      "text_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [
+            "Marco",
+            "Milan"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "i remember that your name is marco and you live in milan italy you re an architect and you have a lovely golden retriever named luna who enjoys swimming is that",
+          "usage": {
+            "prompt_tokens": 5410,
+            "total_tokens": 5450,
+            "completion_tokens": 40,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [
+            "Luna"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "i remember that your dog s name is luna and she s a 3-year-old golden retriever who loves swimming",
+          "usage": {
+            "prompt_tokens": 5407,
+            "total_tokens": 5433,
+            "completion_tokens": 26,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "i remember that you mentioned going to lake como with your wife sofia last weekend and you stayed at hotel bellagio you also mentioned that you re an architect ",
+          "usage": {
+            "prompt_tokens": 5410,
+            "total_tokens": 5483,
+            "completion_tokens": 73,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [
+            "Bellagio"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you mentioned earlier that you stayed at the hotel bellagio which is located in bellagio italy near lake como you had visited lake como with your wife sofia the",
+          "usage": {
+            "prompt_tokens": 5407,
+            "total_tokens": 5448,
+            "completion_tokens": 41,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [
+            "architect"
+          ],
+          "misses": [],
+          "pass": true,
+          "garbled": false,
+          "pass_clean": true,
+          "answer_preview": "you re an architect and you live in milan italy you also have a lovely golden retriever named luna who enjoys swimming your wife s name is sofia and you both ha",
+          "usage": {
+            "prompt_tokens": 5407,
+            "total_tokens": 5471,
+            "completion_tokens": 64,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "resume_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "we haven t had a conversation yet so i don t have any information about your name or where you live this is the start of our conversation and i m ready to learn",
+          "usage": {
+            "prompt_tokens": 62,
+            "total_tokens": 124,
+            "completion_tokens": 62,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name this is the beginning of our conversation and i haven t received any prior information about you or your dog ",
+          "usage": {
+            "prompt_tokens": 59,
+            "total_tokens": 116,
+            "completion_tokens": 57,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "this is the beginning of our conversation and i don t have any prior information about your activities or whereabouts i m happy to chat with you and help with a",
+          "usage": {
+            "prompt_tokens": 62,
+            "total_tokens": 134,
+            "completion_tokens": 72,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "this is the beginning of our conversation and i don t have any prior information about your hotel stay i m happy to chat with you and help with any questions yo",
+          "usage": {
+            "prompt_tokens": 59,
+            "total_tokens": 121,
+            "completion_tokens": 62,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "this is the beginning of our conversation and i don t have any prior information about you or your work i m happy to chat with you and learn more though would y",
+          "usage": {
+            "prompt_tokens": 59,
+            "total_tokens": 114,
+            "completion_tokens": 55,
+            "prompt_tokens_details": null
+          }
+        }
+      ],
+      "arm_d_pass_clean": 0,
+      "arm_d_recall": [
+        {
+          "question": "What's my name and where do I live?",
+          "hits": [],
+          "misses": [
+            "Marco",
+            "Milan"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "we haven t had a conversation yet so i don t have any information about your name or where you live this is the start of our conversation and i m ready to learn",
+          "usage": {
+            "prompt_tokens": 62,
+            "total_tokens": 124,
+            "completion_tokens": 62,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What's my dog's name?",
+          "hits": [],
+          "misses": [
+            "Luna"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "i don t have any information about your dog s name this is the beginning of our conversation and i haven t received any prior information about you or your dog ",
+          "usage": {
+            "prompt_tokens": 59,
+            "total_tokens": 116,
+            "completion_tokens": 57,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "Where did I go last weekend and who with?",
+          "hits": [],
+          "misses": [
+            "Lake Como",
+            "Sofia"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "this is the beginning of our conversation and i don t have any prior information about your activities or whereabouts i m happy to chat with you and help with a",
+          "usage": {
+            "prompt_tokens": 62,
+            "total_tokens": 134,
+            "completion_tokens": 72,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What hotel did I stay at?",
+          "hits": [],
+          "misses": [
+            "Bellagio"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "this is the beginning of our conversation and i don t have any prior information about your hotel stay i m happy to chat with you and help with any questions yo",
+          "usage": {
+            "prompt_tokens": 59,
+            "total_tokens": 121,
+            "completion_tokens": 62,
+            "prompt_tokens_details": null
+          }
+        },
+        {
+          "question": "What do I do for work?",
+          "hits": [],
+          "misses": [
+            "architect"
+          ],
+          "pass": false,
+          "garbled": false,
+          "pass_clean": false,
+          "answer_preview": "this is the beginning of our conversation and i don t have any prior information about you or your work i m happy to chat with you and learn more though would y",
+          "usage": {
+            "prompt_tokens": 59,
+            "total_tokens": 114,
+            "completion_tokens": 55,
+            "prompt_tokens_details": null
+          }
+        }
+      ]
+    }
+  ]
+}

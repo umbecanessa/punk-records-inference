@@ -1,0 +1,20 @@
+{
+  "block_count": 83,
+  "total_inject_tokens": 18629,
+  "verdict": "pass",
+  "mode_rope_delta": -22,
+  "delta_uniformity": 1.0,
+  "delta_uniformity_pct": 100.0,
+  "uniform_blocks": 83,
+  "outlier_blocks": 0,
+  "delta_distribution": {
+    "-22": 83
+  },
+  "delta_stdev": 0.0,
+  "manifest_rope_gaps": 82,
+  "uniform_manifest_rope_start": true,
+  "shared_rope_start": 22,
+  "outliers": [],
+  "kpi_notes": "delta_uniformity = fraction of blocks sharing mode RoPE delta (research target ~0.92\u20130.99; 1.0 = perfectly uniform pack rotation).",
+  "kpi_grade": "excellent"
+}

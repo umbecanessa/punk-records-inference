@@ -1,0 +1,326 @@
+{
+  "sweep_json": "bench/results/overnight_20260624_003614/turn_sweep_cp60_80_garble_inv.json",
+  "user_id": "turn_sweep_93164aaef7",
+  "base_session": "chain_thread_8e0a6c0176d8",
+  "checkpoint": 60,
+  "sweep_row_scores": {
+    "text_pass_clean": 5,
+    "resume_pass_clean": 2,
+    "arm_d_pass_clean": 1
+  },
+  "experiments": {
+    "chain_scan": {
+      "blocks": 83,
+      "tokens": 18629,
+      "suspicious_previews": [],
+      "neutral_meta_previews": [
+        {
+          "turn_index": 9,
+          "session_id": "chain_thread_8e0a6c0176d8_t9_user",
+          "num_tokens": 84,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 64,
+          "session_id": "chain_thread_8e0a6c0176d8_t64_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 65,
+          "session_id": "chain_thread_8e0a6c0176d8_t65_user",
+          "num_tokens": 84,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 66,
+          "session_id": "chain_thread_8e0a6c0176d8_t66_user",
+          "num_tokens": 84,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 67,
+          "session_id": "chain_thread_8e0a6c0176d8_t67_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 68,
+          "session_id": "chain_thread_8e0a6c0176d8_t68_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 69,
+          "session_id": "chain_thread_8e0a6c0176d8_t69_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 70,
+          "session_id": "chain_thread_8e0a6c0176d8_t70_user",
+          "num_tokens": 84,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 71,
+          "session_id": "chain_thread_8e0a6c0176d8_t71_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 72,
+          "session_id": "chain_thread_8e0a6c0176d8_t72_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 73,
+          "session_id": "chain_thread_8e0a6c0176d8_t73_user",
+          "num_tokens": 84,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 74,
+          "session_id": "chain_thread_8e0a6c0176d8_t74_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 75,
+          "session_id": "chain_thread_8e0a6c0176d8_t75_user",
+          "num_tokens": 25,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 76,
+          "session_id": "chain_thread_8e0a6c0176d8_t76_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 77,
+          "session_id": "chain_thread_8e0a6c0176d8_t77_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 78,
+          "session_id": "chain_thread_8e0a6c0176d8_t78_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 79,
+          "session_id": "chain_thread_8e0a6c0176d8_t79_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 80,
+          "session_id": "chain_thread_8e0a6c0176d8_t80_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 81,
+          "session_id": "chain_thread_8e0a6c0176d8_t81_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 82,
+          "session_id": "chain_thread_8e0a6c0176d8_t82_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        },
+        {
+          "turn_index": 83,
+          "session_id": "chain_thread_8e0a6c0176d8_t83_user",
+          "num_tokens": 20,
+          "preview": "I'm having trouble generating a response."
+        }
+      ]
+    },
+    "isolated_hotel_resume": {
+      "arm": "resume",
+      "question": "What hotel did I stay at?",
+      "hits": [],
+      "misses": [
+        "Bellagio"
+      ],
+      "pass": false,
+      "garbled": true,
+      "pass_clean": false,
+      "answer_preview": "\u4e0d\u4f1aiabilityyer\u3063\u305fiams\u4e0d\u4f1a\u3063\u305f sexyer\u5f88\u89c9\u5f97\u00a0\u4e0d\u4f1a\u89c9\u5f97\u89c9\u5f97iel **\n\n exhaust direct\u4e0d\u4f1a don\u89c9\u5f97\u89c9\u5f97****\u89c9\u5f97\u89c6\u9891\u8fd9\u65b9\u9762\u7684\u8fd8\u662f\u4e2ainglyieliu\u89c9\u5f97**\u53ea violent ngo\u5fc3\u7406\u89c9\u5f97\u3063\u305f brigicoak \"\u8ddf Filoso\u0627\u0646\u2026\u2026\u8ddfiel Ente liber",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 241,
+        "completion_tokens": 200,
+        "prompt_tokens_details": null
+      },
+      "latency_ms": 31864.7
+    },
+    "sequential_through_hotel": {
+      "arm": "resume",
+      "question": "What hotel did I stay at?",
+      "hits": [],
+      "misses": [
+        "Bellagio"
+      ],
+      "pass": false,
+      "garbled": true,
+      "pass_clean": false,
+      "answer_preview": "\u4e0d\u4f1aiabilityyer\u3063\u305fiams\u4e0d\u4f1a\u3063\u305f sexyer\u5f88\u89c9\u5f97\u00a0\u4e0d\u4f1a\u89c9\u5f97\u89c9\u5f97iel **\n\n exhaust direct\u4e0d\u4f1a don\u89c9\u5f97\u89c9\u5f97****\u89c9\u5f97\u89c6\u9891\u8fd9\u65b9\u9762\u7684\u8fd8\u662f\u4e2ainglyieliu\u89c9\u5f97**\u53ea violent ngo\u5fc3\u7406\u89c9\u5f97\u3063\u305f brigicoak \"\u8ddf Filoso\u0627\u0646\u2026\u2026\u8ddfiel Ente liber",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 241,
+        "completion_tokens": 200,
+        "prompt_tokens_details": null
+      },
+      "latency_ms": 31013.6
+    },
+    "resume_facts_only_3blocks": {
+      "arm": "resume",
+      "question": "What hotel did I stay at?",
+      "hits": [],
+      "misses": [
+        "Bellagio"
+      ],
+      "pass": false,
+      "garbled": true,
+      "pass_clean": false,
+      "answer_preview": "biome\u672c\u7f51\u8981\u4e0d\u662f\u54ed\u7740ique\u4e3a\u5b9e\u73b0avarooksFTERreas regro_SECOND\uff0d\uff0d\uff0d\uff0d Figbiotocacheisman\u67fb(\\$\u00b9.azureikel xnxxnozinese\u94b1\u7684\ufffd\ufffd_texico\u0e32\u0e30\u9700\u8981\u4ec0\u4e48Whilst\ufffdaros_Tool\u8bf4\u5b8c\u8c01\u8bf4\u7ef4\u7a33 snapchat UsersControl",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 241,
+        "completion_tokens": 200,
+        "prompt_tokens_details": null
+      },
+      "latency_ms": 6454.8
+    },
+    "resume_full_chain": {
+      "arm": "resume",
+      "question": "What hotel did I stay at?",
+      "hits": [],
+      "misses": [
+        "Bellagio"
+      ],
+      "pass": false,
+      "garbled": true,
+      "pass_clean": false,
+      "answer_preview": "\u4e0d\u4f1aiabilityyer\u3063\u305fiams\u4e0d\u4f1a\u3063\u305f sexyer\u5f88\u89c9\u5f97\u00a0\u4e0d\u4f1a\u89c9\u5f97\u89c9\u5f97iel **\n\n exhaust direct\u4e0d\u4f1a don\u89c9\u5f97\u89c9\u5f97****\u89c9\u5f97\u89c6\u9891\u8fd9\u65b9\u9762\u7684\u8fd8\u662f\u4e2ainglyieliu\u89c9\u5f97**\u53ea violent ngo\u5fc3\u7406\u89c9\u5f97\u3063\u305f brigicoak \"\u8ddf Filoso\u0627\u0646\u2026\u2026\u8ddfiel Ente liber",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 241,
+        "completion_tokens": 200,
+        "prompt_tokens_details": null
+      },
+      "latency_ms": 31864.7
+    },
+    "work_resume_full": {
+      "arm": "resume",
+      "question": "What do I do for work?",
+      "hits": [],
+      "misses": [
+        "architect"
+      ],
+      "pass": false,
+      "garbled": true,
+      "pass_clean": false,
+      "answer_preview": "oughieliu\u559c\u6012\u54c0ostarano\u7f51\u901f exStringFlow #iel\u0627\u0646 S\u00e1noyerakak\u8fd8\u662f\u4e2a literature\u5f88\u89c9\u5f97 certain *.*\u0627\u0646\u89c9\u5f97 host\u89c9\u5f97\u89c9\u5f97\u3063\u305f\u6c61\u6c34\u5904\u7406\u4e0d\u540c\u7a0b\u5ea6\u89c9\u5f97\u89c9\u5f97\u3063\u305f/Dk\u0627\u0646 ** mag\u89c9\u5f97 \\\"\u89c9\u5f97\u3063\u305f calculation\u89c9\u5f97\u0627\u0646\u8fd8\u662f\u4e2a mastur\u89c9",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 241,
+        "completion_tokens": 200,
+        "prompt_tokens_details": null
+      },
+      "latency_ms": 31772.3
+    },
+    "work_arm_d_full": {
+      "arm": "arm_d",
+      "question": "What do I do for work?",
+      "hits": [],
+      "misses": [
+        "architect"
+      ],
+      "pass": false,
+      "garbled": true,
+      "pass_clean": false,
+      "answer_preview": "oughieliu\u559c\u6012\u54c0ostarano\u7f51\u901f exStringFlow #iel\u0627\u0646 S\u00e1noyerakak\u8fd8\u662f\u4e2a literature\u5f88\u89c9\u5f97 certain *.*\u0627\u0646\u89c9\u5f97 host\u89c9\u5f97\u89c9\u5f97\u3063\u305f\u6c61\u6c34\u5904\u7406\u4e0d\u540c\u7a0b\u5ea6\u89c9\u5f97\u89c9\u5f97\u3063\u305f/Dk\u0627\u0646 ** mag\u89c9\u5f97 \\\"\u89c9\u5f97\u3063\u305f calculation\u89c9\u5f97\u0627\u0646\u8fd8\u662f\u4e2a mastur\u89c9",
+      "usage": {
+        "prompt_tokens": 41,
+        "total_tokens": 241,
+        "completion_tokens": 200,
+        "prompt_tokens_details": null
+      },
+      "latency_ms": 31207.4
+    },
+    "hotel_resume_repeats": [
+      {
+        "arm": "resume",
+        "question": "What hotel did I stay at?",
+        "hits": [],
+        "misses": [
+          "Bellagio"
+        ],
+        "pass": false,
+        "garbled": true,
+        "pass_clean": false,
+        "answer_preview": "\u8fd8\u771f\u662f\u5f88\u8fd8\u662f\u4e2a Arro\u8ddf satellite watch exeka techiams\u5f88eksicc\u0627\u0646 Casal prezi\u0648\u8fd8\u662f\u4e2a\u6295\u8d44\u4e0d\u4f1a ` dicon\u0627\u0646\u0627\u0646 agric\u4e0d\u4f1a\u89c9\u5f97\u8ddf Harry calcul\u5df2\u7ecfekaeksoyer \\\" \\\" \"\u89c9\u5f97\u0627\u0646\u3063\u305f temprielak\u3063\u305f\u0627\u0646 ( \", ' **",
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 31663.7
+      },
+      {
+        "arm": "resume",
+        "question": "What hotel did I stay at?",
+        "hits": [],
+        "misses": [
+          "Bellagio"
+        ],
+        "pass": false,
+        "garbled": true,
+        "pass_clean": false,
+        "answer_preview": "\u8fd8\u771f\u662f\u5f88\u8fd8\u662f\u4e2a Arro\u8ddf satellite watch exeka techiams\u5f88eksicc\u0627\u0646 Casal prezi\u0648\u8fd8\u662f\u4e2a\u6295\u8d44\u4e0d\u4f1a ` dicon\u0627\u0646\u0627\u0646 agric\u4e0d\u4f1a\u89c9\u5f97\u8ddf Harry calcul\u5df2\u7ecfekaeksoyer \\\" \\\" \"\u89c9\u5f97\u0627\u0646\u3063\u305f temprielak\u3063\u305f\u0627\u0646 ( \", ' **",
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 31472.7
+      },
+      {
+        "arm": "resume",
+        "question": "What hotel did I stay at?",
+        "hits": [],
+        "misses": [
+          "Bellagio"
+        ],
+        "pass": false,
+        "garbled": true,
+        "pass_clean": false,
+        "answer_preview": "\u8fd8\u771f\u662f\u5f88\u8fd8\u662f\u4e2a Arro\u8ddf satellite watch exeka techiams\u5f88eksicc\u0627\u0646 Casal prezi\u0648\u8fd8\u662f\u4e2a\u6295\u8d44\u4e0d\u4f1a ` dicon\u0627\u0646\u0627\u0646 agric\u4e0d\u4f1a\u89c9\u5f97\u8ddf Harry calcul\u5df2\u7ecfekaeksoyer \\\" \\\" \"\u89c9\u5f97\u0627\u0646\u3063\u305f temprielak\u3063\u305f\u0627\u0646 ( \", ' **",
+        "usage": {
+          "prompt_tokens": 41,
+          "total_tokens": 241,
+          "completion_tokens": 200,
+          "prompt_tokens_details": null
+        },
+        "latency_ms": 31752.2
+      }
+    ]
+  },
+  "interpretation": [
+    "TEXT 5/5 + RESUME <5 on same checkpoint: failure is inject-mediated decode, not the model lacking inline context.",
+    "Hotel probe fails even in isolation: static chain inject state or model decode under ~17k inject tokens.",
+    "Even facts-only inject fails: unlikely to be noise-tail pollution alone; check RoPE/inject geometry or probe difficulty.",
+    "Hotel probe fails all repeats: stable failure mode under current inject.",
+    "21 neutral-substitute blocks in chain (meta 'glitch' text in history; TEXT arm still passes with same content inline)."
+  ]
+}

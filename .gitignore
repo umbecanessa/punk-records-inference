@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Data / artifacts
+/data/
+*.nls
+bench/results/*.log
+!bench/results/.gitkeep
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+bench/.env
+assets/logo-composite-source.png
+
+# Maintainer-only (not shipped)
+docs/internal/
+bench/results/**/internal/
+
+# Agent Room (local dev coordination — not shipped)
+.cursor/mcp.json
+.cursor/hooks.json
+.cursor/agent-room.json
+.cursor/agent-room-transcript.md
+.cursor/rules/
+.cursor/skills/
+
+# Local browser profile (CI/dev only)
+.github/playwright-profile/

@@ -1,0 +1,25 @@
+[2026-06-24T00:36:14+02:00] overnight run 20260624_003614 root=/home/wasnaga/punk-records-inference base=http://127.0.0.1:8000
+[2026-06-24T00:36:14+02:00] output /home/wasnaga/punk-records-inference/bench/results/overnight_20260624_003614
+[2026-06-24T00:36:14+02:00] === STEP: wait_vllm ===
+[2026-06-24T00:38:24+02:00] vLLM healthy after 14 attempts
+[2026-06-24T00:38:24+02:00] === STEP OK: wait_vllm ===
+[2026-06-24T00:38:24+02:00] patched pri/resume.py into container
+[2026-06-24T00:38:24+02:00] === STEP: smoke_health ===
+[2026-06-24T00:38:24+02:00] === STEP OK: smoke_health ===
+[2026-06-24T00:38:24+02:00] === STEP: tier1_marco_facts ===
+[2026-06-24T00:39:08+02:00] === STEP OK: tier1_marco_facts ===
+[2026-06-24T00:39:08+02:00] === STEP: turn_sweep_v5 ===
+[2026-06-24T01:07:49+02:00] === STEP FAIL: turn_sweep_v5 (continuing) ===
+[2026-06-24T01:07:49+02:00] === STEP: geometry_audit ===
+[2026-06-24T01:07:49+02:00] === STEP FAIL: geometry_audit (continuing) ===
+[2026-06-24T01:07:49+02:00] === STEP: sweep_diagnose ===
+[2026-06-24T01:07:49+02:00] === STEP OK: sweep_diagnose ===
+[2026-06-24T01:07:49+02:00] === STEP: inject_mode_compare_short ===
+[2026-06-24T01:08:33+02:00] === STEP OK: inject_mode_compare_short ===
+[2026-06-24T01:08:33+02:00] === STEP: inject_mode_compare_long ===
+[2026-06-24T01:11:06+02:00] === STEP OK: inject_mode_compare_long ===
+[2026-06-24T01:11:06+02:00] === STEP: opencode_long_session ===
+[2026-06-24T01:11:45+02:00] === STEP OK: opencode_long_session ===
+[2026-06-24T01:11:45+02:00] === STEP: admin_stats ===
+[2026-06-24T01:11:45+02:00] === STEP OK: admin_stats ===
+[2026-06-24T01:11:45+02:00] overnight complete failures=2 artifacts=/home/wasnaga/punk-records-inference/bench/results/overnight_20260624_003614

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://punkrecords.live/spec/nls-manifest/v1",
+  "title": "Punk Records Inference .nls manifest",
+  "description": "JSON header embedded in .nls memory artifacts (not model weights).",
+  "type": "object",
+  "required": ["version", "seq_len", "block_hash"],
+  "properties": {
+    "version": { "type": "integer", "minimum": 1 },
+    "seq_len": { "type": "integer", "minimum": 0 },
+    "has_mamba": { "type": "integer", "minimum": 0, "maximum": 1 },
+    "attn_layers": { "type": "array", "items": { "type": "integer" } },
+    "mamba_layers": { "type": "array", "items": { "type": "integer" } },
+    "num_keys": { "type": "integer", "minimum": 0 },
+    "created_at": { "type": "number" },
+    "block_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "user_id": { "type": "string" },
+    "session_id": { "type": "string" },
+    "ring_type": { "type": "string" },
+    "req_id": { "type": "string" },
+    "num_tokens": { "type": "integer", "minimum": 0 },
+    "rope_start": { "type": "integer", "minimum": 0 },
+    "rope_end": { "type": "integer", "minimum": 0 },
+    "role": {
+      "type": "string",
+      "enum": ["user", "assistant", "tool", "system", "turn"]
+    },
+    "parent_hash": { "type": "string" },
+    "prev_hash": { "type": "string" },
+    "turn_index": { "type": "integer", "minimum": -1 },
+    "base_session_id": { "type": "string" },
+    "sys_prompt_hash": { "type": "string", "pattern": "^[a-f0-9]{16}$" },
+    "capture_num_phantom": { "type": "integer", "minimum": 0 },
+    "conversation_text": { "type": "string" },
+    "two_pass_merged": { "type": "boolean" },
+    "segments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "start", "end"],
+        "properties": {
+          "role": { "type": "string" },
+          "start": { "type": "integer", "minimum": 0 },
+          "end": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,15 @@
+[2026-06-24T00:41:30+02:00] waiting for pid 3220683 (run_overnight)...
+[2026-06-24T00:43:00+02:00] waiting for pid 3220683 (run_overnight)...
+[2026-06-24T01:12:00+02:00] pid 3220683 finished
+[2026-06-24T01:12:00+02:00] proof completion out_dir=/home/wasnaga/punk-records-inference/bench/results/overnight_20260624_003614 base=http://127.0.0.1:8000
+[2026-06-24T01:12:00+02:00] === manifest_proof ===
+[2026-06-24T01:12:00+02:00] manifest_proof failed (continuing)
+[2026-06-24T01:12:00+02:00] === tier1_marco_facts_openrouter (OpenRouter TEXT) ===
+[2026-06-24T01:12:37+02:00] === inject_mode_compare_short_or (OpenRouter TEXT) ===
+[2026-06-24T01:13:29+02:00] === inject_mode_compare_long12_or (OpenRouter TEXT) ===
+[2026-06-24T01:16:12+02:00] === inject_mode_compare long12 resume-max-tokens 4096 ===
+[2026-06-24T01:18:35+02:00] === collect_store_stats ===
+[2026-06-24T01:18:35+02:00] collect_store_stats via docker failed
+[2026-06-24T01:18:35+02:00] === pytest ===
+[2026-06-24T01:18:35+02:00] pytest FAIL (non-fatal for proof artifacts)
+[2026-06-24T01:18:35+02:00] proof completion done — see /home/wasnaga/punk-records-inference/bench/results/overnight_20260624_003614
